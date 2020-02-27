@@ -1,0 +1,11 @@
+language: java
+deploy:
+  provider: cloudfoundry
+  username: chinraj044@gmail.com
+  password: Chinraj@2386
+  api: https://api.run.pivotal.io
+  organization: LDM
+  space: development
+  manifest: manifest.yml
+script:
+  - mvn clean org.jacoco:jacoco-maven-plugin:prepare-agent install
