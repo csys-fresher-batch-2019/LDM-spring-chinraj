@@ -35,8 +35,7 @@ Enter Borrowed Date: <input type = "date" name ="BorrowedDate" min ="<%=date%>" 
 %>
 Enter Due Date: <input type="date" name ="DueDate" min="<%=date1%>">
 
-<br/>
-Enter Category:<input type ="text"name="category">
+
 <br/>
 
 <button type = "submit">save</button>

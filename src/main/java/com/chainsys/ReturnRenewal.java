@@ -16,7 +16,6 @@ import com.chainsys.ldm.fines.FineInfoImpl;
 @WebServlet("/ReturnRenewal")
 public class ReturnRenewal extends HttpServlet {
 	
-
 	public ReturnRenewal() {
 		super();
 	}
@@ -39,7 +38,7 @@ public class ReturnRenewal extends HttpServlet {
 				int i = S.renewal(id, IsBN);
 				int a =S.renewalCount(id, IsBN);
 				int b = S.FinePerStudent(id, IsBN);
-				if (b==0&& a<=2 && i==1){
+				if (b==0 && a<=2 && i==1){
 					PrintWriter out = response.getWriter();
 					out.println("\n");
 					out.println("\n <h1>RENEWAL SUCCESS</h1>");
@@ -72,9 +71,9 @@ public class ReturnRenewal extends HttpServlet {
 				 }
 			}
 			catch (Exception e) {
-
 				e.printStackTrace();
 			}
+			
 		} else {
 			try {
 				int i = S.bookreturned(id, IsBN);

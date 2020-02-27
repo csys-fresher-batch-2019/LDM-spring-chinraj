@@ -25,11 +25,10 @@ public class ClassImport {
 				int price = Integer.parseInt(row[6]);
 				String bookStatus= row[7];
 				int rackNo =Integer.parseInt(row[8]);
-			  
-			
-				
-			
-				BookList books = new BookList();
+		
+					  
+		
+			BookList books = new BookList();
 				books.setISBN(ISBN);
 				books.setBookName(bookName);
 				books.setPages(pages);

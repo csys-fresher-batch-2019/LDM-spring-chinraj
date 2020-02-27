@@ -6,7 +6,7 @@
 
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<title>Insert title here</title>
+
 </head>
 <body>
 <jsp:include page="index.jsp"></jsp:include>
@@ -19,13 +19,13 @@
  <body style = "background-color:bisque">
 <form action="IdServlet">
 <br/>
-Enter Student Id: <input type="number" name ="Student Id"required min ="0">
+Enter Student Id: <input type="number" name ="Student Id" minlength ="0" required>
 
 <br/>
-Enter Amount in ID :  <input type="number" name ="Amount In Id" required min ="10" max="1000">
+Enter Amount in ID :  <input type="number" name ="Amount In Id" minlength ="10" maxlength="1000" required >
 
 <br/>
-<button type = "submit">save</button>
+<button type = "submit">Add</button>
 
 
 </form>

@@ -36,5 +36,4 @@ public class SearchByBook extends HttpServlet {
 		rd.forward(request, response);
 
 	}
-
 }

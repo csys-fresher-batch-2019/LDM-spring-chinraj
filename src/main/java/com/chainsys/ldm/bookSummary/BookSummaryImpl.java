@@ -33,6 +33,7 @@ public class BookSummaryImpl implements BookSummaryDAO {
 		}
 		return false;
 		
+		
 	}
 
 	public int addBookInfo(BookSummary BS) {
@@ -134,7 +135,9 @@ public class BookSummaryImpl implements BookSummaryDAO {
 				b.setBorrowedDate(g.toLocalDate());
 				Date g1 = rs.getDate("due_date");
 				b.setDueDate(g1.toLocalDate());
-			    b.setRenewalCount(rs.getInt("renewal_count"));
+			  
+				  b.setRenewalCount(rs.getInt("renewal_count"));
+
 			    b.setStatus(rs.getString("status"));
 				list.add(b);
 				

@@ -9,7 +9,7 @@
 <html>
 <head>
 <jsp:include page="index.jsp"></jsp:include>
-<h2>VIEW BOOKS</h2>
+<h2>Book List</h2>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <body style="background-color: DarkKhaki">
 </head>
@@ -17,6 +17,7 @@
 	<form action="SearchByBook">
 		<%
 			ArrayList<BookList> list = (ArrayList<BookList>) request.getAttribute("searchlist");
+		
 		%>
 		<div></div>
 		<table border="1">

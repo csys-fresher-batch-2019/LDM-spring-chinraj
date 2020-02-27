@@ -1,6 +1,8 @@
 package com.chainsys;
 
 import java.io.IOException;
+import java.io.PrintWriter;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -30,7 +32,17 @@ public class UpdateAmount extends HttpServlet {
 
 		IdDetailsImp j = new IdDetailsImp();
 
-	 j.updateMoneyInId(Amount,id );
+	int k= j.updateMoneyInId(Amount,id );
+	 
+	 if(k==1) {
+		 PrintWriter out = response.getWriter();
+			out.println("<h1>Money updated</h1>");
+			
+	 }
+	 else {
+		 PrintWriter out = response.getWriter();
+			out.println("<h1>Failed to update</h1>");
+	 }
 
 }
 }

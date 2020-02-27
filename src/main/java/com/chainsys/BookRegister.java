@@ -1,9 +1,9 @@
 package com.chainsys;
 
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.time.LocalDate;
 
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -11,7 +11,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.chainsys.ldm.bookList.BookList;
-import com.chainsys.ldm.bookList.BookListDAO;
 import com.chainsys.ldm.bookList.BookListImpl;
 
 @WebServlet("/BookRegister")
@@ -39,32 +38,36 @@ public class BookRegister extends HttpServlet {
 
 		String rackNo = request.getParameter("rack_no");
 		int rcno = Integer.parseInt(rackNo);
+		String category = request.getParameter("category");
 
-		BookListDAO S = new BookListImpl();
+		BookListImpl S = new BookListImpl();
+
+		BookList b = new BookList();
+		b.setISBN(IsBN);
+		b.setBookName(BookName);
+		b.setPages(page);
+		b.setAuthorName(AuthorName);
+		b.setPublication(publication);
+		b.setReleasedDate(ld);
+		b.setPrice(pric);
+		b.setRackNo(rcno);
+		b.setCategory(category);
 		try {
-			BookList b = new BookList();
-			b.setISBN(IsBN);
-			b.setBookName(BookName);
-			b.setPages(page);
-			b.setAuthorName(AuthorName);
-			b.setPublication(publication);
-			b.setReleasedDate(ld);
-			b.setPrice(pric);
-			b.setRackNo(rcno);
 			int a = S.addBooks(b);
-
 			if (a == 1) {
-				PrintWriter out = response.getWriter();
-				out.println("\n");
-				out.println("\n <h1>Book Added</h1>");
-			} else {
-				PrintWriter out = response.getWriter();
-				out.println("\n");
-				out.println("\n <h1>ISBN already exits (or) invalid </h1>");
+				request.setAttribute("infoMessage", "<h2>Book Added !</h2>");
+				RequestDispatcher rd = request.getRequestDispatcher("AddBooks.jsp");
+				rd.forward(request, response);
 			}
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
+			else {
 
+				request.setAttribute("errorMessage", "<h2>FAILED !!</h2");
+				RequestDispatcher rd = request.getRequestDispatcher("AddBooks.jsp");
+				rd.forward(request, response);
+			}
+		} catch (Exception e) { 
+			e.printStackTrace();
+			
+		}
 	}
 }

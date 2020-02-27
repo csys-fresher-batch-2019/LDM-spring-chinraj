@@ -21,13 +21,13 @@ BookSummaryImpl dao = new BookSummaryImpl();
 List<BookSummary> list1 =dao.viewBookSummary();
 %>
 <table border="1">
-<thead><tr><th>S.no</th> <th>Student Id </th><th> ISBN </th><th> Borrowed Date</th><th>Renewal Count</th><th> Due date </th><th>Return Date</th><th>Status</tr></thead>
+<thead><tr><th>S.no</th> <th>Student Id </th><th> ISBN </th><th> Borrowed Date</th><th>Renewal Count</th><th> Due date</th><th>Status</tr></thead>
 <tbody> 
 <%
 int i= 1;
 for(BookSummary f : list1){
 %>
-<tr><td> <%= i++  %></td><td><%=f.getStudentId() %></td><td><%= f.getISBN() %></td><td><%= f.getBorrowedDate() %></td><td><%= f.getRenewalCount() %></td><td><%= f.getDueDate()%></td><td><%= f.getReturnDate() %></td><td><%= f.getStatus() %></td></tr>
+<tr><td> <%= i++  %></td><td><%=f.getStudentId() %></td><td><%= f.getISBN() %></td><td><%= f.getBorrowedDate() %></td><td><%= f.getRenewalCount() %></td><td><%= f.getDueDate()%></td><td><%= f.getStatus() %></td></tr>
 
 <%} %>
 </tbody>

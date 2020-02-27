@@ -55,13 +55,17 @@ if(a>0) {
 		rd.forward(request, response);
 		
 }	
-else
+else{
 {
-	 m.renewal(id, IsBN);
+	
 	PrintWriter out = response.getWriter();
 	 out.println("\n");
-		out.println("<h1>No fine and Renewal sucess <h1>");	
+		out.println("<h1>No fine<h1>");	
 }
+
+}
+
+
 	} catch (Exception e) {
 		e.printStackTrace();
 	}	

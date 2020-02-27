@@ -18,9 +18,9 @@
 <br/>
 <h2> VIEW BOOKS</h2>
 <%
-BookListDAO dao = new BookListImpl();
+BookListDAO d = new BookListImpl();
 
-List<BookList> list1 =dao.viewBooks();
+List<BookList> list1 =d.viewBooks();
 %>
 <table border="1">
 <thead><tr><th>S.no</th> <th> ISBN </th><th>Book Name</th><th>Publication</th><th>Book Status</th></tr></thead>

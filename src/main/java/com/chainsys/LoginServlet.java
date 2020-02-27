@@ -1,6 +1,8 @@
 package com.chainsys;
 
 import java.io.IOException;
+
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -9,7 +11,6 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import com.chainsys.ldm.logIn.LogIn;
-
 
 @WebServlet("/LoginServlet")
 public class LoginServlet extends HttpServlet {
@@ -29,13 +30,14 @@ public class LoginServlet extends HttpServlet {
 		LogIn ur = new LogIn();
 		boolean s = ur.adminlogin(email, password);
 		System.out.println(s);
-		//boolean returned = false;
+		// boolean returned = false;
 		try {
-			if (s==true) {
+			if (s == true) {
 
 				HttpSession session = request.getSession();
 				session.setAttribute("value", email);
-				response.sendRedirect("index.jsp");
+				RequestDispatcher rd = request.getRequestDispatcher("index.jsp");
+				rd.forward(request, response);
 			} else {
 				response.sendRedirect("AdminLogin.jsp");
 			}

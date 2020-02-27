@@ -18,27 +18,31 @@
 	<form action="OnParticularDate">
 		<%
 			ArrayList<BookSummary> list = (ArrayList<BookSummary>) request.getAttribute("searchlist");
+			if (list.isEmpty()) {
+				out.println("No records found");
+			} else {
 		%>
-		<div></div>
+
+
 		<table border="1">
 			<thead>
 				<tr>
 					<th>S.no</th>
 					<th>ISBN</th>
 					<th>Student Id</th>
-					
+
 				</tr>
 			</thead>
 			<tbody>
 				<%
 					int i = 1;
-					for (BookSummary f : list) {
+						for (BookSummary f : list) {
 				%>
 				<tr>
 					<td><%=i++%></td>
 					<td><%=f.getISBN()%></td>
-					<td><%=f.getStudentId() %></td>
-					
+					<td><%=f.getStudentId()%></td>
+
 				</tr>
 
 				<%
@@ -46,6 +50,9 @@
 				%>
 			</tbody>
 		</table>
+		<%
+			}
+		%>
 	</form>
 </body>
 </html>

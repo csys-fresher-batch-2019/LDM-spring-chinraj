@@ -30,10 +30,6 @@ public class OnParticularDate extends HttpServlet {
 		
 		    BookSummaryImpl n = new  BookSummaryImpl();
 		     
-		   
-
-			
-
 			request.setAttribute("searchlist",n.onParticularDate(ld));
 
 			RequestDispatcher rd = request.getRequestDispatcher("OnBorrowDate.jsp");

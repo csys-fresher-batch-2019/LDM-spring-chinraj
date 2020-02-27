@@ -41,10 +41,7 @@ public class SendSmsIml {
 					BodyPart messageBodyPart5 = new MimeBodyPart(); 
 					messageBodyPart5.setText("\n\t Team ChinLib...");
 	
-					//String filename = "SendAttachment.java";  
-					//FileDataSource source = new FileDataSource("./src/test/java/com/chainsys/PayrollApp/SendMailSSL.java");  
-					//messageBodyPart2.setDataHandler(new DataHandler(source));  
-					//messageBodyPart2.setFileName(filename);  
+				  
 					
 					Multipart multipart = new MimeMultipart();
 					multipart.addBodyPart(messageBodyPart1);  
