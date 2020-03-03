@@ -4,6 +4,6 @@ import java.util.List;
 
 public interface BookListDAO {
 int addBooks(BookList books);
-int removeBooks(BookList isbn);
+int removeBooks(long isbn);
 public List<BookList> viewBooks();
 }

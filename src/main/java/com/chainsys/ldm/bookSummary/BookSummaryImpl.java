@@ -29,18 +29,16 @@ public class BookSummaryImpl implements BookSummaryDAO {
 			}
 		} catch (Exception e) {
 			logger.error(e);
-			
+
 		}
 		return false;
-		
-		
+
 	}
 
 	public int addBookInfo(BookSummary BS) {
-		int row =0;
+		int row = 0;
 		try (Connection con = TestConnection.getConnection();) {
-			String sql = "insert into book_summary(student_id,ISBN,borrowed_date,due_date)"
-					+ " values(?,?,?,?)";
+			String sql = "insert into book_summary(student_id,ISBN,borrowed_date,due_date)" + " values(?,?,?,?)";
 			logger.info(sql);
 			try (PreparedStatement stmt = con.prepareStatement(sql);) {
 				stmt.setInt(1, BS.getStudentId());
@@ -49,16 +47,16 @@ public class BookSummaryImpl implements BookSummaryDAO {
 				stmt.setDate(3, bw);
 				java.sql.Date dd = java.sql.Date.valueOf(BS.getDueDate());
 				stmt.setDate(4, dd);
-	
-				 row = stmt.executeUpdate();
+
+				row = stmt.executeUpdate();
 				logger.info("Insert=" + row);
 				if (row == 1) {
 					String sql1 = "update booklist set book_status = 'Notavailable' where ISBN = ?";
 					try (PreparedStatement stmt1 = con.prepareStatement(sql1);) {
 						stmt1.setLong(1, BS.getISBN());
 						int row1 = stmt1.executeUpdate();
-					logger.info(row1);
-					logger.info(sql1);
+						logger.info(row1);
+						logger.info(sql1);
 
 						String sql0 = "Select  mail_id from student where student_id=? ";
 						try (PreparedStatement stmt0 = con.prepareStatement(sql0);) {
@@ -75,7 +73,7 @@ public class BookSummaryImpl implements BookSummaryDAO {
 					}
 				}
 			}
-				} catch (Exception e) {
+		} catch (Exception e) {
 
 			logger.error(e);
 
@@ -87,7 +85,7 @@ public class BookSummaryImpl implements BookSummaryDAO {
 	public List<BookSummary> onParticularDate(LocalDate borrowedDate) {
 		List<BookSummary> li = new ArrayList<BookSummary>();
 
-		String sql6 = "select student_id,ISBN from book_summary where borrowed_date = ?";
+		String sql6 = "select * from book_summary where borrowed_date = ?";
 		try (Connection con = TestConnection.getConnection();) {
 			try (PreparedStatement pst1 = con.prepareStatement(sql6);) {
 				Date bw = Date.valueOf(borrowedDate);
@@ -96,8 +94,14 @@ public class BookSummaryImpl implements BookSummaryDAO {
 					while (rs.next()) {
 						BookSummary BS = new BookSummary();
 						int Id = rs.getInt("student_id");
-						BS.setstudentId(Id);  
+						BS.setstudentId(Id);
 						BS.setISBN(rs.getLong("ISBN"));
+						Date g = rs.getDate("borrowed_date");
+						BS.setBorrowedDate(g.toLocalDate());
+						Date g1 = rs.getDate("due_date");
+						BS.setDueDate(g1.toLocalDate());
+						BS.setRenewalCount(rs.getInt("renewal_count"));
+						BS.setStatus(rs.getString("status"));
 						li.add(BS);
 					}
 					if (li.size() > 0) {
@@ -115,44 +119,35 @@ public class BookSummaryImpl implements BookSummaryDAO {
 		}
 		return li;
 	}
-	
-	
-	public List<BookSummary> viewBookSummary()  {
-		List<BookSummary> list= new ArrayList<BookSummary>();
-	 String sql = "Select * from book_summary";
-	 
-		
-		try(Connection con = TestConnection.getConnection();){
-		try(PreparedStatement stmt = con.prepareStatement(sql);){
-		try(ResultSet rs = stmt.executeQuery();) {
-			
-		
-			while (rs.next()) {
-				BookSummary b = new BookSummary();	
-				b.setstudentId(rs.getInt("student_id"));
-				b.setISBN(rs.getLong("ISBN"));
-				Date g = rs.getDate("borrowed_date");
-				b.setBorrowedDate(g.toLocalDate());
-				Date g1 = rs.getDate("due_date");
-				b.setDueDate(g1.toLocalDate());
-			  
-				  b.setRenewalCount(rs.getInt("renewal_count"));
 
-			    b.setStatus(rs.getString("status"));
-				list.add(b);
-				
+	public List<BookSummary> viewBookSummary() {
+		List<BookSummary> list = new ArrayList<BookSummary>();
+		String sql = "Select * from book_summary";
+
+		try (Connection con = TestConnection.getConnection();) {
+			try (PreparedStatement stmt = con.prepareStatement(sql);) {
+				try (ResultSet rs = stmt.executeQuery();) {
+
+					while (rs.next()) {
+						BookSummary b = new BookSummary();
+						b.setstudentId(rs.getInt("student_id"));
+						b.setISBN(rs.getLong("ISBN"));
+						Date g = rs.getDate("borrowed_date");
+						b.setBorrowedDate(g.toLocalDate());
+						Date g1 = rs.getDate("due_date");
+						b.setDueDate(g1.toLocalDate());
+
+						b.setRenewalCount(rs.getInt("renewal_count"));
+
+						b.setStatus(rs.getString("status"));
+						list.add(b);
+
+					}
+				}
 			}
-	}
+		} catch (Exception e) {
+			logger.error(e);
 		}
-} catch (Exception e) {
-logger.error(e);
+		return list;
+	}
 }
-return list;
-}}
-	
-	
-	
-
-
-
-

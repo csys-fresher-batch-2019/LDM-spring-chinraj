@@ -10,7 +10,7 @@ public class TestBookListRemoveBooks {
 		BookListImpl obj = new BookListImpl();
 		System.out.println(" ISBN to be removed :");
 		b.setISBN(s.nextLong());
-	   obj.removeBooks(b);
+	   obj.removeBooks(b.getISBN());
 		s.close();
 	}
 }

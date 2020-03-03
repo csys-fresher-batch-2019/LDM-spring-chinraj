@@ -29,18 +29,23 @@
 	%>
 
 	<form action="BookRegister">
-		<br /> Enter ISBN<input type="text" name="ISBN" pattern="[0-9]{1,14}" title="Please enter valid ISBN number(less than or equal to 14 digits)"  required >
-		<br /> Enter BookName <input type="text" name="book_name"> <br />
-		Enter noOfPages <input type="number" name="pages" min="1" title ="Value must greater than or equal to 1"> <br />
-		Enter AuthorName<input type="text" name="author_name"> <br />
-		Enter Publication <input type="text" name="publication"> <br />
+	Enter ISBN<input type="text" name="ISBN" pattern="[0-9]{1,14}"title="Please enter valid ISBN number(less than or equal to 14 digits)"required>
+	<br />
+	Enter BookName <input type="text"name="book_name">
+	 <br /> 
+	 Enter noOfPages <input type="number" name="pages" min="1"title="Value must greater than or equal to 1">
+	<br />
+	 Enter AuthorName<input type="text" name="author_name"> 
+	<br />
+	 Enter Publication <input type="text" name="publication"> 
+	 <br />
 		<%
 			LocalDate date = LocalDate.now();
 		%>
 		Enter Released date(YYYY-MM-DD) : <input type="date"
-			name="released_date" max="<%=date%>"> <br />
-			 Enter price of book :<input type="number" name="price" min="0"> <br />
-		 Enter Rack no : <input type="number" name="rack_no" min="1"> <br />
+			name="released_date" max="<%=date%>"> <br /> Enter price of
+		book :<input type="number" name="price" min="0"> <br /> Enter
+		Rack no : <input type="number" name="rack_no" min="1"> <br />
 		Enter Category:<input type="text" name="category"> <br />
 
 		<button type="submit">save</button>

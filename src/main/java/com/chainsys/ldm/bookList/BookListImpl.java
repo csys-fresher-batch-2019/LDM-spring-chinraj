@@ -54,6 +54,7 @@ public class BookListImpl implements BookListDAO {
 						b.setPrice(rs.getInt("price"));
 						Date g = rs.getDate("released_date");
 						b.setReleasedDate(g.toLocalDate());
+						b.setCategory(rs.getString("category"));
 						b.setPages(rs.getInt("pages"));
 						list.add(b);
 					}	
@@ -66,17 +67,17 @@ public class BookListImpl implements BookListDAO {
 		return list;
 	}
 
-	public int removeBooks(BookList isbn) {
+	public int removeBooks(long isbn) {
 		String sqlinsert = "delete booklist where ISBN=?";
 		int row=0;
 		try (Connection con = TestConnection.getConnection();) {
 			try (PreparedStatement stmt = con.prepareStatement(sqlinsert);) {
-				stmt.setLong(1, isbn.getISBN());
+				stmt.setLong(1, isbn);
 				row = stmt.executeUpdate();
 				logger.info(sqlinsert);
 				logger.info(row);
 				if (row != 1) {
-					logger.info("\nNo book is available on" + isbn.getISBN());
+					logger.info("\nNo book is available on" + isbn);
 				}
 			}
 		} catch (Exception e) {

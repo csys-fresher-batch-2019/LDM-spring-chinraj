@@ -36,7 +36,7 @@ public class TestStudentInfo {
 		case 2:{
 			 logger.info("Enter studentId :");
 				SI.setStudentId(s.nextInt());
-				d.removeStudent(SI);
+				d.removeStudent(SI.getStudentId());
 		}
 		
 		case 3:{

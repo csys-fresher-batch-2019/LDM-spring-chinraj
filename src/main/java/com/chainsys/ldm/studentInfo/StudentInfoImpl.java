@@ -39,13 +39,13 @@ public class StudentInfoImpl implements StudentInfoDAO {
 		return rows;		 }
 
 
-	public int removeStudent(StudentInfo SS) {
+	public int removeStudent(int id) {
 		int row1=0;
 	 String sql = "Delete student where student_id= ?";
 		
 		try (Connection con = TestConnection.getConnection();) {
 			try (PreparedStatement stmt = con.prepareStatement(sql);) {
-				stmt.setInt(1, SS.getStudentId());
+				stmt.setInt(1, id);
 				 row1=stmt.executeUpdate();
 				logger.info(row1);
 				if(row1==1) {

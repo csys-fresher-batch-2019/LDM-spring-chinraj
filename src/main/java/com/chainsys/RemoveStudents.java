@@ -31,7 +31,7 @@ public class RemoveStudents extends HttpServlet {
 		    a.setStudentId(id);		    
 		    StudentInfoImpl b = new StudentInfoImpl();
 		    
-		    int v= b.removeStudent(a);
+		    int v= b.removeStudent(id);
 		    if(v==1) {
 		    	 PrintWriter out = response.getWriter();
 	

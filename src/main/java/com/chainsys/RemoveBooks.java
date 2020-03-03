@@ -27,7 +27,7 @@ public class RemoveBooks extends HttpServlet {
 	 BookList b = new BookList();
 	b.setISBN(IsBN);
 	  BookListImpl c = new BookListImpl();
-	 int s1=  c.removeBooks(b);
+	 int s1=  c.removeBooks(b.getISBN());
 	 
 	   if(s1==1) {
 		   PrintWriter out = response.getWriter();

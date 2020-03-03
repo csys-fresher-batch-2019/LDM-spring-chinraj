@@ -22,7 +22,7 @@ long isbn =(long)session.getAttribute("ISBN");
 <br/>
 <body style = "background-color:powderblue">
 <form action="FinesServlet">
-Enter Student Id : <input type="number" name ="Student Id" value ="<%=studentId %> " >
+Enter Student Id : <input type="number" name ="Student Id"value ="<%=studentId %>" >
 <br/>
 Enter ISBN : <input type="number" name ="ISBN" value ="<%=isbn %>" >
 <br/>
