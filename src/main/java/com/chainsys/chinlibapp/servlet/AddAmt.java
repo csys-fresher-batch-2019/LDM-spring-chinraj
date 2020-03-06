@@ -12,10 +12,10 @@ import javax.servlet.http.HttpServletResponse;
 import com.chainsys.chinlibapp.service.IdService;
 
 @WebServlet("/IdServlet")
-public class IdServlet extends HttpServlet {
+public class AddAmt extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
-	public IdServlet() {
+	public AddAmt() {
 		super();
 	}
 

@@ -26,7 +26,7 @@ public class BookSumControl {
 			@RequestParam("renewal_count") Integer renewalCount,
 			@RequestParam("due_date") String date1,
 			@RequestParam("return_date") String date2,
-			@RequestParam("status") String status) {
+			@RequestParam("status") String status){
 
 		BookSummary b = new BookSummary();
 
