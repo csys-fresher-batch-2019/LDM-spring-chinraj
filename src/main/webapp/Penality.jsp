@@ -11,11 +11,22 @@
 <form action = "PenalityServlet">
 <h2>PENALITY FOR BOOK LOSS</h2>
 <br/>
-Enter Student Id <input type="number" name ="StudentId" min="1">
+	<%
+		String infoMessage = (String) request.getAttribute("infoMessage");
+		String errorMessage = (String) request.getAttribute("errorMessage");
+
+		if (infoMessage != null)
+			out.println(infoMessage);
+		if (errorMessage != null)
+			out.println(errorMessage);
+	%>
+	</br>
+Enter Student Id <input type="number" name ="StudentId" min="1" required>
 <br/>
 
-Enter ISBN <input type="number" name ="ISBN" min="1">
+Enter ISBN <input type="number" name ="ISBN" min="1" required>
 <br/>
+
 <button type = "submit">Proceed</button>
 
 </form>

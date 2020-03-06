@@ -5,18 +5,16 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<title>Insert title here</title>
 </head>
 <body>
-
-<jsp:include page="index.jsp"></jsp:include>
+ <jsp:include page="index.jsp"></jsp:include>
 <form action = "OnParticularDate">
-
+<h2>On Particular Date</h2>
 
 		<%
-			LocalDate date = LocalDate.now();
+		  LocalDate date = LocalDate.now();
 		%>
-		Enter date(YYYY-MM-DD) : <input type="date" name="BorrowedDate" max="<%=date%>">
+		Enter date(YYYY-MM-DD) : <input type="date" name="BorrowedDate" max="<%=date%>" required>
 			<button type="submit">search</button>
 </form>
 </body>

@@ -2,6 +2,9 @@ package com.chainsys.ldm.bookList;
 
 import java.util.Scanner;
 
+import com.chainsys.chinlibapp.dao.imp.BookListImpl;
+import com.chainsys.chinlibapp.model.BookList;
+
 public class TestBookListRemoveBooks {
 
 	public static void main(String[] args) throws Exception {

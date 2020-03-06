@@ -1,17 +1,17 @@
-package com.chainsys;
+package com.chainsys.chinlibapp.servlet;
 
 import java.io.IOException;
 import java.io.PrintWriter;
 
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.chainsys.ldm.studentInfo.StudentInfo;
-import com.chainsys.ldm.studentInfo.StudentInfoDAO;
-import com.chainsys.ldm.studentInfo.StudentInfoImpl;
+import com.chainsys.chinlibapp.model.StudentInfo;
+import com.chainsys.chinlibapp.service.StudentInfoService;
 
 @WebServlet("/RegisterServlet")
 public class RegisterServlet extends HttpServlet {
@@ -19,7 +19,7 @@ public class RegisterServlet extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		StudentInfoDAO S = new StudentInfoImpl();
+		StudentInfoService S = new StudentInfoService();
 		StudentInfo SS = new StudentInfo();
 
 		String Name = request.getParameter("name");
@@ -35,20 +35,20 @@ public class RegisterServlet extends HttpServlet {
 
 		try {
 			int a = S.addStudents(SS);
-			if (a == 1) {
-				PrintWriter out = response.getWriter();
-				out.println("\n");
-				out.println("\n <h1>Student Added </h1>");
-			} else {
+			
+					if (a == 1) {
+						request.setAttribute("infoMessage", "<h2>Student Added !</h2>");
+						RequestDispatcher rd = request.getRequestDispatcher("AddStudents.jsp");
+						rd.forward(request, response);
+					} else {
+						request.setAttribute("errorMessage", "<h2>Student Id Already Exists !!</h2");
+						RequestDispatcher rd = request.getRequestDispatcher("AddStudents.jsp");
+						rd.forward(request, response);
+					}
+				} catch (Exception e) {
+					e.printStackTrace();
 
-				PrintWriter out = response.getWriter();
-				out.println("\n");
-				out.println("\n <h1>Student id already exists</h1>");
+				}
 			}
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-
-	}
 
 }

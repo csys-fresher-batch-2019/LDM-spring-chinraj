@@ -1,4 +1,4 @@
-package com.chainsys.ldm.fines;
+package com.chainsys.chinlibapp.model;
 
 public class FinesInfo {
 

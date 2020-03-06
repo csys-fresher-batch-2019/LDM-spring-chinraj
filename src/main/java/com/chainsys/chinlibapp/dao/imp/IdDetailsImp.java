@@ -1,15 +1,17 @@
-package com.chainsys.ldm.deduction;
+package com.chainsys.chinlibapp.dao.imp;
 
 import java.sql.CallableStatement;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.Types;
 
+import org.springframework.stereotype.Repository;
+
+import com.chainsys.chinlibapp.dao.IdDetailsDAO;
+import com.chainsys.chinlibapp.logger.Logger;
+import com.chainsys.chinlibapp.model.IdDetails;
 import com.chainsys.ldm.bookSummary.TestConnection;
-import com.chainsys.ldm.deduction.IdDetails;
-
-import logger.Logger;
-
+@Repository
 public class IdDetailsImp implements IdDetailsDAO {
 	Logger logger = Logger.getInstance();
 	IdDetails bb = new IdDetails();

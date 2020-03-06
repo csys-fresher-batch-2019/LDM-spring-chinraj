@@ -1,4 +1,4 @@
-package logger;
+package com.chainsys.chinlibapp.logger;
 public class Logger {
 public static Logger getInstance()
 {

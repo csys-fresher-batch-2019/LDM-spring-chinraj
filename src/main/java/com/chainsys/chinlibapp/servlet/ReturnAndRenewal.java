@@ -13,8 +13,8 @@ import javax.servlet.http.HttpSession;
 
 import com.chainsys.chinlibapp.service.FineInfoService;
 
-@WebServlet("/ReturnRenewal")
-public class ReturnRenewal extends HttpServlet {
+@WebServlet("/ReturnAndRenewal")
+public class ReturnAndRenewal extends HttpServlet {
 	
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
@@ -24,7 +24,7 @@ public class ReturnRenewal extends HttpServlet {
 		int id = Integer.parseInt(StudentId);
 		String ISBN = request.getParameter("ISBN");
 		long IsBN = Long.parseLong(ISBN);
-       
+
 		String type = request.getParameter("Name");
 		FineInfoService S = new FineInfoService();
 
@@ -33,24 +33,20 @@ public class ReturnRenewal extends HttpServlet {
 			try {
 
 				int i = S.renewal(id, IsBN);
-				int a =S.renewalCount(id, IsBN);
-				int b = S.FinePerStudent(id, IsBN);
-				if (b==0 && a<=2 && i==1){
-					PrintWriter out = response.getWriter();
-					out.println("\n");
-					out.println("\n <h1>RENEWAL SUCCESS</h1>");
-				}
-				else if(a>=2) {
-					PrintWriter out = response.getWriter();
-					out.println("\n");
-					out.println("\n <h1>RENEWAL COUNT MORE THAN 2</h1>");
-				}
-				 else {
-					 
+			
+				if (i==1){
+					request.setAttribute("errorMessage", "<h2>Renewal Sucess !!</h2");
 					 HttpSession session = request.getSession();
 					 session.setAttribute("id", id);
 						session.setAttribute("ISBN", IsBN);
-						RequestDispatcher rd = request.getRequestDispatcher("Fines.jsp");
+						RequestDispatcher rd = request.getRequestDispatcher("ReturnAndRenewal.jsp");
+						rd.forward(request, response);
+					 
+				}
+		
+				 else {
+					 request.setAttribute("errorMessage", "<h2>Invalid Id !!</h2");
+						RequestDispatcher rd = request.getRequestDispatcher("ReturnRenewal.jsp");
 						rd.forward(request, response);
 					 
 					 

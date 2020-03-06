@@ -1,4 +1,4 @@
-package com.chainsys.chinlibapp.connectionutil;
+package com.chainsys.chinlibapp.util;
 
 import java.sql.Connection;
 import java.sql.DriverManager;

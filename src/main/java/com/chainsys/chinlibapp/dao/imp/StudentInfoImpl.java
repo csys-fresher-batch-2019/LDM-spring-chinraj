@@ -1,4 +1,4 @@
-package com.chainsys.ldm.studentInfo;
+package com.chainsys.chinlibapp.dao.imp;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -6,10 +6,13 @@ import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.springframework.stereotype.Repository;
+
+import com.chainsys.chinlibapp.dao.StudentInfoDAO;
+import com.chainsys.chinlibapp.logger.Logger;
+import com.chainsys.chinlibapp.model.StudentInfo;
 import com.chainsys.ldm.bookSummary.TestConnection;
-
-import logger.Logger;
-
+@Repository
 public class StudentInfoImpl implements StudentInfoDAO {
 	Logger logger = Logger.getInstance();
 	

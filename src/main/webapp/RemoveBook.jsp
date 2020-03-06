@@ -9,19 +9,23 @@
 
  <body style = "background-color:bisque">
 
-<jsp:include page="index.jsp"></jsp:include>
-
-
-
 </head>
 <body>
+<jsp:include page="index.jsp"></jsp:include>
 <h1>REMOVE BOOKS</h1>
 
+<%
+		String infoMessage = (String) request.getAttribute("infoMessage");
+		String errorMessage = (String) request.getAttribute("errorMessage");
+
+		if (infoMessage != null)
+			out.println(infoMessage);
+		if (errorMessage != null)
+			out.println(errorMessage);
+	%>
 <form action ="RemoveBooks">
+
+Enter ISBN <input type="number" name ="ISBN" required>
 <br/>
-Enter ISBN <input type="number" name ="ISBN">
 <br/>
-<button type = "submit">delete</button>
-</form>
-</body>
-</html>
+<button type = "save">Delete</button>

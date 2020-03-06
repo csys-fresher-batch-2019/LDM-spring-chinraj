@@ -5,7 +5,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
-import logger.Logger;
+import com.chainsys.chinlibapp.dao.imp.BookSummaryImpl;
+import com.chainsys.chinlibapp.logger.Logger;
+import com.chainsys.chinlibapp.model.BookSummary;
 
 
 public class TestBookSummary {

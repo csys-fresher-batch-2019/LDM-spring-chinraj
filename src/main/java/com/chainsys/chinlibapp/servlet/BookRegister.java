@@ -1,4 +1,4 @@
-package com.chainsys;
+package com.chainsys.chinlibapp.servlet;
 
 import java.io.IOException;
 import java.time.LocalDate;
@@ -10,8 +10,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.chainsys.ldm.bookList.BookList;
-import com.chainsys.ldm.bookList.BookListImpl;
+import com.chainsys.chinlibapp.model.BookList;
+import com.chainsys.chinlibapp.service.BookListService;
 
 @WebServlet("/BookRegister")
 public class BookRegister extends HttpServlet {
@@ -22,7 +22,7 @@ public class BookRegister extends HttpServlet {
 
 		String ISBN = request.getParameter("ISBN");
 		long IsBN = Long.parseLong(ISBN);
-		System.out.println(IsBN);
+
 		String BookName = request.getParameter("book_name");
 		String pages = request.getParameter("pages");
 		int page = Integer.parseInt(pages);
@@ -40,7 +40,7 @@ public class BookRegister extends HttpServlet {
 		int rcno = Integer.parseInt(rackNo);
 		String category = request.getParameter("category");
 
-		BookListImpl S = new BookListImpl();
+		BookListService S = new BookListService();
 
 		BookList b = new BookList();
 		b.setISBN(IsBN);
@@ -58,16 +58,15 @@ public class BookRegister extends HttpServlet {
 				request.setAttribute("infoMessage", "<h2>Book Added !</h2>");
 				RequestDispatcher rd = request.getRequestDispatcher("AddBooks.jsp");
 				rd.forward(request, response);
-			}
-			else {
+			} else {
 
-				request.setAttribute("errorMessage", "<h2>FAILED !!</h2");
+				request.setAttribute("errorMessage", "<h2>ISBN Already Exists !!</h2");
 				RequestDispatcher rd = request.getRequestDispatcher("AddBooks.jsp");
 				rd.forward(request, response);
 			}
-		} catch (Exception e) { 
+		} catch (Exception e) {
 			e.printStackTrace();
-			
+
 		}
 	}
 }

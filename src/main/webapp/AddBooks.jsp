@@ -1,4 +1,4 @@
-<%@page import="com.chainsys.ldm.bookList.BookListImpl"%>
+<%@page import="com.chainsys.chinlibapp.dao.imp.BookListImpl"%>
 <%@page import="java.time.LocalDate"%>
 
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
@@ -29,7 +29,7 @@
 	%>
 
 	<form action="BookRegister">
-	Enter ISBN<input type="text" name="ISBN" pattern="[0-9]{1,14}"title="Please enter valid ISBN number(less than or equal to 14 digits)"required>
+	Enter ISBN<input type="text" name="ISBN" pattern="[0-9]{1,14}" title="Please enter valid ISBN number(less than or equal to 14 digits)"required>
 	<br />
 	Enter BookName <input type="text"name="book_name">
 	 <br /> 
@@ -39,6 +39,7 @@
 	<br />
 	 Enter Publication <input type="text" name="publication"> 
 	 <br />
+	 
 		<%
 			LocalDate date = LocalDate.now();
 		%>

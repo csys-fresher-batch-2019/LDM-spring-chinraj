@@ -1,13 +1,17 @@
-package com.chainsys.ldm.fines;
+package com.chainsys.chinlibapp.dao.imp;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 
+import org.springframework.stereotype.Repository;
+
+import com.chainsys.chinlibapp.dao.FineInfoDAO;
+import com.chainsys.chinlibapp.logger.Logger;
+import com.chainsys.chinlibapp.model.FinesInfo;
 import com.chainsys.ldm.bookSummary.TestConnection;
 
-import logger.Logger;
-
+@Repository
 public class FineInfoImpl implements FineInfoDAO {
 	Logger logger = Logger.getInstance();
 

@@ -1,14 +1,21 @@
-package com.chainsys.ldm.bookList;
+package com.chainsys.chinlibapp.dao.imp;
 
 import java.sql.Connection;
 import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-import logger.Logger;
+import org.springframework.stereotype.Repository;
 
+import com.chainsys.chinlibapp.dao.BookListDAO;
+import com.chainsys.chinlibapp.logger.Logger;
+import com.chainsys.chinlibapp.model.BookList;
+import com.chainsys.ldm.bookList.TestConnection;
+
+@Repository
 public class BookListImpl implements BookListDAO {
 	Logger logger = Logger.getInstance();
 
@@ -91,16 +98,16 @@ public class BookListImpl implements BookListDAO {
 	
 	public  ArrayList<BookList> category(String name)  {
 	
-		BookList b = new BookList();	
+		ArrayList<BookList> n = new ArrayList<>();	
+
 		String sqlinsert = "select * from booklist where book_name like ?";
 		try (Connection con = TestConnection.getConnection();) {
 			try (PreparedStatement stmt = con.prepareStatement(sqlinsert);) {
-			
 				stmt.setString(1, "%" + name + "%");
-				ArrayList<BookList> n = new ArrayList<>();				
+							
 				try (ResultSet rs = stmt.executeQuery();) {	
 					while (rs.next()) {
-						
+						BookList b = new BookList();	
 						b.setISBN(rs.getLong("ISBN"));
 						b.setBookName(rs.getString("book_name"));
 						b.setAuthorName(rs.getString("author_name"));
@@ -112,15 +119,17 @@ public class BookListImpl implements BookListDAO {
 						b.setPages(rs.getInt("pages"));	
 						b.setCategory(rs.getString("category"));
 						n.add(b);
-						return n;
+						
 					}		
 					}
 
 			}
-		} catch (Exception e) {
+		} catch (  Exception e) {
 			logger.error(e);
 		}
-		return null;
+		return n;
+		
 		
 	
-}}
+	}
+	}

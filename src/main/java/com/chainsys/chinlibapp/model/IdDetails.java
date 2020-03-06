@@ -1,4 +1,4 @@
-package com.chainsys.ldm.deduction;
+package com.chainsys.chinlibapp.model;
 
 public class IdDetails {
 

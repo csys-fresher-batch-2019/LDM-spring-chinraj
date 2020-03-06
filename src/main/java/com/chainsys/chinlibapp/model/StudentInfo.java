@@ -1,4 +1,4 @@
-package com.chainsys.ldm.studentInfo;
+package com.chainsys.chinlibapp.model;
 
 public class StudentInfo {
 

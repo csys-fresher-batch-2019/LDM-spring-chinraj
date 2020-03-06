@@ -9,8 +9,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.chainsys.ldm.bookSummary.BookSummary;
-import com.chainsys.ldm.bookSummary.BookSummaryImpl;
+import com.chainsys.chinlibapp.dao.imp.BookSummaryImpl;
+import com.chainsys.chinlibapp.model.BookSummary;
 
 @RestController
 @RequestMapping("api")

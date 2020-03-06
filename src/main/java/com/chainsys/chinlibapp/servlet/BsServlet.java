@@ -1,18 +1,17 @@
-package com.chainsys;
+package com.chainsys.chinlibapp.servlet;
 
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.time.LocalDate;
 
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.chainsys.ldm.bookSummary.BookSummary;
-import com.chainsys.ldm.bookSummary.BookSummaryDAO;
-import com.chainsys.ldm.bookSummary.BookSummaryImpl;
+import com.chainsys.chinlibapp.model.BookSummary;
+import com.chainsys.chinlibapp.service.BookSumService;
 
 
 @WebServlet("/BsServlet")
@@ -45,24 +44,24 @@ public class BsServlet extends HttpServlet {
 	    SS.setDueDate(d);
 	  
 	    
-	    BookSummaryDAO S  = new BookSummaryImpl();
+	    BookSumService S = new  BookSumService();
 	    
 
 	    try {
 		int a = S.addBookInfo(SS);
-		if (a==1) {
-	
-			PrintWriter out = response.getWriter();
-			 out.println("\n");
-				out.println("\n <h1>Borrow Sucess and mail sent</h1>");
-	
-		} else {
-			PrintWriter out = response.getWriter();
-			 out.println("\n");
-				out.println("\n <h1>Book is not available (or) book already taken</h1>");
-	}		  
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
+				if (a == 1) {
+					request.setAttribute("infoMessage", "<h2>Borrow Sucess And Mail Sent!! !</h2>");
+					RequestDispatcher rd = request.getRequestDispatcher("BS.jsp");
+					rd.forward(request, response);
+				} else {
+
+					request.setAttribute("errorMessage", "<h2> Borrow Failed ISBN or StudentId not Avilable !!</h2");
+					RequestDispatcher rd = request.getRequestDispatcher("BS.jsp");
+					rd.forward(request, response);
+				}
+			} catch (Exception e) {
+				e.printStackTrace();
+
+			}
 	   
 	}}

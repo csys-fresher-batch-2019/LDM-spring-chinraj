@@ -26,12 +26,26 @@ long isbn =(long)session.getAttribute("ISBN");
  <br/>
 <br/>
 <form action="FineDetect">
-Enter Student Id : <input type="number" name ="Student Id"value ="<%=studentId %>" >
+
+
+	<%
+		String infoMessage = (String) request.getAttribute("infoMessage");
+		String errorMessage = (String) request.getAttribute("errorMessage");
+
+		if (infoMessage != null)
+			out.println(infoMessage);
+		if (errorMessage != null)
+			out.println(errorMessage);
+	%>
+</br>	
+	
+	Enter Student Id : <input type="number" name ="Student Id"value ="<%=studentId %>" required>
 <br/>
-Enter ISBN : <input type="number" name ="ISBN" value ="<%=isbn %>" >
+Enter ISBN : <input type="number" name ="ISBN" value ="<%=isbn %>" required>
 <br/>
 
 <button type = "submit">Proceed</button>
+</form>
 
 </body>
 </html>

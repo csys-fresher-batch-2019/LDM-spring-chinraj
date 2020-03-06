@@ -1,7 +1,7 @@
-<%@page import="com.chainsys.ldm.bookList.BookList"%>
+<%@page import="com.chainsys.chinlibapp.model.BookList"%>
 <%@page import="java.util.List"%>
-<%@page import="com.chainsys.ldm.bookList.BookListImpl"%>
-<%@page import="com.chainsys.ldm.bookList.BookListDAO"%>
+<%@page import="com.chainsys.chinlibapp.dao.imp.BookListImpl"%>
+<%@page import="com.chainsys.chinlibapp.dao.BookListDAO"%>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
@@ -12,9 +12,9 @@
 </head>
 <body>
 <form action = "SearchByBook">
-	
+	<h2>Search BookName</h2>
 
-Enter BookName <input type="text" name="bookname">
+Enter BookName <input type="text" name="bookname" required>
 <button type="submit">Search</button>
 
 

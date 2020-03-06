@@ -12,7 +12,19 @@
 
 
 <body style = "background-color:Orange">
+
 <form action="RegisterServlet">
+
+	<%
+		String infoMessage = (String) request.getAttribute("infoMessage");
+		String errorMessage = (String) request.getAttribute("errorMessage");
+
+		if (infoMessage != null)
+			out.println(infoMessage);
+		if (errorMessage != null)
+			out.println(errorMessage);
+	%>
+	</br>
 Enter Name :<input type="text"name = "name"
 placeholder= "Enter Name" required autofocus/>
 <br/>

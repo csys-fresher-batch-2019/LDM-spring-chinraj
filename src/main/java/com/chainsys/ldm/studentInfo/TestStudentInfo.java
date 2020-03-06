@@ -4,7 +4,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
-import logger.Logger;
+import com.chainsys.chinlibapp.dao.imp.StudentInfoImpl;
+import com.chainsys.chinlibapp.logger.Logger;
+import com.chainsys.chinlibapp.model.StudentInfo;
 
 public class TestStudentInfo {
 	

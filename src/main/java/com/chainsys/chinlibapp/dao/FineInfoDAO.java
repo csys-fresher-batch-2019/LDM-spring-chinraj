@@ -1,6 +1,6 @@
-package com.chainsys.ldm.fines;
+package com.chainsys.chinlibapp.dao;
 
-import com.chainsys.ldm.fines.FinesInfo;
+import com.chainsys.chinlibapp.model.FinesInfo;
 
 public interface FineInfoDAO {
 	public void AddFineInfo(FinesInfo FI);
@@ -10,4 +10,5 @@ public interface FineInfoDAO {
 	public int bookreturned(int studentId,long ISBN);
 	public int renewal(int studentId, Long isbn);
 public int PenalityForBookLost(int studentId, long ISBN);
+public int renewalCount(int studentId, long isbn) ;
 }

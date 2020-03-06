@@ -20,10 +20,15 @@
 <body>
 <br/>
 <h1>RETURN & RENEWAL</h1>
+<%
+int studentId = (int)session.getAttribute("id");
+long isbn =(long)session.getAttribute("ISBN");
+
+%>
 
 
-<form action="ReturnRenewal">
-	<%
+<form action="ReturnAndRenewal">
+ 	<%
 		String infoMessage = (String) request.getAttribute("infoMessage");
 		String errorMessage = (String) request.getAttribute("errorMessage");
 
@@ -32,20 +37,14 @@
 		if (errorMessage != null)
 			out.println(errorMessage);
 	%>
- 
 	</br>
-	
-	
-
-Enter Student Id :<input type="number" name = "student_Id"required>
-Enter ISBN : <input type="number" name ="ISBN"  required>
+Enter Student Id :<input type="number" name = "student_Id" value ="<%=studentId %>"required>
+Enter ISBN : <input type="number" name ="ISBN" value ="<%=isbn %>" required>
 <br/>
 <input type= "radio"name="Name" value="Return">Return
 <input type= "radio"name="Name" value="Renewal">Renewal
 <br/>
 <button type = "submit">Submit</button>
-
-
 </form>
 </body>
 </html>

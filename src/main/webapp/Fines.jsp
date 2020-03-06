@@ -22,11 +22,11 @@ long isbn =(long)session.getAttribute("ISBN");
 <br/>
 <body style = "background-color:powderblue">
 <form action="FinesServlet">
-Enter Student Id : <input type="number" name ="Student Id"value ="<%=studentId %>" >
+Enter Student Id : <input type="number" name ="Student Id"value ="<%=studentId %>"required >
 <br/>
-Enter ISBN : <input type="number" name ="ISBN" value ="<%=isbn %>" >
+Enter ISBN : <input type="number" name ="ISBN" value ="<%=isbn %>" required>
 <br/>
-Enter Fine per day : <input type="number" name ="Fine per day">
+Enter Fine per day : <input type="number" name ="Fine per day"required>
 <br/>
 <button type = "submit">Proceed</button>
 </form>

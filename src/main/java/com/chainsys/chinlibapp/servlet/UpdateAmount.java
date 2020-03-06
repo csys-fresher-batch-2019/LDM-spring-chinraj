@@ -1,15 +1,16 @@
-package com.chainsys;
+package com.chainsys.chinlibapp.servlet;
 
 import java.io.IOException;
 import java.io.PrintWriter;
 
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.chainsys.ldm.deduction.IdDetailsImp;
+import com.chainsys.chinlibapp.service.IdService;
 
 @WebServlet("/UpdateAmount")
 public class UpdateAmount extends HttpServlet {
@@ -30,19 +31,25 @@ public class UpdateAmount extends HttpServlet {
 		String AddAmt = request.getParameter("Amount In Id");
 		int Amount = Integer.parseInt(AddAmt);
 
-		IdDetailsImp j = new IdDetailsImp();
+		IdService j = new IdService();
 
-	int k= j.updateMoneyInId(Amount,id );
-	 
-	 if(k==1) {
-		 PrintWriter out = response.getWriter();
-			out.println("<h1>Money updated</h1>");
-			
-	 }
-	 else {
-		 PrintWriter out = response.getWriter();
-			out.println("<h1>Failed to update</h1>");
-	 }
+	
+			try {
+				int k= j.updateMoneyInId(id, Amount);
+				 
+				 if(k==1) {
+							request.setAttribute("infoMessage", "<h2>Update Sucess!</h2>");
+							RequestDispatcher rd = request.getRequestDispatcher("UpdateMoney.jsp");
+							rd.forward(request, response);
+						} else {
+							request.setAttribute("errorMessage", "<h2>Id Not Exists !!</h2");
+							RequestDispatcher rd = request.getRequestDispatcher("UpdateMoney.jsp");
+							rd.forward(request, response);
+						}
+				 
+					} catch (Exception e) {
+						e.printStackTrace();
 
+					}
 }
 }

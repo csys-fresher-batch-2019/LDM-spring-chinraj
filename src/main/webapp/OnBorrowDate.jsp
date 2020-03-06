@@ -1,9 +1,9 @@
-<%@page import="com.chainsys.ldm.bookSummary.BookSummary"%>
+<%@page import="com.chainsys.chinlibapp.model.BookSummary"%>
 <%@page import="java.util.ArrayList"%>
-<%@page import="com.chainsys.ldm.bookList.BookList"%>
+<%@page import="com.chainsys.chinlibapp.model.BookList"%>
 <%@page import="java.util.List"%>
-<%@page import="com.chainsys.ldm.bookList.BookListImpl"%>
-<%@page import="com.chainsys.ldm.bookList.BookListDAO"%>
+<%@page import="com.chainsys.chinlibapp.dao.imp.BookListImpl"%>
+<%@page import="com.chainsys.chinlibapp.dao.BookListDAO"%>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
 <!DOCTYPE html>

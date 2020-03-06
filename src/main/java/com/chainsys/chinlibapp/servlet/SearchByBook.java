@@ -1,4 +1,4 @@
-package com.chainsys;
+package com.chainsys.chinlibapp.servlet;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -10,8 +10,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.chainsys.ldm.bookList.BookList;
-import com.chainsys.ldm.bookList.BookListImpl;
+import com.chainsys.chinlibapp.model.BookList;
+import com.chainsys.chinlibapp.service.BookListService;
 
 @WebServlet("/SearchByBook")
 public class SearchByBook extends HttpServlet {
@@ -25,10 +25,14 @@ public class SearchByBook extends HttpServlet {
 			throws ServletException, IOException {
 
 		String Bookname = request.getParameter("bookname");
-		System.out.println(Bookname);
-		BookListImpl S = new BookListImpl();
+		BookListService S = new BookListService();
 
-		ArrayList<BookList> n = S.category(Bookname);
+		ArrayList<BookList> n = null;
+		try {
+			n = S.category(Bookname);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 
 		request.setAttribute("searchlist", n);
 

@@ -1,4 +1,4 @@
-package com.chainsys.ldm.bookSummary;
+package com.chainsys.chinlibapp.dao.imp;
 
 import java.sql.Connection;
 import java.sql.Date;
@@ -8,9 +8,15 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.chainsys.ldm.sendMail.SendMail;
-import logger.Logger;
+import org.springframework.stereotype.Repository;
 
+import com.chainsys.chinlibapp.dao.BookSummaryDAO;
+import com.chainsys.chinlibapp.logger.Logger;
+import com.chainsys.chinlibapp.model.BookSummary;
+import com.chainsys.chinlibapp.util.SendMail;
+import com.chainsys.ldm.bookSummary.TestConnection;
+
+@Repository
 public class BookSummaryImpl implements BookSummaryDAO {
 	Logger logger = Logger.getInstance();
 

@@ -7,8 +7,9 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-import com.chainsys.ldm.bookList.BookList;
-import com.chainsys.ldm.bookList.BookListImpl;
+
+import com.chainsys.chinlibapp.dao.imp.BookListImpl;
+import com.chainsys.chinlibapp.model.BookList;
 
 @RestController
 @RequestMapping("api")
@@ -59,6 +60,7 @@ public class BookController {
 	@PostMapping("/removeBooks")
 	public void removeBooks(@RequestParam long isbn) {
   	a.removeBooks(isbn);
+  
 	}
 
 

@@ -19,26 +19,36 @@
 <br/>
 <h1>BORROW BOOK</h1>
 
+
+	<%
+		String infoMessage = (String) request.getAttribute("infoMessage");
+		String errorMessage = (String) request.getAttribute("errorMessage");
+
+		if (infoMessage != null)
+			out.println(infoMessage);
+		if (errorMessage != null)
+			out.println(errorMessage);
+	%>
 <form action="BsServlet">
 <br/>
-Enter Student Id : <input type="number" name ="StudentId" min ="1">
+Enter Student Id : <input type="number" name ="StudentId" min ="1" required>
 <br/>
-Enter ISBN : <input type="number" name ="ISBN" min="1">
+Enter ISBN : <input type="number" name ="ISBN" min="1"required>
 <br/>
 
 <%
 LocalDate date = LocalDate.now();
 %>
-Enter Borrowed Date: <input type = "date" name ="BorrowedDate" min ="<%=date%>" max="<%=date%>">
+Enter Borrowed Date: <input type = "date" name ="BorrowedDate" min ="<%=date%>" max="<%=date%>"required>
 <br/>
 <%LocalDate date1 = LocalDate.now();
 %>
-Enter Due Date: <input type="date" name ="DueDate" min="<%=date1%>">
+Enter Due Date: <input type="date" name ="DueDate" min="<%=date1%>" required>
 
 
 <br/>
 
-<button type = "submit">save</button>
+<button type = "submit">proceed</button>
 </form>
 </body>
 </html>

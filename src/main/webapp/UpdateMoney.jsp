@@ -4,16 +4,30 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<title>Insert title here</title>
 </head>
 <body>
 <jsp:include page="index.jsp"></jsp:include>
 <br/>
 <form action ="UpdateAmount">
+<h1>Update Money</h1>
 <br/>
-Enter Student id <input type ="number" name ="Student Id"required min =""1>
+
+
+	<%
+		String infoMessage = (String) request.getAttribute("infoMessage");
+		String errorMessage = (String) request.getAttribute("errorMessage");
+
+		if (infoMessage != null)
+			out.println(infoMessage);
+		if (errorMessage != null)
+			out.println(errorMessage);
+	%>
+
+
+
+Enter Student id <input type ="number" name ="Student Id" min ="1"required>
 <br/>
-Enter Money to add <input type="number" name="Amount In Id" required min="10">
+Enter Money to add <input type="number" name="Amount In Id"  min="10" required>
 <br/>
 <button type="submit">Search</button>
 

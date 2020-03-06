@@ -18,9 +18,20 @@
 <body>
 <form action ="RemoveStudents">
 <br/>
-Enter Student Id <input type="number" name ="Student Id">
+	<%
+		String infoMessage = (String) request.getAttribute("infoMessage");
+		String errorMessage = (String) request.getAttribute("errorMessage");
+
+		if (infoMessage != null)
+			out.println(infoMessage);
+		if (errorMessage != null)
+			out.println(errorMessage);
+	%>
+	</br>
+Enter Student Id <input type="number" name ="Student Id" required>
 <br/>
 <br/>
 <button type = "save">Delete</button>
+</form>
 </body>
 </html>

@@ -1,7 +1,7 @@
 <!DOCTYPE html>
-<%@page import="com.chainsys.ldm.studentInfo.StudentInfo"%>
+<%@page import="com.chainsys.chinlibapp.model.StudentInfo"%>
 <%@page import="java.util.List"%>
-<%@page import="com.chainsys.ldm.studentInfo.StudentInfoImpl"%>
+<%@page import="com.chainsys.chinlibapp.dao.imp.StudentInfoImpl"%>
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">

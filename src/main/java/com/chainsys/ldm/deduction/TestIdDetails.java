@@ -2,7 +2,8 @@ package com.chainsys.ldm.deduction;
 
 import java.util.Scanner;
 
-import logger.Logger;
+import com.chainsys.chinlibapp.dao.imp.IdDetailsImp;
+import com.chainsys.chinlibapp.logger.Logger;
 
 public class TestIdDetails {
          

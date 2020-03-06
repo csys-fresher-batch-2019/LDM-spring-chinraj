@@ -1,8 +1,8 @@
 <%@page import="java.util.ArrayList"%>
-<%@page import="com.chainsys.ldm.bookList.BookList"%>
+<%@page import="com.chainsys.chinlibapp.model.BookList"%>
 <%@page import="java.util.List"%>
-<%@page import="com.chainsys.ldm.bookList.BookListImpl"%>
-<%@page import="com.chainsys.ldm.bookList.BookListDAO"%>
+<%@page import="com.chainsys.chinlibapp.dao.imp.BookListImpl"%>
+<%@page import="com.chainsys.chinlibapp.dao.BookListDAO"%>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
 <!DOCTYPE html>
@@ -17,6 +17,11 @@
 	<form action="SearchByBook">
 		<%
 			ArrayList<BookList> list = (ArrayList<BookList>) request.getAttribute("searchlist");
+		if (list.isEmpty() || list==null) {
+			out.println("No records found");
+		}
+		else{
+			
 		
 		%>
 		<div></div>
@@ -47,7 +52,9 @@
 
 				<%
 					}
+		}	
 				%>
+			
 			</tbody>
 		</table>
 	</form>

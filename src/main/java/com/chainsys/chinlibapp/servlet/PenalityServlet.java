@@ -1,16 +1,17 @@
-package com.chainsys;
+package com.chainsys.chinlibapp.servlet;
 
 import java.io.IOException;
 import java.io.PrintWriter;
 
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.chainsys.ldm.fines.FineInfoImpl;
-import com.chainsys.ldm.fines.FinesInfo;
+import com.chainsys.chinlibapp.model.FinesInfo;
+import com.chainsys.chinlibapp.service.FineInfoService;
 
 @WebServlet("/PenalityServlet")
 public class PenalityServlet extends HttpServlet {
@@ -30,16 +31,16 @@ public class PenalityServlet extends HttpServlet {
 	    int id=Integer.parseInt(StudentId);
 		
 		FinesInfo k = new FinesInfo();
-		FineInfoImpl j = new FineInfoImpl();
+		FineInfoService j = new FineInfoService();
 		
 		k.setISBN(IsBN);
 		k.setStudentId(id);
 	
 	int a=	j.PenalityForBookLost(id,IsBN);
 	
-	PrintWriter out = response.getWriter();
-		out.println("<h1>Penality for Book loss is "+a+"</h1>");
-	
+			request.setAttribute("infoMessage", "<h1>Penality for Book loss is "+a+"</h1>");
+			RequestDispatcher rd = request.getRequestDispatcher("Penality.jsp");
+			rd.forward(request, response);
 		
 	
 	}

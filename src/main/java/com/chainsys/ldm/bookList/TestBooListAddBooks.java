@@ -3,8 +3,8 @@ package com.chainsys.ldm.bookList;
 import java.time.LocalDate;
 import java.util.Scanner;
 
-import com.chainsys.ldm.bookList.BookList;
-import com.chainsys.ldm.bookList.BookListImpl;
+import com.chainsys.chinlibapp.dao.imp.BookListImpl;
+import com.chainsys.chinlibapp.model.BookList;
 
 public class TestBooListAddBooks {
 

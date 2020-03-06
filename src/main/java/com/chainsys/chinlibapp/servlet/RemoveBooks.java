@@ -1,16 +1,16 @@
-package com.chainsys;
+package com.chainsys.chinlibapp.servlet;
 
 import java.io.IOException;
-import java.io.PrintWriter;
 
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.chainsys.ldm.bookList.BookList;
-import com.chainsys.ldm.bookList.BookListImpl;
+import com.chainsys.chinlibapp.model.BookList;
+import com.chainsys.chinlibapp.service.BookListService;
 @WebServlet("/RemoveBooks")
 
 public class RemoveBooks extends HttpServlet {
@@ -26,24 +26,26 @@ public class RemoveBooks extends HttpServlet {
 
 	 BookList b = new BookList();
 	b.setISBN(IsBN);
-	  BookListImpl c = new BookListImpl();
-	 int s1=  c.removeBooks(b.getISBN());
-	 
-	   if(s1==1) {
-		   PrintWriter out = response.getWriter();
-			 out.println("\n");
-				out.println("\n <h1>Delete Sucess </h1>");
-	   }
-				else {
-					PrintWriter out = response.getWriter();
-					 out.println("\n");
-						out.println("\n <h1>ISBN invalid</h1>");
-				}
-	   }
+	BookListService c = new BookListService();
 	
-	   
 	 
-	   
+	
+			try {
+				 int s1=  c.removeBooks(b.getISBN());
+				   if(s1==1) {
+							request.setAttribute("infoMessage", "<h2>Book Removed!</h2>");
+							RequestDispatcher rd = request.getRequestDispatcher("RemoveBook.jsp");
+							rd.forward(request, response);
+						} else {
+							request.setAttribute("errorMessage", "<h2>ISBN Not Exists !!</h2");
+							RequestDispatcher rd = request.getRequestDispatcher("RemoveBook.jsp");
+							rd.forward(request, response);
+						}
+					} catch (Exception e) {
+						e.printStackTrace();
+
+					}
+				}
 	 
 	   
 	   

@@ -1,4 +1,4 @@
-package com.chainsys.ldm.bookList;
+package com.chainsys.chinlibapp.model;
 
 import java.time.LocalDate;
 

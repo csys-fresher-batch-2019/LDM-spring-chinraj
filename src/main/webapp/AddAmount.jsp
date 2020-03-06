@@ -17,7 +17,17 @@
  alt="library"/>"
  
  <body style = "background-color:bisque">
-<form action="IdServlet">
+ 
+ 	<%
+		String infoMessage = (String) request.getAttribute("infoMessage");
+		String errorMessage = (String) request.getAttribute("errorMessage");
+
+		if (infoMessage != null)
+			out.println(infoMessage);
+		if (errorMessage != null)
+			out.println(errorMessage);
+	%>
+<form action="AddAmt">
 <br/>
 Enter Student Id: <input type="number" name ="Student Id" minlength ="0" required>
 
