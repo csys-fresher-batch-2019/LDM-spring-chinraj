@@ -27,7 +27,7 @@
 		if (errorMessage != null)
 			out.println(errorMessage);
 	%>
-<form action="AddAmt">
+<form action="IdServlet">
 <br/>
 Enter Student Id: <input type="number" name ="Student Id" minlength ="0" required>
 
