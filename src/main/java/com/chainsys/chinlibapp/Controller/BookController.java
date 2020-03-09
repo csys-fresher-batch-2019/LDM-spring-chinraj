@@ -9,9 +9,10 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.chainsys.chinlibapp.dao.imp.BookListImpl;
+import com.chainsys.chinlibapp.exception.DbException;
 import com.chainsys.chinlibapp.model.BookList;
 
-@RestController
+@RestController                  
 @RequestMapping("api")
 public class BookController {
 	BookListImpl a = new BookListImpl();
@@ -52,13 +53,13 @@ public class BookController {
 	}
 
 	@GetMapping("/viewBooks")
-	public List<BookList> viewBooks() {
+	public List<BookList> viewBooks() throws DbException {
 		return a.viewBooks();
 	}
 
 	
 	@PostMapping("/removeBooks")
-	public void removeBooks(@RequestParam long isbn) {
+	public void removeBooks(@RequestParam long isbn) throws DbException {
   	a.removeBooks(isbn);
   
 	}

@@ -3,11 +3,12 @@ package com.chainsys.ldm.fines;
 import java.util.Scanner;
 
 import com.chainsys.chinlibapp.dao.imp.FineInfoImpl;
+import com.chainsys.chinlibapp.exception.DbException;
 import com.chainsys.chinlibapp.model.FinesInfo;
 
 public class TestFineInfo {
 	
-	public static void main(String[] args) {
+	public static void main(String[] args) throws DbException {
 		
 	
 		Scanner s = new Scanner(System.in);

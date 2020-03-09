@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.chainsys.chinlibapp.exception.DbException;
 import com.chainsys.chinlibapp.model.FinesInfo;
 import com.chainsys.chinlibapp.service.FineInfoService;
 
@@ -36,12 +37,19 @@ public class PenalityServlet extends HttpServlet {
 		k.setISBN(IsBN);
 		k.setStudentId(id);
 	
-	int a=	j.PenalityForBookLost(id,IsBN);
+	int a;
+	try {
+		a = j.PenalityForBookLost(id,IsBN);
+		request.setAttribute("infoMessage", "<h1>Penality for Book loss is "+a+"</h1>");
+		RequestDispatcher rd = request.getRequestDispatcher("Penality.jsp");
+		rd.forward(request, response);
 	
-			request.setAttribute("infoMessage", "<h1>Penality for Book loss is "+a+"</h1>");
-			RequestDispatcher rd = request.getRequestDispatcher("Penality.jsp");
-			rd.forward(request, response);
-		
+	} catch (DbException e) {
+		// TODO Auto-generated catch block
+		e.printStackTrace();
+	}
+	
+			
 	
 	}
 

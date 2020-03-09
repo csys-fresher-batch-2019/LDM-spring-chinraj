@@ -8,6 +8,8 @@ import java.sql.Types;
 import org.springframework.stereotype.Repository;
 
 import com.chainsys.chinlibapp.dao.IdDetailsDAO;
+import com.chainsys.chinlibapp.exception.DbException;
+import com.chainsys.chinlibapp.exception.InfoMessages;
 import com.chainsys.chinlibapp.logger.Logger;
 import com.chainsys.chinlibapp.model.IdDetails;
 import com.chainsys.ldm.bookSummary.TestConnection;
@@ -16,7 +18,7 @@ public class IdDetailsImp implements IdDetailsDAO {
 	Logger logger = Logger.getInstance();
 	IdDetails bb = new IdDetails();
 
-	public int addMoneyInId(int a, int b) {
+	public int addMoneyInId(int a, int b) throws DbException {
 		int rows=0;
 		String sqlinsert = "insert into amount(student_id,amount_in_id) values(?,?)";
 		logger.info(sqlinsert);
@@ -28,11 +30,12 @@ public class IdDetailsImp implements IdDetailsDAO {
 			}
 		} catch (Exception e) {
 			logger.error(e);
+			throw new DbException(InfoMessages.INVALID_INSERT);
 		}
 		return rows;
 	}
 
-	public int updateMoneyInId(int a ,int b) {
+	public int updateMoneyInId(int a ,int b) throws DbException {
 		int rows=0;
 		String sqlinsert = "update amount set amount_in_id= amount_in_id + ? where student_id=?";
 				
@@ -48,11 +51,13 @@ public class IdDetailsImp implements IdDetailsDAO {
 		} catch (Exception e) {
 
 			logger.error(e);
+			throw new DbException(InfoMessages.INVALID_UPDATE);
+
 		}
 		return rows;
 	}
 	
-	public int updateAmtInId(int studentId, long iSBN) {
+	public int updateAmtInId(int studentId, long iSBN) throws DbException {
 		int rowq=0;
 		try (Connection con = TestConnection.getConnection();) {
 			String sql5 = "update amount set amount_in_id = amount_in_id-(select fines from fine_amount where student_id=? and ISBN=?)where student_id=?";
@@ -67,11 +72,14 @@ public class IdDetailsImp implements IdDetailsDAO {
 			}
 		} catch (Exception e) {
 			logger.error(e);
+			throw new DbException(InfoMessages.INVALID_UPDATE);
+
+			
 		}
 		return rowq;
 	}
 
-	public int updateAmtInWallet(int studentId, long ISBN) {
+	public int updateAmtInWallet(int studentId, long ISBN) throws DbException {
 		int row0=0;
 		try (Connection con = TestConnection.getConnection();) {
 			String sql7 = "update amount set library_wallet = library_wallet + (select fines from fine_amount where student_id=? and ISBN=?) where student_id=?";
@@ -98,11 +106,13 @@ public class IdDetailsImp implements IdDetailsDAO {
 			}
 		} catch (Exception e) {
 			logger.error(e);
+			throw new DbException(InfoMessages.INVALID_UPDATE);
+
 		}
 		return row0;
 	}
 
-	public int libraryWallet() {
+	public int libraryWallet() throws DbException {
 		int libraryWallet=0;
 		try (Connection con = TestConnection.getConnection();) {
 			try (CallableStatement Stmt = con.prepareCall("{call LIB_WALLET_PROC(?)}");) {
@@ -113,6 +123,8 @@ public class IdDetailsImp implements IdDetailsDAO {
 			}
 		} catch (Exception e) {
 			logger.error(e);
+			throw new DbException(InfoMessages.INVALID_PROCEDURE);
+	
 		}
 		return libraryWallet;
 	}

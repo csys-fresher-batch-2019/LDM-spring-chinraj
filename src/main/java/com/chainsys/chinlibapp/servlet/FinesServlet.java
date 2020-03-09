@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import com.chainsys.chinlibapp.exception.DbException;
 import com.chainsys.chinlibapp.model.FinesInfo;
 import com.chainsys.chinlibapp.service.FineInfoService;
 
@@ -38,10 +39,25 @@ public class FinesServlet extends HttpServlet {
 		  
 		  
 		  
-		  m.AddFineInfo(n);
-		m.AddFineInfo1(n);
+		  try {
+			m.AddFineInfo(n);
+		} catch (DbException e2) {
+			// TODO Auto-generated catch block
+			e2.printStackTrace();
+		}
+		try {
+			m.AddFineInfo1(n);
+		} catch (DbException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
 		
-	m.TotalFinesAmt(n);
+	try {
+		m.TotalFinesAmt(n);
+	} catch (DbException e1) {
+		// TODO Auto-generated catch block
+		e1.printStackTrace();
+	}
 	
 	try {
 		int a= m.FinePerStudent(id, IsBN);

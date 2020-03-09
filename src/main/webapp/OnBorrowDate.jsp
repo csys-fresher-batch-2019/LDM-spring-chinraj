@@ -2,6 +2,7 @@
 <%@page import="java.util.ArrayList"%>
 <%@page import="com.chainsys.chinlibapp.model.BookList"%>
 <%@page import="java.util.List"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@page import="com.chainsys.chinlibapp.dao.imp.BookListImpl"%>
 <%@page import="com.chainsys.chinlibapp.dao.BookListDAO"%>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
@@ -10,11 +11,12 @@
 <html>
 <head>
 <jsp:include page="index.jsp"></jsp:include>
-<h2>On Particular Date</h2>
+
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <body style="background-color: DarkKhaki">
 </head>
 <body>
+<h2>On Particular Date</h2>
 	<form action="OnParticularDate">
 		<%
 			ArrayList<BookSummary> list = (ArrayList<BookSummary>) request.getAttribute("searchlist");
@@ -27,32 +29,27 @@
 		<table border="1">
 			<thead>
 				<tr>
-					<th>S.no</th>
+				
 					<th>ISBN</th>
 					<th>Student Id</th>
 
 				</tr>
 			</thead>
 			<tbody>
-				<%
-					int i = 1;
-						for (BookSummary f : list) {
-				%>
-				<tr>
-					<td><%=i++%></td>
-					<td><%=f.getISBN()%></td>
-					<td><%=f.getStudentId()%></td>
-
-				</tr>
+			<c:set var="BookSummary" value="<%=list%>"></c:set>
+			<c:forEach items="${BookSummary}" var="b">
+			<tr>
+			<td>${b.ISBN}</td>
+			<td>${b.studentId}</td>
+			
+			</tr></c:forEach>
 
 				<%
 					}
 				%>
 			</tbody>
 		</table>
-		<%
-			}
-		%>
+		
 	</form>
 </body>
 </html>

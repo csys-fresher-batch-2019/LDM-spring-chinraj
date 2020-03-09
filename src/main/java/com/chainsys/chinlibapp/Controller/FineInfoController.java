@@ -6,6 +6,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.chainsys.chinlibapp.dao.imp.FineInfoImpl;
+import com.chainsys.chinlibapp.exception.DbException;
 import com.chainsys.chinlibapp.model.FinesInfo;
 
 @RestController
@@ -22,7 +23,7 @@ public class FineInfoController {
 			@RequestParam("ISBN") long isbn, 
 			@RequestParam("fines_per_day") Integer finePerDay
 
-			) {
+			) throws DbException {
 	
 	m.setStudentId(studentId);
 	m.setISBN(isbn);
@@ -38,14 +39,14 @@ public class FineInfoController {
 	@PostMapping("/finePerStudent")
 	public int FinePerStudent(
 			@RequestParam("student_id") Integer studentId,
-			@RequestParam("ISBN") long isbn) {
+			@RequestParam("ISBN") long isbn) throws DbException {
 				return b.FinePerStudent(studentId, isbn);
 	}
 
 	@PostMapping("/bookReturn")
 	public void BookReturn(
 			@RequestParam("student_id") Integer studentId,
-			@RequestParam("ISBN") long isbn) {
+			@RequestParam("ISBN") long isbn) throws DbException {
 				 b.bookreturned(studentId, isbn);
 	}
 
@@ -53,7 +54,7 @@ public class FineInfoController {
 	@PostMapping("/BookRenewal")
 	public void BookRenewal(
 			@RequestParam("student_id") Integer studentId,
-			@RequestParam("ISBN") long isbn) {
+			@RequestParam("ISBN") long isbn) throws DbException {
 				 b.renewal(studentId, isbn);
 
 	}
@@ -61,13 +62,13 @@ public class FineInfoController {
 	@PostMapping("/PenalityForBookLost")
 	public int PenalityForBookLost(
 			@RequestParam("student_id") Integer studentId,
-			@RequestParam("ISBN") long isbn) {
+			@RequestParam("ISBN") long isbn) throws DbException {
 				return b.PenalityForBookLost(studentId, isbn);
 	}
 	@PostMapping("/renewalCount")
 	public int renewalCount(
 			@RequestParam("student_id") Integer studentId,
-			@RequestParam("ISBN") long isbn) {
+			@RequestParam("ISBN") long isbn) throws DbException {
 				return b.renewalCount(studentId, isbn);
 }
 }

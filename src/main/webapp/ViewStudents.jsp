@@ -2,6 +2,8 @@
 <%@page import="com.chainsys.chinlibapp.model.StudentInfo"%>
 <%@page import="java.util.List"%>
 <%@page import="com.chainsys.chinlibapp.dao.imp.StudentInfoImpl"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
@@ -20,7 +22,7 @@
 	<table border="1">
 		<thead>
 			<tr>
-				<th>S.no</th>
+			
 				<th>Student Id</th>
 				<th>Student Name</th>
 				<th>Department Name</th>
@@ -28,21 +30,17 @@
 			</tr>
 		</thead>
 		<tbody>
-			<%
-				int i = 1;
-				for (StudentInfo f : list1) {
-			%>
+						<c:set var="BookList" value="<%=list1%>"></c:set>
+			<c:forEach items="${BookList}" var="b">
 			<tr>
-				<td><%=i++%></td>
-				<td><%=f.getStudentId()%></td>
-				<td><%=f.getStudentName()%></td>
-				<td><%=f.getDeptName()%></td>
-				<td><%=f.getMailId()%></td>
+		
+			<td>${b.studentId}</td>
+			<td>${b.studentName}</td>
+			<td>${b.deptName}</td>
+			<td>${b.mailId}</td>
+			
 			</tr>
-
-			<%
-				}
-			%>
+			</c:forEach>
 		</tbody>
 	</table>
 

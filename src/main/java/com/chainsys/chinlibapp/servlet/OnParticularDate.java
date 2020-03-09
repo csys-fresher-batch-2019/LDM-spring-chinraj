@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.chainsys.chinlibapp.exception.DbException;
 import com.chainsys.chinlibapp.service.BookSumService;
 
 
@@ -28,10 +29,18 @@ public class OnParticularDate extends HttpServlet {
 		
 		    
 		     
-			request.setAttribute("searchlist",n.onParticularDate(ld));
+			try {
+				request.setAttribute("searchlist",n.onParticularDate(ld));
+				RequestDispatcher rd = request.getRequestDispatcher("OnBorrowDate.jsp");
+				rd.forward(request, response);
+				
+			} catch (DbException e) {
+			
+				e.printStackTrace();
 
-			RequestDispatcher rd = request.getRequestDispatcher("OnBorrowDate.jsp");
-			rd.forward(request, response);
+			
+			}
+
 
 	}
 }

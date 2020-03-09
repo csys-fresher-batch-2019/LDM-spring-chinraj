@@ -35,7 +35,7 @@ public class ReturnAndRenewal extends HttpServlet {
 				int i = S.renewal(id, IsBN);
 			
 				if (i==1){
-					request.setAttribute("errorMessage", "<h2>Renewal Sucess !!</h2");
+					request.setAttribute("infoMessage", "<h2>Renewal Sucess !!</h2");
 					 HttpSession session = request.getSession();
 					 session.setAttribute("id", id);
 						session.setAttribute("ISBN", IsBN);

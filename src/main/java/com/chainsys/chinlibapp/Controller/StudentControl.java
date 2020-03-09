@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.chainsys.chinlibapp.dao.imp.StudentInfoImpl;
+import com.chainsys.chinlibapp.exception.DbException;
 import com.chainsys.chinlibapp.model.StudentInfo;
 
 @RestController
@@ -20,7 +21,7 @@ public class StudentControl {
 	public void addStudents(
 
 			@RequestParam("student_id") Integer studentId, @RequestParam("student_name") String studentName,
-			@RequestParam("dept_name") String deptName, @RequestParam("mail_id") String mailId) {
+			@RequestParam("dept_name") String deptName, @RequestParam("mail_id") String mailId) throws DbException {
 
 		StudentInfo n = new StudentInfo();
 
@@ -34,12 +35,12 @@ public class StudentControl {
 	}
 
 	@GetMapping("/viewStudents")
-	public List<StudentInfo> viewStudents() {
+	public List<StudentInfo> viewStudents() throws DbException {
 		return m.viewStudents();
 	}
 
 	@PostMapping("/removeStudent")
-	public void removeStudent(@RequestParam int id) {
+	public void removeStudent(@RequestParam int id) throws DbException {
 
 		m.removeStudent(id);
 	}

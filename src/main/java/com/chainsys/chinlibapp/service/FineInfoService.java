@@ -4,39 +4,52 @@ import org.springframework.stereotype.Service;
 
 import com.chainsys.chinlibapp.dao.FineInfoDAO;
 import com.chainsys.chinlibapp.dao.imp.FineInfoImpl;
+import com.chainsys.chinlibapp.exception.DbException;
 import com.chainsys.chinlibapp.model.FinesInfo;
 @Service
 public class FineInfoService {
 
-	FineInfoDAO f = new FineInfoImpl();
+	private FineInfoDAO fineInfoDAO = new FineInfoImpl();
 	
-	public void AddFineInfo(FinesInfo FI) {
-		f.AddFineInfo(FI);
+	public void AddFineInfo(FinesInfo FI) throws DbException {
+		fineInfoDAO.AddFineInfo(FI);
 	}
-	public void AddFineInfo1(FinesInfo FO) {
-		f.AddFineInfo1(FO);
+	public void AddFineInfo1(FinesInfo FO) throws DbException {
+		fineInfoDAO.AddFineInfo1(FO);
 	}
-	public int TotalFinesAmt(FinesInfo FT) {
-		return f.TotalFinesAmt(FT);
+	public int TotalFinesAmt(FinesInfo FT) throws DbException {
+	
+		int rows = fineInfoDAO.updateFineAmount(FT);
+		return rows;
+		
 		
 	}
 	public int FinePerStudent(int studentId, long ISBN) throws Exception{
-		return f.FinePerStudent(studentId, ISBN);
+		
+		return fineInfoDAO.FinePerStudent(studentId, ISBN);
 		
 	}
-	public int bookreturned(int studentId,long ISBN) {
-		return f.bookreturned(studentId, ISBN);
+	public int bookreturned(int studentId,long ISBN) throws DbException {
+		fineInfoDAO.updateBookSummary(studentId, ISBN);
+		
+		
+		return fineInfoDAO.bookreturned(studentId, ISBN);
+		
 		
 	}
-	public int renewal(int studentId, Long isbn) {
-		return f.renewal(studentId, isbn);
+	public int renewal(int studentId, Long isbn) throws DbException {
+		return fineInfoDAO.renewal(studentId, isbn);
 		
 	}
-public int PenalityForBookLost(int studentId, long ISBN) {
-	return f.PenalityForBookLost(studentId, ISBN);
+public int PenalityForBookLost(int studentId, long ISBN) throws DbException {
+
+	return fineInfoDAO.PenalityForBookLost(studentId, ISBN);
 	
 }
-public int renewalCount(int studentId, long isbn) {
-	return f.renewalCount(studentId, isbn);
+public int renewalCount(int studentId, long isbn) throws DbException {
+	return fineInfoDAO.renewalCount(studentId, isbn);
 }
 }
+
+
+

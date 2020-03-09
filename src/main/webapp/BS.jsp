@@ -1,3 +1,4 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
 <%@page import="java.time.LocalDate"%>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
@@ -20,15 +21,12 @@
 <h1>BORROW BOOK</h1>
 
 
-	<%
-		String infoMessage = (String) request.getAttribute("infoMessage");
-		String errorMessage = (String) request.getAttribute("errorMessage");
-
-		if (infoMessage != null)
-			out.println(infoMessage);
-		if (errorMessage != null)
-			out.println(errorMessage);
-	%>
+		<c:if test = "${not empty infoMessage}">
+			<b>${infoMessage}</b>
+		</c:if>
+			<c:if test = "${not empty errorMessage}">
+			<b>${errorMessage}</b>
+		</c:if>
 <form action="BsServlet">
 <br/>
 Enter Student Id : <input type="number" name ="StudentId" min ="1" required>
@@ -43,7 +41,7 @@ Enter Borrowed Date: <input type = "date" name ="BorrowedDate" min ="<%=date%>" 
 <br/>
 <%LocalDate date1 = LocalDate.now();
 %>
-Enter Due Date: <input type="date" name ="DueDate" min="<%=date1%>" required>
+Enter Due Date: <input type="date" name ="DueDate"  required>
 
 
 <br/>

@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.chainsys.chinlibapp.dao.imp.BookSummaryImpl;
+import com.chainsys.chinlibapp.exception.DbException;
 import com.chainsys.chinlibapp.model.BookSummary;
 
 @RestController
@@ -50,12 +51,13 @@ public class BookSumControl {
 	}
 
 	@GetMapping("/viewBookSummary")
-	public List<BookSummary> viewBookSummary() {
+	public List<BookSummary> viewBookSummary() throws DbException {
 		return a.viewBookSummary();
 	}
 
 	@GetMapping("/onParticularDate")
-	public List<BookSummary> onParticularDate(@RequestParam("borrowed_date") String date){
+	public List<BookSummary> onParticularDate(
+			@RequestParam("borrowed_date") String date) throws DbException{
 		
 		LocalDate ld = LocalDate.parse(date);
 		

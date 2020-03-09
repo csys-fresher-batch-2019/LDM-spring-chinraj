@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
+    <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+    
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -28,15 +30,13 @@ long isbn =(long)session.getAttribute("ISBN");
 <form action="FineDetect">
 
 
-	<%
-		String infoMessage = (String) request.getAttribute("infoMessage");
-		String errorMessage = (String) request.getAttribute("errorMessage");
-
-		if (infoMessage != null)
-			out.println(infoMessage);
-		if (errorMessage != null)
-			out.println(errorMessage);
-	%>
+	
+		<c:if test = "${not empty infoMessage}">
+			<b>${infoMessage}</b>
+		</c:if>
+			<c:if test = "${not empty errorMessage}">
+			<b>${errorMessage}</b>
+		</c:if>
 </br>	
 	
 	Enter Student Id : <input type="number" name ="Student Id"value ="<%=studentId %>" required>

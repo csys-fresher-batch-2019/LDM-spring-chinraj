@@ -3,6 +3,8 @@
 <%@page import="java.util.List"%>
 <%@page import="com.chainsys.chinlibapp.dao.imp.BookListImpl"%>
 <%@page import="com.chainsys.chinlibapp.dao.BookListDAO"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
 <!DOCTYPE html>
@@ -28,7 +30,7 @@
 		<table border="1">
 			<thead>
 				<tr>
-					<th>S.no</th>
+				
 					<th>ISBN</th>
 					<th>Book Name</th>
 					<th>Publication</th>
@@ -37,22 +39,22 @@
 				</tr>
 			</thead>
 			<tbody>
-				<%
-					int i = 1;
-					for (BookList f : list) {
-				%>
-				<tr>
-					<td><%=i++%></td>
-					<td><%=f.getISBN()%></td>
-					<td><%=f.getBookName()%></td>
-					<td><%=f.getPublication()%></td>
-					<td><%=f.getBookStatus()%></td>
-					<td><%=f.getCategory()%></td>
-				</tr>
+						<c:set var="BookList" value="<%=list%>"></c:set>
+			<c:forEach items="${BookList}" var="b">
+			<tr>
+			<td>${b.ISBN}</td>
+			<td>${b.bookName}</td>
+			<td>${b.publication}</td>
+			<td>${b.bookStatus}</td>
+			<td>${b.category}</td>
+			
+			</tr>
+			</c:forEach>
+
 
 				<%
 					}
-		}	
+			
 				%>
 			
 			</tbody>

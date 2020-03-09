@@ -4,6 +4,8 @@
 <%@page import="java.util.List"%>
 <%@page import="com.chainsys.chinlibapp.dao.imp.BookListImpl"%>
 <%@page import="com.chainsys.chinlibapp.dao.BookListDAO"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
 <!DOCTYPE html>
@@ -27,33 +29,28 @@
 	<table border="1">
 		<thead>
 			<tr>
-				<th>S.no</th>
 				<th>Student Id</th>
 				<th>ISBN</th>
 				<th>Borrowed Date</th>
 				<th>Renewal Count</th>
 				<th>Due date</th>
-				<th>Status
+				<th>Status</th>
 			</tr>
 		</thead>
 		<tbody>
-			<%
-				int i = 1;
-				for (BookSummary f : list1) {
-			%>
+						<c:set var="BookList" value="<%=list1%>"></c:set>
+			<c:forEach items="${BookList}" var="b">
 			<tr>
-				<td><%=i++%></td>
-				<td><%=f.getStudentId()%></td>
-				<td><%=f.getISBN()%></td>
-				<td><%=f.getBorrowedDate()%></td>
-				<td><%=f.getRenewalCount()%></td>
-				<td><%=f.getDueDate()%></td>
-				<td><%=f.getStatus()%></td>
+		
+			<td>${b.studentId}</td>
+			<td>${b.ISBN}</td>
+			<td>${b.borrowedDate}</td>
+			<td>${b.renewalCount}</td>
+			<td>${b.dueDate}</td>
+	    	<td>${b.status}</td>
+			
 			</tr>
-
-			<%
-				}
-			%>
+			</c:forEach>
 		</tbody>
 	</table>
 

@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.chainsys.chinlibapp.exception.DbException;
 import com.chainsys.chinlibapp.service.IdService;
 
 @WebServlet("/FineDetect")
@@ -28,23 +29,26 @@ public class FineDetect extends HttpServlet {
 		    long IsBN=Long.parseLong(ISBN);    
 		    IdService j = new IdService();   
 		
-	int s=j.updateAmtInId(id, IsBN);
-	int k=j.updateAmtInWallet(id, IsBN);
-		
-	
 
-	
+	int k;
 	try {
-	if(s==1 && k==1) {
-		request.setAttribute("infoMessage", "<h2>Amount Detected and added in Lib wallet !</h2>");
-		RequestDispatcher rd = request.getRequestDispatcher("ReturnRenewal.jsp");
-		rd.forward(request, response);
-	} else {
-		request.setAttribute("errorMessage", "<h2>Invalid data !!</h2");
-		
+		k = j.updateAmtInWallet(id, IsBN);
+		int s=j.updateAmtInId(id, IsBN);
+		if(s==1 && k==1) {
+			request.setAttribute("infoMessage", "<h2>Amount Detected and added in Lib wallet !</h2>");
+			RequestDispatcher rd = request.getRequestDispatcher("ReturnRenewal.jsp");
+			rd.forward(request, response);
+			
 	}
-} catch (Exception e) {
-	e.printStackTrace();
+		else{
+			request.setAttribute("errorMessage", "<h2> Invalid data !!</h2");	
+		}
+		}
+		catch (DbException e1) {
+		// TODO Auto-generated catch block
+		e1.printStackTrace();
+		
+	}	
 
-}
+
 }}

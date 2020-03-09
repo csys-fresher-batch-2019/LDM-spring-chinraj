@@ -14,15 +14,13 @@
 <jsp:include page="index.jsp"></jsp:include>
 <h1>REMOVE BOOKS</h1>
 
-<%
-		String infoMessage = (String) request.getAttribute("infoMessage");
-		String errorMessage = (String) request.getAttribute("errorMessage");
 
-		if (infoMessage != null)
-			out.println(infoMessage);
-		if (errorMessage != null)
-			out.println(errorMessage);
-	%>
+		<c:if test = "${not empty infoMessage}">
+			<b>${infoMessage}</b>
+		</c:if>
+			<c:if test = "${not empty errorMessage}">
+			<b>${errorMessage}</b>
+		</c:if>
 <form action ="RemoveBooks">
 
 Enter ISBN <input type="number" name ="ISBN" required>

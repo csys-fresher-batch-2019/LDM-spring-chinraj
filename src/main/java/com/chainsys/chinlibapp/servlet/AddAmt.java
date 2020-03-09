@@ -17,6 +17,7 @@ public class AddAmt extends HttpServlet {
 
 	public AddAmt() {
 		super();
+	
 	}
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
@@ -35,12 +36,12 @@ public class AddAmt extends HttpServlet {
 
 			if (a == 1) {
 
-				request.setAttribute("infoMessage", "<h2>Money Added !</h2>");
+				request.setAttribute("infoMessage", "<h2> Money Added !</h2>");
 				RequestDispatcher rd = request.getRequestDispatcher("AddAmount.jsp");
 				rd.forward(request, response);
 			} else {
 
-				request.setAttribute("errorMessage", "<h2>Failed Id Already Exists !!</h2");
+				request.setAttribute("errorMessage", "<h2> Invalid Id !!</h2");
 				RequestDispatcher rd = request.getRequestDispatcher("AddAmount.jsp");
 				rd.forward(request, response);
 			}

@@ -18,15 +18,13 @@
  
  <body style = "background-color:bisque">
  
- 	<%
-		String infoMessage = (String) request.getAttribute("infoMessage");
-		String errorMessage = (String) request.getAttribute("errorMessage");
-
-		if (infoMessage != null)
-			out.println(infoMessage);
-		if (errorMessage != null)
-			out.println(errorMessage);
-	%>
+		<c:if test = "${not empty infoMessage}">
+			<b>${infoMessage}</b>
+		</c:if>
+			<c:if test = "${not empty errorMessage}">
+			<b>${errorMessage}</b>
+		</c:if>
+		
 <form action="IdServlet">
 <br/>
 Enter Student Id: <input type="number" name ="Student Id" minlength ="0" required>

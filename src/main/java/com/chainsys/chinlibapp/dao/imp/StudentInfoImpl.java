@@ -9,6 +9,8 @@ import java.util.List;
 import org.springframework.stereotype.Repository;
 
 import com.chainsys.chinlibapp.dao.StudentInfoDAO;
+import com.chainsys.chinlibapp.exception.DbException;
+import com.chainsys.chinlibapp.exception.InfoMessages;
 import com.chainsys.chinlibapp.logger.Logger;
 import com.chainsys.chinlibapp.model.StudentInfo;
 import com.chainsys.ldm.bookSummary.TestConnection;
@@ -16,7 +18,7 @@ import com.chainsys.ldm.bookSummary.TestConnection;
 public class StudentInfoImpl implements StudentInfoDAO {
 	Logger logger = Logger.getInstance();
 	
-	public int addStudents(StudentInfo SS) {
+	public int addStudents(StudentInfo SS) throws DbException {
 		int rows=0;
 		String sqlinsert = "insert into student(student_id,student_name,dept_name,mail_id) values(?,?,?,?)";
 		logger.info(sqlinsert);
@@ -38,11 +40,13 @@ public class StudentInfoImpl implements StudentInfoDAO {
 				}}}
 				 catch (Exception e) {
 						logger.error(e);	
+						throw new DbException(InfoMessages.INVALID_INSERT);
+
 				 }
 		return rows;		 }
 
 
-	public int removeStudent(int id) {
+	public int removeStudent(int id) throws DbException {
 		int row1=0;
 	 String sql = "Delete student where student_id= ?";
 		
@@ -58,13 +62,15 @@ public class StudentInfoImpl implements StudentInfoDAO {
 					logger.info("StudentId not exist exists");
 				}}}
 				 catch (Exception e) {
-						logger.error(e);	
+						logger.error(e);
+						throw new DbException(InfoMessages.INVALID_DELETE);
+	 
 				 }
 		return row1;
 	}							
 	
 	
-	public List<StudentInfo> viewStudents()  {
+	public List<StudentInfo> viewStudents() throws DbException  {
 		List<StudentInfo> list= new ArrayList<StudentInfo>();
 	 String sql = "Select * from student";
 	 
@@ -87,6 +93,8 @@ public class StudentInfoImpl implements StudentInfoDAO {
 		}
 } catch (Exception e) {
 logger.error(e);
+throw new DbException(InfoMessages.INVALID_SELECT);
+
 }
 return list;
 }}

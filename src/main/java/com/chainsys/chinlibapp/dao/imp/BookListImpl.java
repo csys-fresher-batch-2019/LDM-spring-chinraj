@@ -4,13 +4,14 @@ import java.sql.Connection;
 import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.stereotype.Repository;
 
 import com.chainsys.chinlibapp.dao.BookListDAO;
+import com.chainsys.chinlibapp.exception.DbException;
+import com.chainsys.chinlibapp.exception.InfoMessages;
 import com.chainsys.chinlibapp.logger.Logger;
 import com.chainsys.chinlibapp.model.BookList;
 import com.chainsys.ldm.bookList.TestConnection;
@@ -19,7 +20,7 @@ import com.chainsys.ldm.bookList.TestConnection;
 public class BookListImpl implements BookListDAO {
 	Logger logger = Logger.getInstance();
 
-	public int addBooks(BookList books) {
+	public int addBooks(BookList books) throws DbException {
 		int rows=0;
 		String sqlinsert = "insert into booklist(ISBN,book_name,pages,author_name,publication,category,released_date,price,rack_no) values (?,?,?,?,?,?,?,?,?)";
 		try (Connection con = TestConnection.getConnection();) {
@@ -39,11 +40,12 @@ public class BookListImpl implements BookListDAO {
 			}
 		} catch (Exception e) {
 			logger.error(e);
+			throw new DbException(InfoMessages.INVALID_INSERT);
 		}
 		return rows;
 	}
 
-	public List<BookList> viewBooks()  {
+	public List<BookList> viewBooks() throws DbException  {
 		List<BookList> list=null;
 		
 		String sqlinsert = "Select * from Booklist ";
@@ -70,11 +72,12 @@ public class BookListImpl implements BookListDAO {
 			
 		} catch (Exception e) {
 			logger.error(e);
+			throw new DbException(InfoMessages.INVALID_SELECT);
 		}
 		return list;
 	}
 
-	public int removeBooks(long isbn) {
+	public int removeBooks(long isbn) throws DbException {
 		String sqlinsert = "delete booklist where ISBN=?";
 		int row=0;
 		try (Connection con = TestConnection.getConnection();) {
@@ -84,19 +87,20 @@ public class BookListImpl implements BookListDAO {
 				logger.info(sqlinsert);
 				logger.info(row);
 				if (row != 1) {
-					logger.info("\nNo book is available on" + isbn);
+					logger.info("\n No book is available on" + isbn);
 				}
 			}
 		} catch (Exception e) {
 
 			logger.error(e);
+			throw new DbException(InfoMessages.INVALID_DELETE);
 		}
 		return row;
 	}
 
 	
 	
-	public  ArrayList<BookList> category(String name)  {
+	public  ArrayList<BookList> category(String name) throws DbException  {
 	
 		ArrayList<BookList> n = new ArrayList<>();	
 
@@ -124,8 +128,9 @@ public class BookListImpl implements BookListDAO {
 					}
 
 			}
-		} catch (  Exception e) {
+		} catch (Exception e) {
 			logger.error(e);
+			throw new DbException(InfoMessages.INVALID_SELECT);
 		}
 		return n;
 		

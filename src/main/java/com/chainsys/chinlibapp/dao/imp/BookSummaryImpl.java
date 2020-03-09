@@ -11,6 +11,8 @@ import java.util.List;
 import org.springframework.stereotype.Repository;
 
 import com.chainsys.chinlibapp.dao.BookSummaryDAO;
+import com.chainsys.chinlibapp.exception.DbException;
+import com.chainsys.chinlibapp.exception.InfoMessages;
 import com.chainsys.chinlibapp.logger.Logger;
 import com.chainsys.chinlibapp.model.BookSummary;
 import com.chainsys.chinlibapp.util.SendMail;
@@ -20,7 +22,7 @@ import com.chainsys.ldm.bookSummary.TestConnection;
 public class BookSummaryImpl implements BookSummaryDAO {
 	Logger logger = Logger.getInstance();
 
-	public boolean checkBookStatus(long fg) {
+	public boolean checkBookStatus(long fg) throws DbException {
 		String sql1 = "select book_name from booklist where ISBN = ? and book_status = 'Available'";
 		try (Connection con = TestConnection.getConnection();) {
 			try (PreparedStatement stmt = con.prepareStatement(sql1);) {
@@ -28,25 +30,24 @@ public class BookSummaryImpl implements BookSummaryDAO {
 				try (ResultSet row = stmt.executeQuery();) {
 					if (row.next()) {
 						return true;
-					} else {
-						return false;
-					}
-				}
-			}
+					
+			}}}
 		} catch (Exception e) {
 			logger.error(e);
-
+			throw new DbException(InfoMessages.INVALID_SELECT);
+			
 		}
 		return false;
 
-	}
+		}
 
-	public int addBookInfo(BookSummary BS) {
+	public int addBookInfo(BookSummary BS) throws DbException {
 		int row = 0;
-		try (Connection con = TestConnection.getConnection();) {
-			String sql = "insert into book_summary(student_id,ISBN,borrowed_date,due_date)" + " values(?,?,?,?)";
-			logger.info(sql);
-			try (PreparedStatement stmt = con.prepareStatement(sql);) {
+		String sql = "insert into book_summary(student_id,ISBN,borrowed_date,due_date)" + " values(?,?,?,?)";
+		logger.info(sql);
+		try (Connection con = TestConnection.getConnection();
+				PreparedStatement stmt = con.prepareStatement(sql);) {
+				
 				stmt.setInt(1, BS.getStudentId());
 				stmt.setLong(2, BS.getISBN());
 				Date bw = Date.valueOf(BS.getBorrowedDate());
@@ -56,6 +57,9 @@ public class BookSummaryImpl implements BookSummaryDAO {
 
 				row = stmt.executeUpdate();
 				logger.info("Insert=" + row);
+				
+				
+			
 				if (row == 1) {
 					String sql1 = "update booklist set book_status = 'Notavailable' where ISBN = ?";
 					try (PreparedStatement stmt1 = con.prepareStatement(sql1);) {
@@ -79,16 +83,16 @@ public class BookSummaryImpl implements BookSummaryDAO {
 					}
 				}
 			}
-		} catch (Exception e) {
+		catch (Exception e) {
 
 			logger.error(e);
-
+			throw new DbException(InfoMessages.INVALID_INSERT);
 		}
 		return row;
 
 	}
 
-	public List<BookSummary> onParticularDate(LocalDate borrowedDate) {
+	public List<BookSummary> onParticularDate(LocalDate borrowedDate) throws DbException {
 		List<BookSummary> li = new ArrayList<BookSummary>();
 
 		String sql6 = "select * from book_summary where borrowed_date = ?";
@@ -122,11 +126,12 @@ public class BookSummaryImpl implements BookSummaryDAO {
 		} catch (Exception e) {
 
 			logger.error(e);
+			throw new DbException(InfoMessages.INVALID_SELECT);
 		}
 		return li;
 	}
 
-	public List<BookSummary> viewBookSummary() {
+	public List<BookSummary> viewBookSummary() throws DbException {
 		List<BookSummary> list = new ArrayList<BookSummary>();
 		String sql = "Select * from book_summary";
 
@@ -153,6 +158,7 @@ public class BookSummaryImpl implements BookSummaryDAO {
 			}
 		} catch (Exception e) {
 			logger.error(e);
+			throw new DbException(InfoMessages.INVALID_SELECT);
 		}
 		return list;
 	}

@@ -1,14 +1,31 @@
 package com.chainsys.chinlibapp.dao;
 
+import com.chainsys.chinlibapp.exception.DbException;
 import com.chainsys.chinlibapp.model.FinesInfo;
 
 public interface FineInfoDAO {
-	public void AddFineInfo(FinesInfo FI);
-	public void AddFineInfo1(FinesInfo FO);
-	public int TotalFinesAmt(FinesInfo FT);
-	public int FinePerStudent(int studentId, long ISBN) throws Exception;
-	public int bookreturned(int studentId,long ISBN);
-	public int renewal(int studentId, Long isbn);
-public int PenalityForBookLost(int studentId, long ISBN);
-public int renewalCount(int studentId, long isbn) ;
+	void AddFineInfo(FinesInfo FI) throws DbException;
+
+	void AddFineInfo1(FinesInfo FO) throws DbException;
+
+	int TotalFinesAmt(FinesInfo FT) throws DbException;
+
+	int FinePerStudent(int studentId, long ISBN) throws Exception;
+
+	int bookreturned(int studentId, long ISBN) throws DbException;
+
+	int renewal(int studentId, Long isbn) throws DbException;
+
+	int PenalityForBookLost(int studentId, long ISBN) throws DbException;
+
+	int renewalCount(int studentId, long isbn) throws DbException;
+
+	int updateFineAmount(FinesInfo FT) throws DbException;
+
+	public int deleteFineAmount() throws DbException ;
+	public int updateBookStatus(long iSBN) throws DbException ;
+	public int updateBookSummary(int studentId, long iSBN) throws DbException ;
+	public int getBookPrice( long ISBN) throws DbException ;
+	public int updateRenewalCount(int studentId, Long isbn) throws Exception ;
+
 }
