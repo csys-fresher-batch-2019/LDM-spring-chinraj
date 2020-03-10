@@ -39,7 +39,7 @@ public class ReturnAndRenewal extends HttpServlet {
 					 HttpSession session = request.getSession();
 					 session.setAttribute("id", id);
 						session.setAttribute("ISBN", IsBN);
-						RequestDispatcher rd = request.getRequestDispatcher("ReturnAndRenewal.jsp");
+						RequestDispatcher rd = request.getRequestDispatcher("ReturnRenewal.jsp");
 						rd.forward(request, response);
 					 
 				}

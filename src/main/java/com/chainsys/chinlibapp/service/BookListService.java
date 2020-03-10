@@ -6,14 +6,14 @@ import java.util.List;
 import org.springframework.stereotype.Service;
 
 import com.chainsys.chinlibapp.dao.BookListDAO;
-import com.chainsys.chinlibapp.dao.imp.BookListImpl;
+import com.chainsys.chinlibapp.dao.imp.BookListDAOImpl;
 import com.chainsys.chinlibapp.exception.DbException;
 import com.chainsys.chinlibapp.model.BookList;
 
 @Service
 public class BookListService {
 	
-	BookListDAO bookListDAO = new BookListImpl();
+	BookListDAO bookListDAO = new BookListDAOImpl();
 
 	public int addBooks(BookList books) throws DbException {
 		return bookListDAO.addBooks(books);

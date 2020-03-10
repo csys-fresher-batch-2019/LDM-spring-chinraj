@@ -3,13 +3,13 @@ package com.chainsys.chinlibapp.service;
 import org.springframework.stereotype.Service;
 
 import com.chainsys.chinlibapp.dao.FineInfoDAO;
-import com.chainsys.chinlibapp.dao.imp.FineInfoImpl;
+import com.chainsys.chinlibapp.dao.imp.FineInfoDAOImpl;
 import com.chainsys.chinlibapp.exception.DbException;
 import com.chainsys.chinlibapp.model.FinesInfo;
 @Service
 public class FineInfoService {
 
-	private FineInfoDAO fineInfoDAO = new FineInfoImpl();
+	private FineInfoDAO fineInfoDAO = new FineInfoDAOImpl();
 	
 	public void AddFineInfo(FinesInfo FI) throws DbException {
 		fineInfoDAO.AddFineInfo(FI);

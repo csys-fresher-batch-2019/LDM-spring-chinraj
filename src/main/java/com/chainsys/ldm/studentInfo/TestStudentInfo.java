@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
-import com.chainsys.chinlibapp.dao.imp.StudentInfoImpl;
+import com.chainsys.chinlibapp.dao.imp.StudentInfoDAOImpl;
 import com.chainsys.chinlibapp.logger.Logger;
 import com.chainsys.chinlibapp.model.StudentInfo;
 
@@ -16,7 +16,7 @@ public class TestStudentInfo {
 		
 		Scanner s = new Scanner(System.in);
 		StudentInfo SI = new StudentInfo();
-		StudentInfoImpl d = new StudentInfoImpl();
+		StudentInfoDAOImpl d = new StudentInfoDAOImpl();
 		Logger logger = Logger.getInstance();
 		
 		System.out.println("\n 1.Add students/n 2.delete Student");
@@ -43,7 +43,7 @@ public class TestStudentInfo {
 		
 		case 3:{
 			
-			StudentInfoImpl obj = new StudentInfoImpl();
+			StudentInfoDAOImpl obj = new StudentInfoDAOImpl();
 				System.out.println(" StudentList  :");
 				List<StudentInfo> li = new ArrayList<StudentInfo>();
 			   li = obj.viewStudents();

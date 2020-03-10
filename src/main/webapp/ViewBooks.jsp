@@ -1,7 +1,7 @@
 <%@page import="com.chainsys.chinlibapp.model.BookList"%>
 <%@page import="java.util.List"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<%@page import="com.chainsys.chinlibapp.dao.imp.BookListImpl"%>
+<%@page import="com.chainsys.chinlibapp.dao.imp.BookListDAOImpl"%>
 <%@page import="com.chainsys.chinlibapp.dao.BookListDAO"%>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
@@ -19,9 +19,9 @@
 	<br />
 	<h2>VIEW BOOKS</h2>
 	<%
-		BookListDAO d = new BookListImpl();
+		BookListDAO d = new BookListDAOImpl();
 
-		List<BookList> list1 = d.viewBooks();
+			List<BookList> list1 = d.viewBooks();
 	%>
 	<table border="1">
 		<thead>

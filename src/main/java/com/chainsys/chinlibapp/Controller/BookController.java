@@ -8,14 +8,14 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.chainsys.chinlibapp.dao.imp.BookListImpl;
+import com.chainsys.chinlibapp.dao.imp.BookListDAOImpl;
 import com.chainsys.chinlibapp.exception.DbException;
 import com.chainsys.chinlibapp.model.BookList;
 
 @RestController                  
 @RequestMapping("api")
 public class BookController {
-	BookListImpl a = new BookListImpl();
+	BookListDAOImpl a = new BookListDAOImpl();
 
 	@PostMapping("/addbooks")
 	public void addBooks(

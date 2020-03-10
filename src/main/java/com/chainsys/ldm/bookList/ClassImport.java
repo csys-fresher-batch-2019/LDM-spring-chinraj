@@ -6,7 +6,7 @@ import java.nio.file.Paths;
 import java.time.LocalDate;
 import java.util.List;
 
-import com.chainsys.chinlibapp.dao.imp.BookListImpl;
+import com.chainsys.chinlibapp.dao.imp.BookListDAOImpl;
 import com.chainsys.chinlibapp.model.BookList;
 
 public class ClassImport {
@@ -41,7 +41,7 @@ public class ClassImport {
 				books.setPrice(price);
 			    books.setBookStatus(bookStatus);
 			    books.setRackNo(rackNo);	
-			    BookListImpl method = new BookListImpl();
+			    BookListDAOImpl method = new BookListDAOImpl();
 				method.addBooks(books);
 				
 			}

@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.chainsys.chinlibapp.dao.imp.BookSummaryImpl;
+import com.chainsys.chinlibapp.dao.imp.BookSummaryDAOImpl;
 import com.chainsys.chinlibapp.exception.DbException;
 import com.chainsys.chinlibapp.model.BookSummary;
 
@@ -17,7 +17,7 @@ import com.chainsys.chinlibapp.model.BookSummary;
 @RequestMapping("api")
 public class BookSumControl {
 
-	BookSummaryImpl a = new BookSummaryImpl();
+	BookSummaryDAOImpl a = new BookSummaryDAOImpl();
 
 	@PostMapping("/BookSummary")
 	public void borrowBook(

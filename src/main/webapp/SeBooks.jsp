@@ -1,7 +1,7 @@
 <%@page import="java.util.ArrayList"%>
 <%@page import="com.chainsys.chinlibapp.model.BookList"%>
 <%@page import="java.util.List"%>
-<%@page import="com.chainsys.chinlibapp.dao.imp.BookListImpl"%>
+<%@page import="com.chainsys.chinlibapp.dao.imp.BookListDAOImpl"%>
 <%@page import="com.chainsys.chinlibapp.dao.BookListDAO"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 

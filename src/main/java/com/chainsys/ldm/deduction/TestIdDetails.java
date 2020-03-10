@@ -2,17 +2,17 @@ package com.chainsys.ldm.deduction;
 
 import java.util.Scanner;
 
-import com.chainsys.chinlibapp.dao.imp.IdDetailsImpl;
+import com.chainsys.chinlibapp.dao.imp.IdDetailsDAOImpl;
 import com.chainsys.chinlibapp.logger.Logger;
 
 public class TestIdDetails {
          
 	public static void main(String[] args) throws Exception {
 		Logger logger = Logger.getInstance();
-		IdDetailsImpl ii = new IdDetailsImpl();
+		IdDetailsDAOImpl ii = new IdDetailsDAOImpl();
 		Scanner s = new Scanner(System.in);
 	
-       logger.info("\n 1.AddAmount\n 2.UpadateAmountInIdAfterFine\n 3.UpdateLibWalet \n4.Library Wallet\n 5. updateMoneyInId");
+       logger.info("\n 1.AddAmount\n 2.UpadateAmountInIdAfterFine\n  \n3.Library Wallet\n 4. updateMoneyInId");
    	int n = s.nextInt();
 		switch (n) {
 		case 1: {
@@ -31,18 +31,12 @@ public class TestIdDetails {
 			int studentId = s.nextInt();
 			logger.info("Enter ISBN :");
 			long ISBN = s.nextLong();
-			ii.updateAmtInId(studentId, ISBN);
+			ii.updateAfterFinePay(studentId, ISBN);
 		}
 			break;
 
-		case 3:
-			logger.info("Enter studentId :");
-			int studentId = s.nextInt();
-			logger.info("Enter ISBN :");
-			long ISBN = s.nextLong();
-			ii.updateAmtInWallet(studentId, ISBN);
+	
 
-			break;
 		case 4: {
 			ii.libraryWallet();
 	}

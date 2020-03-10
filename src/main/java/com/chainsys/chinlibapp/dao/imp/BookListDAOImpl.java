@@ -1,4 +1,5 @@
 package com.chainsys.chinlibapp.dao.imp;
+
 import java.sql.Connection;
 import java.sql.Date;
 import java.sql.PreparedStatement;
@@ -15,7 +16,7 @@ import com.chainsys.chinlibapp.model.BookList;
 import com.chainsys.chinlibapp.util.TestConnection;
 
 @Repository
-public class BookListImpl implements BookListDAO {
+public class BookListDAOImpl implements BookListDAO {
 	Logger logger = Logger.getInstance();
 
 	public int addBooks(BookList books) throws DbException {
@@ -70,28 +71,27 @@ public class BookListImpl implements BookListDAO {
 
 		} catch (SQLException e) {
 
-			logger.error(InfoMessages.INVALID_INSERT);
+			logger.error(InfoMessages.INVALID_SELECT);
 		}
 		return list;
 	}
 
 	public int removeBooks(long isbn) throws DbException {
-		String sqlinsert = "delete booklist where ISBN=?";
 		int row = 0;
-		try (Connection con = TestConnection.getConnection();) {
-			try (PreparedStatement stmt = con.prepareStatement(sqlinsert);) {
-				stmt.setLong(1, isbn);
-				row = stmt.executeUpdate();
-				logger.info(sqlinsert);
-				logger.info(row);
-				if (row != 1) {
-					logger.info("\n No book is available on" + isbn);
-				}
+		String sqlinsert = "delete booklist where ISBN=?";
+		try (Connection con = TestConnection.getConnection();
+				PreparedStatement stmt = con.prepareStatement(sqlinsert);) {
+			stmt.setLong(1, isbn);
+			row = stmt.executeUpdate();
+			logger.info(sqlinsert);
+			logger.info(row);
+			if (row != 1) {
+				logger.info("\n No book is available on" + isbn);
 			}
 		} catch (SQLException e) {
 
 			logger.error(e);
-			logger.error(InfoMessages.INVALID_INSERT);
+			logger.error(InfoMessages.INVALID_DELETE);
 		}
 		return row;
 	}
@@ -104,7 +104,6 @@ public class BookListImpl implements BookListDAO {
 		try (Connection con = TestConnection.getConnection();) {
 			try (PreparedStatement stmt = con.prepareStatement(sqlinsert);) {
 				stmt.setString(1, "%" + name + "%");
-
 				try (ResultSet rs = stmt.executeQuery();) {
 					while (rs.next()) {
 						BookList b = new BookList();
@@ -126,7 +125,7 @@ public class BookListImpl implements BookListDAO {
 			}
 		} catch (SQLException e) {
 			logger.error(e);
-			logger.error(InfoMessages.INVALID_INSERT);
+			logger.error(InfoMessages.INVALID_SELECT);
 		}
 		return n;
 

@@ -2,7 +2,7 @@ package com.chainsys.ldm.fines;
 
 import java.util.Scanner;
 
-import com.chainsys.chinlibapp.dao.imp.FineInfoImpl;
+import com.chainsys.chinlibapp.dao.imp.FineInfoDAOImpl;
 import com.chainsys.chinlibapp.exception.DbException;
 import com.chainsys.chinlibapp.model.FinesInfo;
 
@@ -13,7 +13,7 @@ public class TestFineInfo {
 	
 		Scanner s = new Scanner(System.in);
 		System.out.println("\n 1.AddFineInf\n 2.booksReturned\n 3.Fine per Student\n 4.LostPenality\n 5.Book Renewal");
-		FineInfoImpl d = new FineInfoImpl();
+		FineInfoDAOImpl d = new FineInfoDAOImpl();
 		FinesInfo f = new FinesInfo();
 		int n = s.nextInt();
 		switch (n) {

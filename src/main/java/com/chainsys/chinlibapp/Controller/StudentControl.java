@@ -8,14 +8,14 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.chainsys.chinlibapp.dao.imp.StudentInfoImpl;
+import com.chainsys.chinlibapp.dao.imp.StudentInfoDAOImpl;
 import com.chainsys.chinlibapp.exception.DbException;
 import com.chainsys.chinlibapp.model.StudentInfo;
 
 @RestController
 @RequestMapping("api")
 public class StudentControl {
-	StudentInfoImpl m = new StudentInfoImpl();
+	StudentInfoDAOImpl m = new StudentInfoDAOImpl();
 
 	@PostMapping("/addStudents")
 	public void addStudents(

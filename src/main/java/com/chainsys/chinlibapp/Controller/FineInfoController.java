@@ -5,7 +5,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.chainsys.chinlibapp.dao.imp.FineInfoImpl;
+import com.chainsys.chinlibapp.dao.imp.FineInfoDAOImpl;
 import com.chainsys.chinlibapp.exception.DbException;
 import com.chainsys.chinlibapp.model.FinesInfo;
 
@@ -14,7 +14,7 @@ import com.chainsys.chinlibapp.model.FinesInfo;
 public class FineInfoController {
 	
     FinesInfo m = new FinesInfo();
-	FineInfoImpl b = new FineInfoImpl();
+	FineInfoDAOImpl b = new FineInfoDAOImpl();
 	
 	
 	@PostMapping("/addFine")

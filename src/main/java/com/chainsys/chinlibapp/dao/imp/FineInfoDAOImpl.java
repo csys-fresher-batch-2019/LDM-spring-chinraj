@@ -15,9 +15,10 @@ import com.chainsys.chinlibapp.model.FinesInfo;
 import com.chainsys.chinlibapp.util.TestConnection;
 
 @Repository
-public class FineInfoImpl implements FineInfoDAO {
+public class FineInfoDAOImpl implements FineInfoDAO {
 	Logger logger = Logger.getInstance();
 
+	
 	public void AddFineInfo(FinesInfo FI) throws DbException {
 
 		String sqlinsert = "insert into fine_amount(student_id,ISBN,fines_per_day) values(?,?,?)";
@@ -29,6 +30,16 @@ public class FineInfoImpl implements FineInfoDAO {
 			stmt.setInt(3, FI.getFinePerDay());
 			int rows = stmt.executeUpdate();
 			logger.info("" + rows);
+			
+			if (rows==1) {
+				AddFineInfo1(FI);
+				updateFineAmount(FI);
+				TotalFinesAmt(FI);
+			}
+			
+			
+			
+			
 		} catch (SQLException e) {
 			logger.error(e);
 			logger.error(InfoMessages.INVALID_INSERT);
@@ -92,6 +103,7 @@ public class FineInfoImpl implements FineInfoDAO {
 
 	public int FinePerStudent(int studentId, long ISBN) throws DbException {
 		int fines = 0;
+		
 		String sql6 = "select fines from fine_amount where student_id = ? and ISBN = ?";
 		try (Connection con = TestConnection.getConnection(); PreparedStatement pst = con.prepareStatement(sql6);) {
 			pst.setInt(1, studentId);
@@ -181,7 +193,6 @@ public class FineInfoImpl implements FineInfoDAO {
 						if (status.contentEquals("paid")) {
 
 							updateBookSummary(studentId, iSBN);
-
 							row4 = updateBookStatus(iSBN);
 							if (row4 == 1) {
 								deleteFineAmount();
@@ -277,8 +288,9 @@ public class FineInfoImpl implements FineInfoDAO {
 						String status = row3.getString("fine_status");
 						logger.info(status);
 						if (status.contentEquals("paid")) {
-							updateRenewalCount(studentId, isbn);
+							row =updateRenewalCount(studentId, isbn);
 
+							
 						} else {
 							logger.info("Pay Fine amount");
 						}

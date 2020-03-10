@@ -3,7 +3,7 @@ package com.chainsys.ldm.bookList;
 import java.time.LocalDate;
 import java.util.Scanner;
 
-import com.chainsys.chinlibapp.dao.imp.BookListImpl;
+import com.chainsys.chinlibapp.dao.imp.BookListDAOImpl;
 import com.chainsys.chinlibapp.model.BookList;
 
 public class TestBooListAddBooks {
@@ -12,7 +12,7 @@ public class TestBooListAddBooks {
 		
 		Scanner s = new Scanner(System.in);
 		BookList List1 = new BookList();
-		BookListImpl Book1 = new BookListImpl();
+		BookListDAOImpl Book1 = new BookListDAOImpl();
 		System.out.println("Enter ISBN :");
 		List1.setISBN(s.nextLong());
 		System.out.println("Enter BookName :");

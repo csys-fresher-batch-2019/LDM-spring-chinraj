@@ -1,7 +1,6 @@
 package com.chainsys.chinlibapp.servlet;
 
 import java.io.IOException;
-import java.io.PrintWriter;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -34,16 +33,16 @@ public class ReturnRenewal extends HttpServlet {
 
 				int i = S.renewal(id, IsBN);
 				int a =S.renewalCount(id, IsBN);
-				int b = S.FinePerStudent(id, IsBN);
-				if (b==0 && a<=2 && i==1){
-					PrintWriter out = response.getWriter();
-					out.println("\n");
-					out.println("\n <h1>RENEWAL SUCCESS</h1>");
+				//int b = S.FinePerStudent(id, IsBN);
+				if (a<=2 && i==1){
+					request.setAttribute("infoMessage", "<h2>Renewal Sucess!!</h2");
+					RequestDispatcher rd = request.getRequestDispatcher("ReturnRenewal.jsp");
+					rd.forward(request, response);
 				}
 				else if(a>=2) {
-					PrintWriter out = response.getWriter();
-					out.println("\n");
-					out.println("\n <h1>RENEWAL COUNT MORE THAN 2</h1>");
+					request.setAttribute("errorMessage", "<h2>Renewal Count More than 2 !!</h2");
+					RequestDispatcher rd = request.getRequestDispatcher("ReturnRenewal.jsp");
+					rd.forward(request, response);
 				}
 				 else {
 					 
@@ -65,9 +64,9 @@ public class ReturnRenewal extends HttpServlet {
 				int i = S.bookreturned(id, IsBN);
 				int a1 = S.FinePerStudent(id, IsBN);
 				if (i == 1 && a1 == 0) {
-					PrintWriter out = response.getWriter();
-					out.println("\n");
-					out.println("\n <h1>RETURN SUCESS</h1>");
+					request.setAttribute("infoMessage", "<h2>Return Sucess Sucess!!</h2");
+					RequestDispatcher rd = request.getRequestDispatcher("ReturnRenewal.jsp");
+					rd.forward(request, response);
 				} else {
 					HttpSession session = request.getSession();
 					session.setAttribute("id", id);

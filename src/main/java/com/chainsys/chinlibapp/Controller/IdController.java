@@ -5,7 +5,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.chainsys.chinlibapp.dao.imp.IdDetailsImpl;
+import com.chainsys.chinlibapp.dao.imp.IdDetailsDAOImpl;
 import com.chainsys.chinlibapp.exception.DbException;
 import com.chainsys.chinlibapp.model.IdDetails;
 
@@ -16,12 +16,12 @@ import com.chainsys.chinlibapp.model.IdDetails;
 	@RequestMapping("api")
 	public class IdController {	
 		IdDetails n = new IdDetails();
-		IdDetailsImpl b = new IdDetailsImpl();
+		IdDetailsDAOImpl b = new IdDetailsDAOImpl();
 		@PostMapping("/addAmount")
 		public void addAmount(
 
 				@RequestParam("student_id") Integer studentId, 
-				@RequestParam("amount_in_id") Integer amount) throws DbException {
+				@RequestParam("amount_in_id") Integer amount) {
 			//@RequestParam("library_wallet") Integer wallet){
 			
 			
@@ -29,7 +29,13 @@ import com.chainsys.chinlibapp.model.IdDetails;
 			n.setStudentId(studentId);
 			n.setDepositAmtInId(amount);
 	
-			b.addMoneyInId(studentId,amount);
+			try {
+				b.addMoneyInId(studentId,amount);
+				
+			} catch (DbException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 		}
 		
 @PostMapping("/updateMoney")
@@ -41,26 +47,18 @@ public void updateMoneyInId (
 	n.setDepositAmtInId(amount);
 	
 	
-   b.updateAmtInId(studentId,amount);
+   b.updateMoneyInId(studentId, amount);
 
 }
 
-	@PostMapping("/updateAmtAftFine")
+	@PostMapping("/updateAfterFine")
 	public void updateAmtInId( 
 			@RequestParam("student_id") Integer studentId, 
 			@RequestParam("ISBN") long isbn) throws DbException {
 	
-	    b.updateAmtInId(studentId, isbn);
+	    b.updateAfterFinePay(studentId, isbn);
 	}
 	
-	@PostMapping("/updateAmtInWallet")
-	public void updateAmtInWallet(
-			@RequestParam("student_id") Integer studentId, 
-			@RequestParam("ISBN") long isbn) throws DbException {
-	
-		b.updateAmtInWallet(studentId, isbn);
-		
-	}
 	@PostMapping("/libWallet")
 	public void updateAmtInWallet() throws DbException {
 		b.libraryWallet();

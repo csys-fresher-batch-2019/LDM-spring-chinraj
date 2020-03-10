@@ -16,7 +16,7 @@ import com.chainsys.chinlibapp.model.IdDetails;
 import com.chainsys.chinlibapp.util.TestConnection;
 
 @Repository
-public class IdDetailsImpl implements IdDetailsDAO {
+public class IdDetailsDAOImpl implements IdDetailsDAO {
 	Logger logger = Logger.getInstance();
 	IdDetails bb = new IdDetails();
 
@@ -59,26 +59,32 @@ public class IdDetailsImpl implements IdDetailsDAO {
 		}
 		return rows;
 	}
+	
 
-	public int updateAmtInId(int studentId, long iSBN) throws DbException {
-		int rowq = 0;
+	public int updateAfterFinePay(int studentId, long iSBN) throws DbException {
+		int row= 0;
 		try (Connection con = TestConnection.getConnection();) {
 			String sql5 = "update amount set amount_in_id = amount_in_id-(select fines from fine_amount where student_id=? and ISBN=?)where student_id=?";
 			try (PreparedStatement s = con.prepareStatement(sql5);) {
 				s.setInt(1, studentId);
 				s.setLong(2, iSBN);
 				s.setInt(3, studentId);
-				rowq = s.executeUpdate();
+				row = s.executeUpdate();
 				logger.info(sql5);
-				logger.info(rowq);
+				logger.info(row);
 
+				if(row==1) {
+					updateFineStatus( studentId,iSBN);
+					updateAmtInWallet(studentId,iSBN);
+				}
+				
 			}
 		} catch (SQLException e) {
 			logger.error(e);
 			logger.error(InfoMessages.INVALID_INSERT);
 
 		}
-		return rowq;
+		return row;
 	}
 
 	public int updateFineStatus(int studentId, long ISBN) throws DbException {
@@ -143,4 +149,8 @@ public class IdDetailsImpl implements IdDetailsDAO {
 		}
 		return libraryWallet;
 	}
+
+
+
+
 }

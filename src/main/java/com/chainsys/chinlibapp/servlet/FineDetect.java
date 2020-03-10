@@ -30,22 +30,23 @@ public class FineDetect extends HttpServlet {
 		    IdService j = new IdService();   
 		
 
-	int k;
+
 	try {
-		k = j.updateAmtInWallet(id, IsBN);
-		int s=j.updateAmtInId(id, IsBN);
-		if(s==1 && k==1) {
+		
+		int s=j.updateAfterFinePay(id, IsBN);
+		if(s==1) {
 			request.setAttribute("infoMessage", "<h2>Amount Detected and added in Lib wallet !</h2>");
-			RequestDispatcher rd = request.getRequestDispatcher("ReturnRenewal.jsp");
+			RequestDispatcher rd = request.getRequestDispatcher("ReturnAndRenewal.jsp");
 			rd.forward(request, response);
 			
 	}
 		else{
-			request.setAttribute("errorMessage", "<h2> Invalid data !!</h2");	
+			request.setAttribute("errorMessage", "<h2> Invalid data !!</h2");
+			RequestDispatcher rd = request.getRequestDispatcher("ReturnRenewal.jsp");
+			rd.forward(request, response);
 		}
 		}
 		catch (DbException e1) {
-		// TODO Auto-generated catch block
 		e1.printStackTrace();
 		
 	}	

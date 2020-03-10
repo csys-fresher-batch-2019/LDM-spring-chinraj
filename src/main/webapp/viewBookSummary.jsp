@@ -1,8 +1,8 @@
-<%@page import="com.chainsys.chinlibapp.dao.imp.BookSummaryImpl"%>
+<%@page import="com.chainsys.chinlibapp.dao.imp.BookSummaryDAOImpl"%>
 <%@page import="com.chainsys.chinlibapp.model.BookSummary"%>
 <%@page import="com.chainsys.chinlibapp.model.BookList"%>
 <%@page import="java.util.List"%>
-<%@page import="com.chainsys.chinlibapp.dao.imp.BookListImpl"%>
+<%@page import="com.chainsys.chinlibapp.dao.imp.BookListDAOImpl"%>
 <%@page import="com.chainsys.chinlibapp.dao.BookListDAO"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
@@ -20,9 +20,9 @@
 
 	<jsp:include page="index.jsp"></jsp:include>
 	<%
-		BookSummaryImpl dao = new BookSummaryImpl();
+		BookSummaryDAOImpl dao = new BookSummaryDAOImpl();
 
-		List<BookSummary> list1 = dao.viewBookSummary();
+			List<BookSummary> list1 = dao.viewBookSummary();
 	%>
 
 	<h2>VIEW BOOKSUMMARY</h2>

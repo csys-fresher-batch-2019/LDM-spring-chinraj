@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <%@page import="com.chainsys.chinlibapp.model.StudentInfo"%>
 <%@page import="java.util.List"%>
-<%@page import="com.chainsys.chinlibapp.dao.imp.StudentInfoImpl"%>
+<%@page import="com.chainsys.chinlibapp.dao.imp.StudentInfoDAOImpl"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
 <html>
@@ -15,9 +15,9 @@
 	<h2>VIEW STUDENTS</h2>
 
 	<%
-		StudentInfoImpl dao = new StudentInfoImpl();
+		StudentInfoDAOImpl dao = new StudentInfoDAOImpl();
 
-		List<StudentInfo> list1 = dao.viewStudents();
+			List<StudentInfo> list1 = dao.viewStudents();
 	%>
 	<table border="1">
 		<thead>

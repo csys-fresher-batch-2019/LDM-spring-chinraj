@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
-import com.chainsys.chinlibapp.dao.imp.BookSummaryImpl;
+import com.chainsys.chinlibapp.dao.imp.BookSummaryDAOImpl;
 import com.chainsys.chinlibapp.logger.Logger;
 import com.chainsys.chinlibapp.model.BookSummary;
 
@@ -19,7 +19,7 @@ public class TestBookSummary {
 
 		Scanner n = new Scanner(System.in);
 
-		BookSummaryImpl BK = new BookSummaryImpl();
+		BookSummaryDAOImpl BK = new BookSummaryDAOImpl();
 		BookSummary obj = new BookSummary();
 		int n1 = n.nextInt();
 		switch (n1) {
@@ -64,7 +64,7 @@ public class TestBookSummary {
 		
 		case 3:{
 				
-			BookSummaryImpl obj1 = new BookSummaryImpl();
+			BookSummaryDAOImpl obj1 = new BookSummaryDAOImpl();
 				System.out.println(" BookSummary :");
 				List<BookSummary> li = new ArrayList<BookSummary>();
 			   li = obj1.viewBookSummary();

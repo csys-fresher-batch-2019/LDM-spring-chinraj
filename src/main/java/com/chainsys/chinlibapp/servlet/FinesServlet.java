@@ -38,48 +38,33 @@ public class FinesServlet extends HttpServlet {
 		  n.setISBN(IsBN);
 		  
 		  
-		  
-		  try {
-			m.AddFineInfo(n);
-		} catch (DbException e2) {
-			// TODO Auto-generated catch block
-			e2.printStackTrace();
-		}
-		try {
-			m.AddFineInfo1(n);
-		} catch (DbException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
-		}
-		
-	try {
-		m.TotalFinesAmt(n);
-	} catch (DbException e1) {
-		// TODO Auto-generated catch block
-		e1.printStackTrace();
-	}
-	
-	try {
+       try {
+		m.AddFineInfo(n);
 		int a= m.FinePerStudent(id, IsBN);
-if(a>0) {
-		
+
+		if(a>0) {
+			
+			HttpSession session = request.getSession();
+			session.setAttribute("id",id);
+			session.setAttribute("ISBN", IsBN);
+			RequestDispatcher rd = request.getRequestDispatcher("FineDetect.jsp");
+			rd.forward(request, response);
+			
+	}	
+	else{
+		request.setAttribute("errorMessage", "<h2> No Fine !!</h2");
 		HttpSession session = request.getSession();
 		session.setAttribute("id",id);
 		session.setAttribute("ISBN", IsBN);
-		RequestDispatcher rd = request.getRequestDispatcher("FineDetect.jsp");
+		RequestDispatcher rd = request.getRequestDispatcher("ReturnAndRenewal.jsp");
 		rd.forward(request, response);
-		
-}	
-else{
-	request.setAttribute("errorMessage", "<h2> No Fine !!</h2");
-	HttpSession session = request.getSession();
-	session.setAttribute("id",id);
-	session.setAttribute("ISBN", IsBN);
-	RequestDispatcher rd = request.getRequestDispatcher("ReturnAndRenewal.jsp");
-	rd.forward(request, response);
-}
-} catch (Exception e) {
-e.printStackTrace();
+	}
+	} catch (DbException e) {
+		e.printStackTrace();
+	} catch (Exception e) {
+		e.printStackTrace();
+	}
+
 
 }	
-	}}
+	}

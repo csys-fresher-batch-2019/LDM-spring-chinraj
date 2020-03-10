@@ -20,18 +20,16 @@ import com.chainsys.chinlibapp.util.SendMail;
 import com.chainsys.chinlibapp.util.TestConnection;
 
 @Repository
-public class BookSummaryImpl implements BookSummaryDAO {
+public class BookSummaryDAOImpl implements BookSummaryDAO {
 	Logger logger = Logger.getInstance();
-
-	public boolean checkBookStatus(long fg) throws DbException {
+	public boolean checkBookStatus(long isbn) throws DbException {
 		String sql1 = "select book_name from booklist where ISBN = ? and book_status = 'Available'";
 		try (Connection con = TestConnection.getConnection();) {
 			try (PreparedStatement stmt = con.prepareStatement(sql1);) {
-				stmt.setLong(1, fg);
+				stmt.setLong(1, isbn);
 				try (ResultSet row = stmt.executeQuery();) {
 					if (row.next()) {
 						return true;
-
 					}
 				}
 			}
@@ -40,6 +38,7 @@ public class BookSummaryImpl implements BookSummaryDAO {
 			logger.error(InfoMessages.INVALID_INSERT);
 		}
 		return false;
+	
 
 	}
 
@@ -88,6 +87,8 @@ public class BookSummaryImpl implements BookSummaryDAO {
 
 	public int addBookInfo(BookSummary BS) throws DbException {
 		int row = 0;
+		boolean a = checkBookStatus(BS.getISBN());
+		if(a==true) {
 		String sql = "insert into book_summary(student_id,ISBN,borrowed_date,due_date)" + " values(?,?,?,?)";
 		logger.info(sql);
 		try (Connection con = TestConnection.getConnection(); PreparedStatement stmt = con.prepareStatement(sql);) {
@@ -106,14 +107,16 @@ public class BookSummaryImpl implements BookSummaryDAO {
 
 				updateBookStatus(BS);
 				sendMail(BS);
-			}
-		} catch (SQLException e) {
+			}}
+		
+		catch (SQLException e) {
 
 			logger.error(e);
 			logger.error(InfoMessages.INVALID_INSERT);
 		}
+		
+	}
 		return row;
-
 	}
 
 	public List<BookSummary> onParticularDate(LocalDate borrowedDate) throws DbException {

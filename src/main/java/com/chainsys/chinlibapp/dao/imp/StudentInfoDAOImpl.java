@@ -17,7 +17,7 @@ import com.chainsys.chinlibapp.model.StudentInfo;
 import com.chainsys.chinlibapp.util.TestConnection;
 
 @Repository
-public class StudentInfoImpl implements StudentInfoDAO {
+public class StudentInfoDAOImpl implements StudentInfoDAO {
 	Logger logger = Logger.getInstance();
 
 	public int addStudents(StudentInfo SS) throws DbException {
