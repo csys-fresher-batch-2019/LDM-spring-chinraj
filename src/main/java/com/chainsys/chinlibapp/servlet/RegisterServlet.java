@@ -36,12 +36,12 @@ public class RegisterServlet extends HttpServlet {
 		try {
 			int a = S.addStudents(SS);
 			
-					if (a == 1) {
+					if (a!=0) {
 						request.setAttribute("infoMessage", "<h2>Student Added !</h2>");
 						RequestDispatcher rd = request.getRequestDispatcher("AddStudents.jsp");
 						rd.forward(request, response);
 					} else {
-						request.setAttribute("errorMessage", "<h2>Student Id Already Exists !!</h2");
+						request.setAttribute("errorMessage", "<h2>Student Id Already Exists !!</h2>");
 						RequestDispatcher rd = request.getRequestDispatcher("AddStudents.jsp");
 						rd.forward(request, response);
 					}

@@ -65,7 +65,7 @@ public class TestBookSummary {
 		case 3:{
 				
 			BookSummaryImpl obj1 = new BookSummaryImpl();
-				System.out.println(" BookSummary  :");
+				System.out.println(" BookSummary :");
 				List<BookSummary> li = new ArrayList<BookSummary>();
 			   li = obj1.viewBookSummary();
 			   for(Object object:li)

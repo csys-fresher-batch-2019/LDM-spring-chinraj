@@ -35,7 +35,7 @@ public class UpdateAmount extends HttpServlet {
 
 	
 			try {
-				int k= j.updateMoneyInId(id, Amount);
+				int k= j.updateMoneyInId( Amount,id);
 				 
 				 if(k==1) {
 							request.setAttribute("infoMessage", "<h2>Update Sucess!</h2>");

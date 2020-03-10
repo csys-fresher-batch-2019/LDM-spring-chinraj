@@ -39,8 +39,8 @@ public class BookListImpl implements BookListDAO {
 				logger.info(rows);
 			}
 		} catch (Exception e) {
-			logger.error(e);
-			throw new DbException(InfoMessages.INVALID_INSERT);
+	
+			logger.error(InfoMessages.INVALID_INSERT);
 		}
 		return rows;
 	}
@@ -71,8 +71,8 @@ public class BookListImpl implements BookListDAO {
 				}	
 			
 		} catch (Exception e) {
-			logger.error(e);
-			throw new DbException(InfoMessages.INVALID_SELECT);
+			
+			logger.error(InfoMessages.INVALID_INSERT);
 		}
 		return list;
 	}
@@ -93,7 +93,7 @@ public class BookListImpl implements BookListDAO {
 		} catch (Exception e) {
 
 			logger.error(e);
-			throw new DbException(InfoMessages.INVALID_DELETE);
+			logger.error(InfoMessages.INVALID_INSERT);
 		}
 		return row;
 	}
@@ -130,7 +130,7 @@ public class BookListImpl implements BookListDAO {
 			}
 		} catch (Exception e) {
 			logger.error(e);
-			throw new DbException(InfoMessages.INVALID_SELECT);
+			logger.error(InfoMessages.INVALID_INSERT);
 		}
 		return n;
 		

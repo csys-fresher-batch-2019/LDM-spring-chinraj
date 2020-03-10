@@ -26,12 +26,13 @@ public class IdDetailsImp implements IdDetailsDAO {
 			try (PreparedStatement stmt = con.prepareStatement(sqlinsert);) {
 				stmt.setInt(1, a);
 				stmt.setInt(2, b);
-				 rows = stmt.executeUpdate();	
+				rows = stmt.executeUpdate();	
 			}
 		} catch (Exception e) {
 			logger.error(e);
-			throw new DbException(InfoMessages.INVALID_INSERT);
+			logger.error(InfoMessages.INVALID_INSERT);
 		}
+		logger.info(rows);
 		return rows;
 	}
 
@@ -51,7 +52,7 @@ public class IdDetailsImp implements IdDetailsDAO {
 		} catch (Exception e) {
 
 			logger.error(e);
-			throw new DbException(InfoMessages.INVALID_UPDATE);
+			//logger.error(InfoMessages.INVALID_INSERT);			
 
 		}
 		return rows;
@@ -72,13 +73,38 @@ public class IdDetailsImp implements IdDetailsDAO {
 			}
 		} catch (Exception e) {
 			logger.error(e);
-			throw new DbException(InfoMessages.INVALID_UPDATE);
+			logger.error(InfoMessages.INVALID_INSERT);			
 
 			
 		}
 		return rowq;
 	}
 
+	public int updateFineStatus(int studentId, long ISBN) throws DbException {
+		int row1=0;
+		String sql8 = " update fine_amount set fines =0 ,no_of_extra_days=0,fine_status= 'paid' where student_id= ? and ISBN =?";
+		try (Connection con = TestConnection.getConnection();) {
+
+		try (PreparedStatement s1 = con.prepareStatement(sql8);) {
+			s1.setInt(1, studentId);
+			s1.setLong(2, ISBN);
+			 row1 = s1.executeUpdate();
+			logger.info(row1);
+			logger.info(sql8);
+	 
+		}}
+		 catch (Exception e) {
+				logger.error(e);
+				logger.error(InfoMessages.INVALID_INSERT);			
+		 }
+		return row1;
+		
+		
+	}
+	
+	
+	
+	
 	public int updateAmtInWallet(int studentId, long ISBN) throws DbException {
 		int row0=0;
 		try (Connection con = TestConnection.getConnection();) {
@@ -91,14 +117,8 @@ public class IdDetailsImp implements IdDetailsDAO {
 				logger.info(row0);
 				logger.info(sql7);
    if(row0==1) {
-				String sql8 = " update fine_amount set fines =0 ,no_of_extra_days=0,fine_status= 'paid' where student_id= ? and ISBN =?";
-				try (PreparedStatement s1 = con.prepareStatement(sql8);) {
-					s1.setInt(1, studentId);
-					s1.setLong(2, ISBN);
-					int row1 = s1.executeUpdate();
-					logger.info(row1);
-					logger.info(sql8);
-				}}
+     	   updateFineStatus( studentId,ISBN); 
+				}
 				else
 				{
 					logger.info("Enter valid data ");
@@ -106,7 +126,7 @@ public class IdDetailsImp implements IdDetailsDAO {
 			}
 		} catch (Exception e) {
 			logger.error(e);
-			throw new DbException(InfoMessages.INVALID_UPDATE);
+			logger.error(InfoMessages.INVALID_INSERT);			
 
 		}
 		return row0;
@@ -123,7 +143,7 @@ public class IdDetailsImp implements IdDetailsDAO {
 			}
 		} catch (Exception e) {
 			logger.error(e);
-			throw new DbException(InfoMessages.INVALID_PROCEDURE);
+			logger.error(InfoMessages.INVALID_INSERT);			
 	
 		}
 		return libraryWallet;

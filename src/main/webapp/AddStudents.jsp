@@ -14,14 +14,15 @@
 <body style = "background-color:Orange">
 
 <form action="RegisterServlet">
-<jsp:include page="index.jsp"></jsp:include>
 
-		<c:if test = "${not empty infoMessage}">
+        <c:choose>
+		<c:when test = "${not empty infoMessage}">
 			<b>${infoMessage}</b>
-		</c:if>
-			<c:if test = "${not empty errorMessage}">
+		</c:when>
+			<c:otherwise>
 			<b>${errorMessage}</b>
-		</c:if>
+		</c:otherwise>
+		</c:choose>
 	</br>
 Enter Name :<input type="text"name = "name"
 placeholder= "Enter Name" required autofocus/>

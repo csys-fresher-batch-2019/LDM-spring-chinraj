@@ -34,12 +34,59 @@ public class BookSummaryImpl implements BookSummaryDAO {
 			}}}
 		} catch (Exception e) {
 			logger.error(e);
-			throw new DbException(InfoMessages.INVALID_SELECT);
-			
+			logger.error(InfoMessages.INVALID_INSERT);			
 		}
 		return false;
 
 		}
+	
+	public int updateBookStatus(BookSummary BS) throws DbException {
+		
+ int row1=0;
+		String sql1 = "update booklist set book_status = 'Notavailable' where ISBN = ?";
+		try (Connection con = TestConnection.getConnection();
+
+		PreparedStatement stmt1 = con.prepareStatement(sql1);) {
+			stmt1.setLong(1, BS.getISBN());
+             row1 = stmt1.executeUpdate();
+			logger.info(row1);
+			logger.info(sql1);
+
+		
+		
+		
+		}	catch (Exception e) {
+
+				logger.error(e);
+				logger.error(InfoMessages.INVALID_INSERT);			
+			}
+		return row1;
+	}
+	
+	public void sendMail(BookSummary BS) throws DbException {
+	
+		
+		String sql0 = "Select  mail_id from student where student_id=? ";
+		try (Connection con = TestConnection.getConnection();
+
+		PreparedStatement stmt0 = con.prepareStatement(sql0);) {
+			stmt0.setInt(1, BS.getStudentId());
+			try (ResultSet rs = stmt0.executeQuery();) {
+				String mail;
+				if (rs.next()) {
+					mail = rs.getString("mail_id");
+					SendMail.chinlib(mail, BS.getISBN());
+				}
+				logger.info(sql0);
+			}
+			}catch (Exception e) {
+
+				logger.error(e);
+				logger.error(InfoMessages.INVALID_INSERT);			
+			}	
+
+	
+	}
 
 	public int addBookInfo(BookSummary BS) throws DbException {
 		int row = 0;
@@ -61,32 +108,15 @@ public class BookSummaryImpl implements BookSummaryDAO {
 				
 			
 				if (row == 1) {
-					String sql1 = "update booklist set book_status = 'Notavailable' where ISBN = ?";
-					try (PreparedStatement stmt1 = con.prepareStatement(sql1);) {
-						stmt1.setLong(1, BS.getISBN());
-						int row1 = stmt1.executeUpdate();
-						logger.info(row1);
-						logger.info(sql1);
-
-						String sql0 = "Select  mail_id from student where student_id=? ";
-						try (PreparedStatement stmt0 = con.prepareStatement(sql0);) {
-							stmt0.setInt(1, BS.getStudentId());
-							try (ResultSet rs = stmt0.executeQuery();) {
-								String mail;
-								if (rs.next()) {
-									mail = rs.getString("mail_id");
-									SendMail.chinlib(mail, BS.getISBN());
-								}
-								logger.info(sql0);
-							}
-						}
+		
+					updateBookStatus(BS);
+					sendMail(BS);
 					}
-				}
-			}
+		}
 		catch (Exception e) {
 
 			logger.error(e);
-			throw new DbException(InfoMessages.INVALID_INSERT);
+			logger.error(InfoMessages.INVALID_INSERT);			
 		}
 		return row;
 
@@ -126,7 +156,7 @@ public class BookSummaryImpl implements BookSummaryDAO {
 		} catch (Exception e) {
 
 			logger.error(e);
-			throw new DbException(InfoMessages.INVALID_SELECT);
+			logger.error(InfoMessages.INVALID_INSERT);			
 		}
 		return li;
 	}
@@ -158,7 +188,7 @@ public class BookSummaryImpl implements BookSummaryDAO {
 			}
 		} catch (Exception e) {
 			logger.error(e);
-			throw new DbException(InfoMessages.INVALID_SELECT);
+			logger.error(InfoMessages.INVALID_INSERT);			
 		}
 		return list;
 	}

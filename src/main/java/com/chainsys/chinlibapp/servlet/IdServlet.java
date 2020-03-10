@@ -12,10 +12,10 @@ import javax.servlet.http.HttpServletResponse;
 import com.chainsys.chinlibapp.service.IdService;
 
 @WebServlet("/IdServlet")
-public class AddAmt extends HttpServlet {
+public class IdServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
-	public AddAmt() {
+	public IdServlet() {
 		super();
 	
 	}
@@ -33,15 +33,15 @@ public class AddAmt extends HttpServlet {
 		try {
 
 			int a = j.addMoneyInId(id, Amount);
-
 			if (a == 1) {
 
 				request.setAttribute("infoMessage", "<h2> Money Added !</h2>");
 				RequestDispatcher rd = request.getRequestDispatcher("AddAmount.jsp");
 				rd.forward(request, response);
+		
 			} else {
 
-				request.setAttribute("errorMessage", "<h2> Invalid Id !!</h2");
+				request.setAttribute("errorMessage", "<h2> Invalid Id !!</h2>");
 				RequestDispatcher rd = request.getRequestDispatcher("AddAmount.jsp");
 				rd.forward(request, response);
 			}

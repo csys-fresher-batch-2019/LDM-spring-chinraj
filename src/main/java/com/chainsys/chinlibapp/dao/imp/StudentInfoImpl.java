@@ -34,16 +34,19 @@ public class StudentInfoImpl implements StudentInfoDAO {
 				if(rows==1) {
 					logger.info("Student added");
 					
+					
 				}
 				else {
 					logger.info("Student already exists");
+				
 				}}}
 				 catch (Exception e) {
 						logger.error(e);	
-						throw new DbException(InfoMessages.INVALID_INSERT);
+						logger.error(InfoMessages.INVALID_INSERT);			
 
 				 }
-		return rows;		 }
+		return rows;
+			 }
 
 
 	public int removeStudent(int id) throws DbException {
@@ -63,7 +66,7 @@ public class StudentInfoImpl implements StudentInfoDAO {
 				}}}
 				 catch (Exception e) {
 						logger.error(e);
-						throw new DbException(InfoMessages.INVALID_DELETE);
+						logger.error(InfoMessages.INVALID_INSERT);			
 	 
 				 }
 		return row1;
@@ -93,7 +96,7 @@ public class StudentInfoImpl implements StudentInfoDAO {
 		}
 } catch (Exception e) {
 logger.error(e);
-throw new DbException(InfoMessages.INVALID_SELECT);
+logger.error(InfoMessages.INVALID_INSERT);			
 
 }
 return list;

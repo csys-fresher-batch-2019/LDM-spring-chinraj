@@ -30,7 +30,7 @@ public class FineInfoImpl implements FineInfoDAO {
 			logger.info("" + rows);
 		} catch (Exception e) {
 			logger.error(e);
-			throw new DbException(InfoMessages.INVALID_INSERT);
+			logger.error(InfoMessages.INVALID_INSERT);			
 		}
 	}
 
@@ -45,7 +45,7 @@ public class FineInfoImpl implements FineInfoDAO {
 			}
 		} catch (Exception e) {
 			logger.error(e);
-			throw new DbException(InfoMessages.INVALID_UPDATE);
+			logger.error(InfoMessages.INVALID_INSERT);			
 		}
 	}
 
@@ -64,7 +64,7 @@ public class FineInfoImpl implements FineInfoDAO {
 
 		} catch (Exception e) {
 			logger.error(e);
-			throw new DbException(InfoMessages.INVALID_UPDATE);
+			logger.error(InfoMessages.INVALID_INSERT);			
 		}
 		return 0;
 	}
@@ -85,7 +85,7 @@ public class FineInfoImpl implements FineInfoDAO {
 			}
 		} catch (Exception e) {
 			logger.error(e);
-			throw new DbException(InfoMessages.INVALID_UPDATE);
+			logger.error(InfoMessages.INVALID_INSERT);			
 		}
 		return 0;
 	}
@@ -106,7 +106,7 @@ public class FineInfoImpl implements FineInfoDAO {
 			}
 		} catch (Exception e) {
 			logger.error(e);
-			throw new DbException(InfoMessages.INVALID_SELECT);
+			logger.error(InfoMessages.INVALID_INSERT);			
 		}
 		return fines;
 
@@ -126,7 +126,7 @@ public class FineInfoImpl implements FineInfoDAO {
 		}
 		 catch (Exception e) {
 				logger.error(e);
-				throw new DbException(InfoMessages.INVALID_SELECT);
+				logger.error(InfoMessages.INVALID_INSERT);			
 			}
 		return rows;
 	}
@@ -144,7 +144,7 @@ public class FineInfoImpl implements FineInfoDAO {
 		}
 		catch (Exception e) {
 			logger.error(e);
-			throw new DbException(InfoMessages.INVALID_SELECT);
+			logger.error(InfoMessages.INVALID_INSERT);			
 		}
 		return row;
 	}
@@ -163,7 +163,7 @@ public class FineInfoImpl implements FineInfoDAO {
 		}}
 		catch (Exception e) {
 			logger.error(e);
-			throw new DbException(InfoMessages.INVALID_SELECT);
+			logger.error(InfoMessages.INVALID_INSERT);			
 		}
 		return row;
 	}
@@ -199,7 +199,7 @@ public class FineInfoImpl implements FineInfoDAO {
 			}
 		} catch (Exception e) {
 			logger.error(e);
-			throw new DbException(InfoMessages.INVALID_SELECT);
+			logger.error(InfoMessages.INVALID_INSERT);			
 		}
 		return row4;
 	}
@@ -221,7 +221,7 @@ public class FineInfoImpl implements FineInfoDAO {
 			
 		} catch (Exception e) {
 			logger.error(e);
-			throw new DbException(InfoMessages.INVALID_UPDATE);
+			logger.error(InfoMessages.INVALID_INSERT);			
 		}	
 		
 		return price;
@@ -243,7 +243,7 @@ public class FineInfoImpl implements FineInfoDAO {
 			}
 		} catch (Exception e) {
 			logger.error(e);
-			throw new DbException(InfoMessages.INVALID_UPDATE);
+			logger.error(InfoMessages.INVALID_INSERT);			
 		}
 		logger.info(price);
 		return price;
@@ -264,7 +264,7 @@ public class FineInfoImpl implements FineInfoDAO {
 		}
 			 catch (Exception e) {
 					logger.error(e);
-					throw new DbException(InfoMessages.INVALID_SELECT);
+					logger.error(InfoMessages.INVALID_INSERT);			
 			 }
 		return row;		
 		}
@@ -297,7 +297,7 @@ public class FineInfoImpl implements FineInfoDAO {
 			}
 		} catch (Exception e) {
 			logger.error(e);
-			throw new DbException(InfoMessages.INVALID_SELECT);
+			logger.error(InfoMessages.INVALID_INSERT);			
 		}
 		return row;
 	}
@@ -319,7 +319,7 @@ public class FineInfoImpl implements FineInfoDAO {
 			}
 		} catch (Exception e) {
 			logger.error(e);
-			throw new DbException(InfoMessages.INVALID_SELECT);
+			logger.error(InfoMessages.INVALID_INSERT);			
 		}
 		return k;
 	}
