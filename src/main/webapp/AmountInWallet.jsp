@@ -1,4 +1,4 @@
-<%@page import="com.chainsys.chinlibapp.dao.imp.IdDetailsImp"%>
+<%@page import="com.chainsys.chinlibapp.dao.imp.IdDetailsImpl"%>
 <%@page import="com.chainsys.chinlibapp.dao.IdDetailsDAO"%>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
@@ -11,7 +11,7 @@
 <body>
 <jsp:include page="index.jsp"></jsp:include>
 <%
-IdDetailsImp j =  new IdDetailsImp();
+	IdDetailsImpl j =  new IdDetailsImpl();
 int amount=j.libraryWallet();
 %>
 <h2>TOTAL AMOUNT IN LIB WALLET</h2>

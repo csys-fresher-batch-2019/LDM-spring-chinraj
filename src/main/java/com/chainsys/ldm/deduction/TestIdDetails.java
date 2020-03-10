@@ -2,14 +2,14 @@ package com.chainsys.ldm.deduction;
 
 import java.util.Scanner;
 
-import com.chainsys.chinlibapp.dao.imp.IdDetailsImp;
+import com.chainsys.chinlibapp.dao.imp.IdDetailsImpl;
 import com.chainsys.chinlibapp.logger.Logger;
 
 public class TestIdDetails {
          
 	public static void main(String[] args) throws Exception {
 		Logger logger = Logger.getInstance();
-		IdDetailsImp ii = new IdDetailsImp();
+		IdDetailsImpl ii = new IdDetailsImpl();
 		Scanner s = new Scanner(System.in);
 	
        logger.info("\n 1.AddAmount\n 2.UpadateAmountInIdAfterFine\n 3.UpdateLibWalet \n4.Library Wallet\n 5. updateMoneyInId");

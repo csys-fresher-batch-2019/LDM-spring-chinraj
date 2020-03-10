@@ -7,7 +7,6 @@ import java.util.Scanner;
 
 import com.chainsys.chinlibapp.dao.LoginDAO;
 import com.chainsys.chinlibapp.logger.Logger;
-import com.chainsys.ldm.bookSummary.TestConnection;
 
 public class LogIn implements LoginDAO {
 	public static void main(String[] args) throws Exception {

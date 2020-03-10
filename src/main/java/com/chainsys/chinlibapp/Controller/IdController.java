@@ -5,7 +5,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.chainsys.chinlibapp.dao.imp.IdDetailsImp;
+import com.chainsys.chinlibapp.dao.imp.IdDetailsImpl;
 import com.chainsys.chinlibapp.exception.DbException;
 import com.chainsys.chinlibapp.model.IdDetails;
 
@@ -16,7 +16,7 @@ import com.chainsys.chinlibapp.model.IdDetails;
 	@RequestMapping("api")
 	public class IdController {	
 		IdDetails n = new IdDetails();
-		IdDetailsImp b = new IdDetailsImp();
+		IdDetailsImpl b = new IdDetailsImpl();
 		@PostMapping("/addAmount")
 		public void addAmount(
 

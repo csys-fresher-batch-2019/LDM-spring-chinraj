@@ -4,6 +4,7 @@ import java.sql.Connection;
 import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
@@ -16,7 +17,7 @@ import com.chainsys.chinlibapp.exception.InfoMessages;
 import com.chainsys.chinlibapp.logger.Logger;
 import com.chainsys.chinlibapp.model.BookSummary;
 import com.chainsys.chinlibapp.util.SendMail;
-import com.chainsys.ldm.bookSummary.TestConnection;
+import com.chainsys.chinlibapp.util.TestConnection;
 
 @Repository
 public class BookSummaryImpl implements BookSummaryDAO {
@@ -30,46 +31,44 @@ public class BookSummaryImpl implements BookSummaryDAO {
 				try (ResultSet row = stmt.executeQuery();) {
 					if (row.next()) {
 						return true;
-					
-			}}}
-		} catch (Exception e) {
+
+					}
+				}
+			}
+		} catch (SQLException e) {
 			logger.error(e);
-			logger.error(InfoMessages.INVALID_INSERT);			
+			logger.error(InfoMessages.INVALID_INSERT);
 		}
 		return false;
 
-		}
-	
+	}
+
 	public int updateBookStatus(BookSummary BS) throws DbException {
-		
- int row1=0;
+
+		int row1 = 0;
 		String sql1 = "update booklist set book_status = 'Notavailable' where ISBN = ?";
 		try (Connection con = TestConnection.getConnection();
 
-		PreparedStatement stmt1 = con.prepareStatement(sql1);) {
+				PreparedStatement stmt1 = con.prepareStatement(sql1);) {
 			stmt1.setLong(1, BS.getISBN());
-             row1 = stmt1.executeUpdate();
+			row1 = stmt1.executeUpdate();
 			logger.info(row1);
 			logger.info(sql1);
 
-		
-		
-		
-		}	catch (Exception e) {
+		} catch (SQLException e) {
 
-				logger.error(e);
-				logger.error(InfoMessages.INVALID_INSERT);			
-			}
+			logger.error(e);
+			logger.error(InfoMessages.INVALID_INSERT);
+		}
 		return row1;
 	}
-	
+
 	public void sendMail(BookSummary BS) throws DbException {
-	
-		
+
 		String sql0 = "Select  mail_id from student where student_id=? ";
 		try (Connection con = TestConnection.getConnection();
 
-		PreparedStatement stmt0 = con.prepareStatement(sql0);) {
+				PreparedStatement stmt0 = con.prepareStatement(sql0);) {
 			stmt0.setInt(1, BS.getStudentId());
 			try (ResultSet rs = stmt0.executeQuery();) {
 				String mail;
@@ -79,44 +78,39 @@ public class BookSummaryImpl implements BookSummaryDAO {
 				}
 				logger.info(sql0);
 			}
-			}catch (Exception e) {
+		} catch (SQLException e) {
 
-				logger.error(e);
-				logger.error(InfoMessages.INVALID_INSERT);			
-			}	
+			logger.error(e);
+			logger.error(InfoMessages.INVALID_INSERT);
+		}
 
-	
 	}
 
 	public int addBookInfo(BookSummary BS) throws DbException {
 		int row = 0;
 		String sql = "insert into book_summary(student_id,ISBN,borrowed_date,due_date)" + " values(?,?,?,?)";
 		logger.info(sql);
-		try (Connection con = TestConnection.getConnection();
-				PreparedStatement stmt = con.prepareStatement(sql);) {
-				
-				stmt.setInt(1, BS.getStudentId());
-				stmt.setLong(2, BS.getISBN());
-				Date bw = Date.valueOf(BS.getBorrowedDate());
-				stmt.setDate(3, bw);
-				java.sql.Date dd = java.sql.Date.valueOf(BS.getDueDate());
-				stmt.setDate(4, dd);
+		try (Connection con = TestConnection.getConnection(); PreparedStatement stmt = con.prepareStatement(sql);) {
 
-				row = stmt.executeUpdate();
-				logger.info("Insert=" + row);
-				
-				
-			
-				if (row == 1) {
-		
-					updateBookStatus(BS);
-					sendMail(BS);
-					}
-		}
-		catch (Exception e) {
+			stmt.setInt(1, BS.getStudentId());
+			stmt.setLong(2, BS.getISBN());
+			Date bw = Date.valueOf(BS.getBorrowedDate());
+			stmt.setDate(3, bw);
+			java.sql.Date dd = java.sql.Date.valueOf(BS.getDueDate());
+			stmt.setDate(4, dd);
+
+			row = stmt.executeUpdate();
+			logger.info("Insert=" + row);
+
+			if (row == 1) {
+
+				updateBookStatus(BS);
+				sendMail(BS);
+			}
+		} catch (SQLException e) {
 
 			logger.error(e);
-			logger.error(InfoMessages.INVALID_INSERT);			
+			logger.error(InfoMessages.INVALID_INSERT);
 		}
 		return row;
 
@@ -153,10 +147,10 @@ public class BookSummaryImpl implements BookSummaryDAO {
 					}
 				}
 			}
-		} catch (Exception e) {
+		} catch (SQLException e) {
 
 			logger.error(e);
-			logger.error(InfoMessages.INVALID_INSERT);			
+			logger.error(InfoMessages.INVALID_INSERT);
 		}
 		return li;
 	}
@@ -186,9 +180,9 @@ public class BookSummaryImpl implements BookSummaryDAO {
 					}
 				}
 			}
-		} catch (Exception e) {
+		} catch (SQLException e) {
 			logger.error(e);
-			logger.error(InfoMessages.INVALID_INSERT);			
+			logger.error(InfoMessages.INVALID_INSERT);
 		}
 		return list;
 	}

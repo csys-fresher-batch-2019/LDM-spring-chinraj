@@ -1,27 +1,25 @@
 package com.chainsys.chinlibapp.dao.imp;
-
 import java.sql.Connection;
 import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
-
 import org.springframework.stereotype.Repository;
-
 import com.chainsys.chinlibapp.dao.BookListDAO;
 import com.chainsys.chinlibapp.exception.DbException;
 import com.chainsys.chinlibapp.exception.InfoMessages;
 import com.chainsys.chinlibapp.logger.Logger;
 import com.chainsys.chinlibapp.model.BookList;
-import com.chainsys.ldm.bookList.TestConnection;
+import com.chainsys.chinlibapp.util.TestConnection;
 
 @Repository
 public class BookListImpl implements BookListDAO {
 	Logger logger = Logger.getInstance();
 
 	public int addBooks(BookList books) throws DbException {
-		int rows=0;
+		int rows = 0;
 		String sqlinsert = "insert into booklist(ISBN,book_name,pages,author_name,publication,category,released_date,price,rack_no) values (?,?,?,?,?,?,?,?,?)";
 		try (Connection con = TestConnection.getConnection();) {
 			try (PreparedStatement stmt = con.prepareStatement(sqlinsert);) {
@@ -38,23 +36,23 @@ public class BookListImpl implements BookListDAO {
 				rows = stmt.executeUpdate();
 				logger.info(rows);
 			}
-		} catch (Exception e) {
-	
+		} catch (SQLException e) {
+
 			logger.error(InfoMessages.INVALID_INSERT);
 		}
 		return rows;
 	}
 
-	public List<BookList> viewBooks() throws DbException  {
-		List<BookList> list=null;
-		
+	public List<BookList> viewBooks() throws DbException {
+		List<BookList> list = null;
+
 		String sqlinsert = "Select * from Booklist ";
 		try (Connection con = TestConnection.getConnection();) {
 			try (PreparedStatement stmt = con.prepareStatement(sqlinsert);) {
 				try (ResultSet rs = stmt.executeQuery();) {
-					list= new ArrayList<BookList>();
+					list = new ArrayList<BookList>();
 					while (rs.next()) {
-						BookList b = new BookList();	
+						BookList b = new BookList();
 						b.setISBN(rs.getLong("ISBN"));
 						b.setBookName(rs.getString("book_name"));
 						b.setAuthorName(rs.getString("author_name"));
@@ -66,12 +64,12 @@ public class BookListImpl implements BookListDAO {
 						b.setCategory(rs.getString("category"));
 						b.setPages(rs.getInt("pages"));
 						list.add(b);
-					}	
 					}
-				}	
-			
-		} catch (Exception e) {
-			
+				}
+			}
+
+		} catch (SQLException e) {
+
 			logger.error(InfoMessages.INVALID_INSERT);
 		}
 		return list;
@@ -79,7 +77,7 @@ public class BookListImpl implements BookListDAO {
 
 	public int removeBooks(long isbn) throws DbException {
 		String sqlinsert = "delete booklist where ISBN=?";
-		int row=0;
+		int row = 0;
 		try (Connection con = TestConnection.getConnection();) {
 			try (PreparedStatement stmt = con.prepareStatement(sqlinsert);) {
 				stmt.setLong(1, isbn);
@@ -90,7 +88,7 @@ public class BookListImpl implements BookListDAO {
 					logger.info("\n No book is available on" + isbn);
 				}
 			}
-		} catch (Exception e) {
+		} catch (SQLException e) {
 
 			logger.error(e);
 			logger.error(InfoMessages.INVALID_INSERT);
@@ -98,20 +96,18 @@ public class BookListImpl implements BookListDAO {
 		return row;
 	}
 
-	
-	
-	public  ArrayList<BookList> category(String name) throws DbException  {
-	
-		ArrayList<BookList> n = new ArrayList<>();	
+	public ArrayList<BookList> category(String name) throws DbException {
+
+		ArrayList<BookList> n = new ArrayList<>();
 
 		String sqlinsert = "select * from booklist where book_name like ?";
 		try (Connection con = TestConnection.getConnection();) {
 			try (PreparedStatement stmt = con.prepareStatement(sqlinsert);) {
 				stmt.setString(1, "%" + name + "%");
-							
-				try (ResultSet rs = stmt.executeQuery();) {	
+
+				try (ResultSet rs = stmt.executeQuery();) {
 					while (rs.next()) {
-						BookList b = new BookList();	
+						BookList b = new BookList();
 						b.setISBN(rs.getLong("ISBN"));
 						b.setBookName(rs.getString("book_name"));
 						b.setAuthorName(rs.getString("author_name"));
@@ -120,21 +116,19 @@ public class BookListImpl implements BookListDAO {
 						b.setPrice(rs.getInt("price"));
 						Date g = rs.getDate("released_date");
 						b.setReleasedDate(g.toLocalDate());
-						b.setPages(rs.getInt("pages"));	
+						b.setPages(rs.getInt("pages"));
 						b.setCategory(rs.getString("category"));
 						n.add(b);
-						
-					}		
+
 					}
+				}
 
 			}
-		} catch (Exception e) {
+		} catch (SQLException e) {
 			logger.error(e);
 			logger.error(InfoMessages.INVALID_INSERT);
 		}
 		return n;
-		
-		
-	
+
 	}
-	}
+}
