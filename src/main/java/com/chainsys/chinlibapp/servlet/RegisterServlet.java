@@ -22,13 +22,13 @@ public class RegisterServlet extends HttpServlet {
 		StudentInfo SS = new StudentInfo();
 
 		String Name = request.getParameter("name");
-		String DeptName = request.getParameter("DeptName");
+		String DeptName = request.getParameter("Department Name");
 		String StudentId = request.getParameter("Student Id");
 		int id = Integer.parseInt(StudentId);
 		String MailId = request.getParameter("mail_id");
 
 		SS.setStudentName(Name);
-		SS.setDeptName(DeptName);
+		SS.setDepartmentName(DeptName);
 		SS.setStudentId(id);
 		SS.setMailId(MailId);
 

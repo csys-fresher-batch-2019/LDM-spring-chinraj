@@ -29,7 +29,7 @@ public class TestStudentInfo {
 		 logger.info("Enter studentName :");
 		SI.setStudentName(s.next());
 		 logger.info("Enter deptName :");
-		SI.setDeptName(s.next());
+		SI.setDepartmentName(s.next());
 		logger.info("Enter mail :");
 		SI.setMailId(s.next());
 		d.saveStudent(SI);

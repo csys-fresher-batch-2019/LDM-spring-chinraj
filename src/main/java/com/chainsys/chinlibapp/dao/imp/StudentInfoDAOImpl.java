@@ -28,7 +28,7 @@ public class StudentInfoDAOImpl implements StudentInfoDAO {
 				PreparedStatement stmt = con.prepareStatement(sqlinsert);) {
 			stmt.setInt(1, SS.getStudentId());
 			stmt.setString(2, SS.getStudentName());
-			stmt.setString(3, SS.getDeptName());
+			stmt.setString(3, SS.getDepartmentName());
 			stmt.setString(4, SS.getMailId());
 			rows = stmt.executeUpdate();
 			logger.info(rows);
@@ -82,7 +82,7 @@ public class StudentInfoDAOImpl implements StudentInfoDAO {
 				StudentInfo b = new StudentInfo();
 				b.setStudentId(rs.getInt("student_id"));
 				b.setStudentName(rs.getString("student_name"));
-				b.setDeptName(rs.getString("dept_name"));
+				b.setDepartmentName(rs.getString("dept_name"));
 				b.setMailId(rs.getString("mail_id"));
 				list.add(b);
 

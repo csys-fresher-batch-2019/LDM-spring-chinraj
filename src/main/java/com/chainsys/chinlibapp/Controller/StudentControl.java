@@ -28,7 +28,7 @@ public class StudentControl {
 		n.setStudentId(studentId);
 		n.setStudentName(studentName);
 		n.setMailId(mailId);
-		n.setDeptName(deptName);
+		n.setDepartmentName(deptName);
 
 		m.saveStudent(n);
 
