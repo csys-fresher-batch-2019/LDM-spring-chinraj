@@ -22,7 +22,7 @@
 	<%
 		BookSummaryDAOImpl dao = new BookSummaryDAOImpl();
 
-			List<BookSummary> list1 = dao.viewBookSummary();
+		List<BookSummary> list1 = dao.findBookSummary();
 	%>
 
 	<h2>VIEW BOOKSUMMARY</h2>

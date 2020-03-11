@@ -32,7 +32,7 @@ public class TestBooListAddBooks {
 		System.out.println("Enter rackNo :");
 		List1.setRackNo(s.nextInt());
 
-		Book1.addBooks(List1);
+		Book1.saveBooks(List1);
 		s.close();
 
 	}

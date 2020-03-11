@@ -8,23 +8,24 @@ import com.chainsys.chinlibapp.dao.StudentInfoDAO;
 import com.chainsys.chinlibapp.dao.imp.StudentInfoDAOImpl;
 import com.chainsys.chinlibapp.exception.DbException;
 import com.chainsys.chinlibapp.model.StudentInfo;
+
 @Service
 public class StudentInfoService {
 
 	StudentInfoDAO s = new StudentInfoDAOImpl();
-	
+
 	public int addStudents(StudentInfo SS) throws DbException {
-		return s.addStudents(SS);
+		return s.saveStudent(SS);
 	}
+
 	public int removeStudent(int id) throws DbException {
-		return s.removeStudent(id);
-		
+		return s.deleteStudent(id);
+
 	}
-	public List<StudentInfo> viewStudents() throws DbException{
+
+	public List<StudentInfo> viewStudents() throws DbException {
 		return s.viewStudents();
-		
+
 	}
-	
-	
-	
+
 }

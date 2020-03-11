@@ -58,15 +58,13 @@ public class BookRegister extends HttpServlet {
 				request.setAttribute("infoMessage", "<h2>Book Added !</h2>");
 				RequestDispatcher rd = request.getRequestDispatcher("AddBooks.jsp");
 				rd.forward(request, response);
-			} else {
 
-				request.setAttribute("errorMessage", "<h2>ISBN Already Exists !!</h2");
-				RequestDispatcher rd = request.getRequestDispatcher("AddBooks.jsp");
-				rd.forward(request, response);
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
-
+			request.setAttribute("errorMessage", "<h2>ISBN Already Exists !!</h2");
+			RequestDispatcher rd = request.getRequestDispatcher("AddBooks.jsp");
+			rd.forward(request, response);
 		}
 	}
 }

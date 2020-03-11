@@ -13,7 +13,7 @@ public class TestBookListRemoveBooks {
 		BookListDAOImpl obj = new BookListDAOImpl();
 		System.out.println(" ISBN to be removed :");
 		b.setISBN(s.nextLong());
-	   obj.removeBooks(b.getISBN());
+	   obj.deleteBook(b.getISBN());
 		s.close();
 	}
 }

@@ -1,7 +1,7 @@
 package com.chainsys.chinlibapp.servlet;
 
 import java.io.IOException;
-import java.util.ArrayList;
+import java.util.List;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -27,9 +27,9 @@ public class SearchByBook extends HttpServlet {
 		String Bookname = request.getParameter("bookname");
 		BookListService S = new BookListService();
 
-		ArrayList<BookList> n = null;
+		List<BookList> n = null;
 		try {
-			n = S.category(Bookname);
+			n = S.searchByBook(Bookname);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

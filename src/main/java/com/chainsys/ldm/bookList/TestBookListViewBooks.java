@@ -12,7 +12,7 @@ public class TestBookListViewBooks {
 		BookListDAOImpl obj = new BookListDAOImpl();
 		System.out.println(" BookList  :");
 		List<BookList> li = new ArrayList<BookList>();
-	   li = obj.viewBooks();
+	   li = obj.findBooks();
 	   for(Object object:li)
 		   System.out.println(object);
 	 

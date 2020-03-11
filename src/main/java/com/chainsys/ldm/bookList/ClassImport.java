@@ -42,7 +42,7 @@ public class ClassImport {
 			    books.setBookStatus(bookStatus);
 			    books.setRackNo(rackNo);	
 			    BookListDAOImpl method = new BookListDAOImpl();
-				method.addBooks(books);
+				method.saveBooks(books);
 				
 			}
 			

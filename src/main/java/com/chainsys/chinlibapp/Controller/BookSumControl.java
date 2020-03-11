@@ -20,14 +20,10 @@ public class BookSumControl {
 	BookSummaryDAOImpl a = new BookSummaryDAOImpl();
 
 	@PostMapping("/BookSummary")
-	public void borrowBook(
-			@RequestParam("studnt_id") Integer id, 
-			@RequestParam("ISBN") Long isbn,
-			@RequestParam("borrowed_date") String date,
-			@RequestParam("renewal_count") Integer renewalCount,
-			@RequestParam("due_date") String date1,
-			@RequestParam("return_date") String date2,
-			@RequestParam("status") String status){
+	public void borrowBook(@RequestParam("studnt_id") Integer id, @RequestParam("ISBN") Long isbn,
+			@RequestParam("borrowed_date") String date, @RequestParam("renewal_count") Integer renewalCount,
+			@RequestParam("due_date") String date1, @RequestParam("return_date") String date2,
+			@RequestParam("status") String status) {
 
 		BookSummary b = new BookSummary();
 
@@ -43,7 +39,7 @@ public class BookSumControl {
 		b.setStatus(status);
 
 		try {
-			a.addBookInfo(b);
+			a.saveBorrowInfo(b);
 		} catch (Exception e) {
 
 			e.printStackTrace();
@@ -52,19 +48,15 @@ public class BookSumControl {
 
 	@GetMapping("/viewBookSummary")
 	public List<BookSummary> viewBookSummary() throws DbException {
-		return a.viewBookSummary();
+		return a.findBookSummary();
 	}
 
 	@GetMapping("/onParticularDate")
-	public List<BookSummary> onParticularDate(
-			@RequestParam("borrowed_date") String date) throws DbException{
-		
+	public List<BookSummary> onParticularDate(@RequestParam("borrowed_date") String date) throws DbException {
+
 		LocalDate ld = LocalDate.parse(date);
-		
+
 		return a.onParticularDate(ld);
 	}
-	
-	
-	
-	
+
 }

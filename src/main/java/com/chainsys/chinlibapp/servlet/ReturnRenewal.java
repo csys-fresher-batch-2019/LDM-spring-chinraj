@@ -44,19 +44,15 @@ public class ReturnRenewal extends HttpServlet {
 					RequestDispatcher rd = request.getRequestDispatcher("ReturnRenewal.jsp");
 					rd.forward(request, response);
 				}
-				 else {
-					 
-					 HttpSession session = request.getSession();
-					 session.setAttribute("id", id);
-						session.setAttribute("ISBN", IsBN);
-						RequestDispatcher rd = request.getRequestDispatcher("Fines.jsp");
-						rd.forward(request, response);
-					 
-					 
-				 }
+				
 			}
 			catch (Exception e) {
 				e.printStackTrace();
+				 HttpSession session = request.getSession();
+				 session.setAttribute("id", id);
+					session.setAttribute("ISBN", IsBN);
+					RequestDispatcher rd = request.getRequestDispatcher("Fines.jsp");
+					rd.forward(request, response);
 			}
 			
 		} else {
@@ -67,16 +63,16 @@ public class ReturnRenewal extends HttpServlet {
 					request.setAttribute("infoMessage", "<h2>Return Sucess Sucess!!</h2");
 					RequestDispatcher rd = request.getRequestDispatcher("ReturnRenewal.jsp");
 					rd.forward(request, response);
-				} else {
-					HttpSession session = request.getSession();
-					session.setAttribute("id", id);
-					session.setAttribute("ISBN", IsBN);
-					RequestDispatcher rd = request.getRequestDispatcher("Fines.jsp");
-					rd.forward(request, response);
-				}
+				} 
 			} catch (Exception e) {
 
 				e.printStackTrace();
+				HttpSession session = request.getSession();
+				session.setAttribute("id", id);
+				session.setAttribute("ISBN", IsBN);
+				RequestDispatcher rd = request.getRequestDispatcher("Fines.jsp");
+				rd.forward(request, response);
+				
 			}
 		}
 	}	

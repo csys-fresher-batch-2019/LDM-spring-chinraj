@@ -1,6 +1,5 @@
 package com.chainsys.chinlibapp.service;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.stereotype.Service;
@@ -12,28 +11,27 @@ import com.chainsys.chinlibapp.model.BookList;
 
 @Service
 public class BookListService {
-	
+
 	BookListDAO bookListDAO = new BookListDAOImpl();
 
 	public int addBooks(BookList books) throws DbException {
-		return bookListDAO.addBooks(books);
+		return bookListDAO.saveBooks(books);
 
 	}
 
 	public int removeBooks(long isbn) throws DbException {
-		return bookListDAO.removeBooks(isbn);
+		return bookListDAO.deleteBook(isbn);
 
 	}
 
 	public List<BookList> viewBooks() throws DbException {
-		return bookListDAO.viewBooks();
-		
+		return bookListDAO.findBooks();
+
 	}
 
-	public  ArrayList<BookList> category(String name) throws DbException {
-		return bookListDAO.category(name);
-		
-		
+	public List<BookList> searchByBook(String name) throws DbException {
+		return bookListDAO.searchByBook(name);
+
 	}
 
 }

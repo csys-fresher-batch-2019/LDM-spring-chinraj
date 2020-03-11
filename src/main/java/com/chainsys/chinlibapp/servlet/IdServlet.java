@@ -17,7 +17,7 @@ public class IdServlet extends HttpServlet {
 
 	public IdServlet() {
 		super();
-	
+
 	}
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
@@ -38,15 +38,13 @@ public class IdServlet extends HttpServlet {
 				request.setAttribute("infoMessage", "<h2> Money Added !</h2>");
 				RequestDispatcher rd = request.getRequestDispatcher("AddAmount.jsp");
 				rd.forward(request, response);
-		
-			} else {
 
-				request.setAttribute("errorMessage", "<h2> Invalid Id !!</h2>");
-				RequestDispatcher rd = request.getRequestDispatcher("AddAmount.jsp");
-				rd.forward(request, response);
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
+			request.setAttribute("errorMessage", "<h2> Invalid Id !!</h2>");
+			RequestDispatcher rd = request.getRequestDispatcher("AddAmount.jsp");
+			rd.forward(request, response);
 
 		}
 	}

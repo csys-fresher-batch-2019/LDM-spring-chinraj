@@ -15,7 +15,6 @@ import com.chainsys.chinlibapp.service.FineInfoService;
 
 @WebServlet("/ReturnAndRenewal")
 public class ReturnAndRenewal extends HttpServlet {
-	
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
@@ -33,29 +32,24 @@ public class ReturnAndRenewal extends HttpServlet {
 			try {
 
 				int i = S.renewal(id, IsBN);
-			
-				if (i==1){
+
+				if (i == 1) {
 					request.setAttribute("infoMessage", "<h2>Renewal Sucess !!</h2");
-					 HttpSession session = request.getSession();
-					 session.setAttribute("id", id);
-						session.setAttribute("ISBN", IsBN);
-						RequestDispatcher rd = request.getRequestDispatcher("ReturnRenewal.jsp");
-						rd.forward(request, response);
-					 
+					HttpSession session = request.getSession();
+					session.setAttribute("id", id);
+					session.setAttribute("ISBN", IsBN);
+					RequestDispatcher rd = request.getRequestDispatcher("ReturnRenewal.jsp");
+					rd.forward(request, response);
+
 				}
-		
-				 else {
-					 request.setAttribute("errorMessage", "<h2>Invalid Id !!</h2");
-						RequestDispatcher rd = request.getRequestDispatcher("ReturnRenewal.jsp");
-						rd.forward(request, response);
-					 
-					 
-				 }
-			}
-			catch (Exception e) {
+			} catch (Exception e) {
 				e.printStackTrace();
+
+				request.setAttribute("errorMessage", "<h2>Invalid Id !!</h2");
+				RequestDispatcher rd = request.getRequestDispatcher("ReturnRenewal.jsp");
+				rd.forward(request, response);
 			}
-			
+
 		} else {
 			try {
 				int i = S.bookreturned(id, IsBN);
@@ -64,17 +58,18 @@ public class ReturnAndRenewal extends HttpServlet {
 					PrintWriter out = response.getWriter();
 					out.println("\n");
 					out.println("\n <h1>RETURN SUCESS</h1>");
-				} else {
-					HttpSession session = request.getSession();
-					session.setAttribute("id", id);
-					session.setAttribute("ISBN", IsBN);
-					RequestDispatcher rd = request.getRequestDispatcher("Fines.jsp");
-					rd.forward(request, response);
+
 				}
 			} catch (Exception e) {
 
 				e.printStackTrace();
+
+				HttpSession session = request.getSession();
+				session.setAttribute("id", id);
+				session.setAttribute("ISBN", IsBN);
+				RequestDispatcher rd = request.getRequestDispatcher("Fines.jsp");
+				rd.forward(request, response);
 			}
 		}
-	}	
+	}
 }

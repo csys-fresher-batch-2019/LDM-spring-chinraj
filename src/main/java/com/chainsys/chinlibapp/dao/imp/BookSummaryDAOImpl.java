@@ -22,6 +22,7 @@ import com.chainsys.chinlibapp.util.TestConnection;
 @Repository
 public class BookSummaryDAOImpl implements BookSummaryDAO {
 	Logger logger = Logger.getInstance();
+
 	public boolean checkBookStatus(long isbn) throws DbException {
 		String sql1 = "select book_name from booklist where ISBN = ? and book_status = 'Available'";
 		try (Connection con = TestConnection.getConnection();) {
@@ -35,10 +36,9 @@ public class BookSummaryDAOImpl implements BookSummaryDAO {
 			}
 		} catch (SQLException e) {
 			logger.error(e);
-			logger.error(InfoMessages.INVALID_INSERT);
+			throw new DbException(InfoMessages.FAILED_TO_CHECK_BOOKSTATUS, e);
 		}
 		return false;
-	
 
 	}
 
@@ -57,12 +57,12 @@ public class BookSummaryDAOImpl implements BookSummaryDAO {
 		} catch (SQLException e) {
 
 			logger.error(e);
-			logger.error(InfoMessages.INVALID_INSERT);
+			throw new DbException(InfoMessages.FAILED_TO_UPDATE_BOOKSTATUS, e);
 		}
 		return row1;
 	}
 
-	public void sendMail(BookSummary BS) throws DbException {
+	public int sendMail(BookSummary BS) throws DbException {
 
 		String sql0 = "Select  mail_id from student where student_id=? ";
 		try (Connection con = TestConnection.getConnection();
@@ -80,42 +80,44 @@ public class BookSummaryDAOImpl implements BookSummaryDAO {
 		} catch (SQLException e) {
 
 			logger.error(e);
-			logger.error(InfoMessages.INVALID_INSERT);
+			throw new DbException(InfoMessages.FAILED_TO_SENDMAIL, e);
 		}
+		return 1;
 
 	}
 
-	public int addBookInfo(BookSummary BS) throws DbException {
+	public int saveBorrowInfo(BookSummary BS) throws DbException {
 		int row = 0;
 		boolean a = checkBookStatus(BS.getISBN());
-		if(a==true) {
-		String sql = "insert into book_summary(student_id,ISBN,borrowed_date,due_date)" + " values(?,?,?,?)";
-		logger.info(sql);
-		try (Connection con = TestConnection.getConnection(); PreparedStatement stmt = con.prepareStatement(sql);) {
+		if (a == true) {
+			String sql = "insert into book_summary(student_id,ISBN,borrowed_date,due_date)" + " values(?,?,?,?)";
+			logger.info(sql);
+			try (Connection con = TestConnection.getConnection(); PreparedStatement stmt = con.prepareStatement(sql);) {
 
-			stmt.setInt(1, BS.getStudentId());
-			stmt.setLong(2, BS.getISBN());
-			Date bw = Date.valueOf(BS.getBorrowedDate());
-			stmt.setDate(3, bw);
-			java.sql.Date dd = java.sql.Date.valueOf(BS.getDueDate());
-			stmt.setDate(4, dd);
+				stmt.setInt(1, BS.getStudentId());
+				stmt.setLong(2, BS.getISBN());
+				Date bw = Date.valueOf(BS.getBorrowedDate());
+				stmt.setDate(3, bw);
+				java.sql.Date dd = java.sql.Date.valueOf(BS.getDueDate());
+				stmt.setDate(4, dd);
 
-			row = stmt.executeUpdate();
-			logger.info("Insert=" + row);
+				row = stmt.executeUpdate();
+				logger.info("Insert=" + row);
 
-			if (row == 1) {
+				if (row == 1) {
 
-				updateBookStatus(BS);
-				sendMail(BS);
-			}}
-		
-		catch (SQLException e) {
+					updateBookStatus(BS);
 
-			logger.error(e);
-			logger.error(InfoMessages.INVALID_INSERT);
+				}
+			}
+
+			catch (SQLException e) {
+
+				logger.error(e);
+				throw new DbException(InfoMessages.BORROW_INSERT_FAILED, e);
+			}
+
 		}
-		
-	}
 		return row;
 	}
 
@@ -153,12 +155,12 @@ public class BookSummaryDAOImpl implements BookSummaryDAO {
 		} catch (SQLException e) {
 
 			logger.error(e);
-			logger.error(InfoMessages.INVALID_INSERT);
+			throw new DbException(InfoMessages.FAILED_TO_SELECT_BORROWDATE, e);
 		}
 		return li;
 	}
 
-	public List<BookSummary> viewBookSummary() throws DbException {
+	public List<BookSummary> findBookSummary() throws DbException {
 		List<BookSummary> list = new ArrayList<BookSummary>();
 		String sql = "Select * from book_summary";
 
@@ -185,7 +187,7 @@ public class BookSummaryDAOImpl implements BookSummaryDAO {
 			}
 		} catch (SQLException e) {
 			logger.error(e);
-			logger.error(InfoMessages.INVALID_INSERT);
+			throw new DbException(InfoMessages.FAILED_TO_SELECT_BOOKSUMMARY, e);
 		}
 		return list;
 	}

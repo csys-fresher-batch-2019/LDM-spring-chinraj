@@ -7,7 +7,9 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+
 import org.springframework.stereotype.Repository;
+
 import com.chainsys.chinlibapp.dao.BookListDAO;
 import com.chainsys.chinlibapp.exception.DbException;
 import com.chainsys.chinlibapp.exception.InfoMessages;
@@ -19,7 +21,7 @@ import com.chainsys.chinlibapp.util.TestConnection;
 public class BookListDAOImpl implements BookListDAO {
 	Logger logger = Logger.getInstance();
 
-	public int addBooks(BookList books) throws DbException {
+	public int saveBooks(BookList books) throws DbException {
 		int rows = 0;
 		String sqlinsert = "insert into booklist(ISBN,book_name,pages,author_name,publication,category,released_date,price,rack_no) values (?,?,?,?,?,?,?,?,?)";
 		try (Connection con = TestConnection.getConnection();) {
@@ -38,13 +40,12 @@ public class BookListDAOImpl implements BookListDAO {
 				logger.info(rows);
 			}
 		} catch (SQLException e) {
-
-			logger.error(InfoMessages.INVALID_INSERT);
+			throw new DbException(InfoMessages.FAILED_TO_ADD_BOOK, e);
 		}
 		return rows;
 	}
 
-	public List<BookList> viewBooks() throws DbException {
+	public List<BookList> findBooks() throws DbException {
 		List<BookList> list = null;
 
 		String sqlinsert = "Select * from Booklist ";
@@ -71,12 +72,12 @@ public class BookListDAOImpl implements BookListDAO {
 
 		} catch (SQLException e) {
 
-			logger.error(InfoMessages.INVALID_SELECT);
+			throw new DbException(InfoMessages.FAILED_TO_SELECT_BOOKLIST, e);
 		}
 		return list;
 	}
 
-	public int removeBooks(long isbn) throws DbException {
+	public int deleteBook(long isbn) throws DbException {
 		int row = 0;
 		String sqlinsert = "delete booklist where ISBN=?";
 		try (Connection con = TestConnection.getConnection();
@@ -91,12 +92,12 @@ public class BookListDAOImpl implements BookListDAO {
 		} catch (SQLException e) {
 
 			logger.error(e);
-			logger.error(InfoMessages.INVALID_DELETE);
+			throw new DbException(InfoMessages.FAILED_TO_DELETE_ISBN, e);
 		}
 		return row;
 	}
 
-	public ArrayList<BookList> category(String name) throws DbException {
+	public List<BookList> searchByBook(String name) throws DbException {
 
 		ArrayList<BookList> n = new ArrayList<>();
 
@@ -124,8 +125,7 @@ public class BookListDAOImpl implements BookListDAO {
 
 			}
 		} catch (SQLException e) {
-			logger.error(e);
-			logger.error(InfoMessages.INVALID_SELECT);
+			throw new DbException(InfoMessages.FAILED_TO_SELECT_BOOKNAME, e);
 		}
 		return n;
 

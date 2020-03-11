@@ -30,7 +30,7 @@ public class StudentControl {
 		n.setMailId(mailId);
 		n.setDeptName(deptName);
 
-		m.addStudents(n);
+		m.saveStudent(n);
 
 	}
 
@@ -42,7 +42,7 @@ public class StudentControl {
 	@PostMapping("/removeStudent")
 	public void removeStudent(@RequestParam int id) throws DbException {
 
-		m.removeStudent(id);
+		m.deleteStudent(id);
 	}
 
 }

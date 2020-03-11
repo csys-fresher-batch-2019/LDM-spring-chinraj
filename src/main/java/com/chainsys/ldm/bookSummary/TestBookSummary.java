@@ -46,7 +46,7 @@ public class TestBookSummary {
 
 				obj.setStatus(n.next());
 
-				BK.addBookInfo(obj);
+				BK.saveBorrowInfo(obj);
 
 			} else {
 				 logger.info("book is Not Available");
@@ -67,7 +67,7 @@ public class TestBookSummary {
 			BookSummaryDAOImpl obj1 = new BookSummaryDAOImpl();
 				System.out.println(" BookSummary :");
 				List<BookSummary> li = new ArrayList<BookSummary>();
-			   li = obj1.viewBookSummary();
+			   li = obj1.findBookSummary();
 			   for(Object object:li)
 				   System.out.println(object);
 			 

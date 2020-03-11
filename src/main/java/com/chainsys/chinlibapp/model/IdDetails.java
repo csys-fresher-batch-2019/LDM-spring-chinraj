@@ -10,12 +10,6 @@ public class IdDetails {
 		return studentId;
 	}
 
-	@Override
-	public String toString() {
-		return "IdDetails [studentId=" + studentId + ", depositAmtInId=" + depositAmtInId + ", libraryWallet="
-				+ libraryWallet + "]";
-	}
-
 	public void setStudentId(int studentId) {
 		this.studentId = studentId;
 	}
@@ -36,4 +30,9 @@ public class IdDetails {
 		this.libraryWallet = libraryWallet;
 	}
 
+	@Override
+	public String toString() {
+		return "IdDetails [studentId=" + studentId + ", depositAmtInId=" + depositAmtInId + ", libraryWallet="
+				+ libraryWallet + "]";
+	}
 }

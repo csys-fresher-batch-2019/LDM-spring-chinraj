@@ -21,7 +21,7 @@
 	<%
 		BookListDAO d = new BookListDAOImpl();
 
-			List<BookList> list1 = d.viewBooks();
+		List<BookList> list1 = d.findBooks();
 	%>
 	<table border="1">
 		<thead>

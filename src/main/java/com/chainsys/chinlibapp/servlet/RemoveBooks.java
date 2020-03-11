@@ -36,14 +36,13 @@ public class RemoveBooks extends HttpServlet {
 							request.setAttribute("infoMessage", "<h2>Book Removed!</h2>");
 							RequestDispatcher rd = request.getRequestDispatcher("RemoveBook.jsp");
 							rd.forward(request, response);
-						} else {
-							request.setAttribute("errorMessage", "<h2>ISBN Not Exists !!</h2");
-							RequestDispatcher rd = request.getRequestDispatcher("RemoveBook.jsp");
-							rd.forward(request, response);
+										
 						}
 					} catch (Exception e) {
 						e.printStackTrace();
-
+						request.setAttribute("errorMessage", "<h2>ISBN Not Exists !!</h2");
+						RequestDispatcher rd = request.getRequestDispatcher("RemoveBook.jsp");
+						rd.forward(request, response);
 					}
 				}
 	 

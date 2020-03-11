@@ -53,15 +53,13 @@ public class BsServlet extends HttpServlet {
 					request.setAttribute("infoMessage", "<h2>Borrow Sucess And Mail Sent!! !</h2>");
 					RequestDispatcher rd = request.getRequestDispatcher("BS.jsp");
 					rd.forward(request, response);
-				} else {
-
-					request.setAttribute("errorMessage", "<h2> Borrow Failed ISBN or StudentId not Avilable !!</h2");
-					RequestDispatcher rd = request.getRequestDispatcher("BS.jsp");
-					rd.forward(request, response);
+				
 				}
 			} catch (Exception e) {
 				e.printStackTrace();
-
+				request.setAttribute("errorMessage", "<h2> Borrow Failed ISBN or StudentId not Avilable !!</h2");
+				RequestDispatcher rd = request.getRequestDispatcher("BS.jsp");
+				rd.forward(request, response);
 			}
 	   
 	}}

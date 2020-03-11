@@ -25,9 +25,9 @@ public class TestFineInfo {
 			f.setISBN(s.nextLong());
 			System.out.println("Enter fines per day :");
 			f.setFinePerDay(s.nextInt());
-			d.AddFineInfo(f);
-			d.AddFineInfo1(f);
-			d.TotalFinesAmt(f);
+			d.addFineInfo(f);
+			d.updateFineInfo(f);
+			d.totalFine(f);
 		}
 			break;
 		case 2: {
@@ -36,7 +36,7 @@ public class TestFineInfo {
 			f.setStudentId(s.nextInt());
 			System.out.println("Enter ISBN :");
 			f.setISBN(s.nextLong());
-			d.bookreturned(f.getStudentId(), f.getISBN());
+			d.bookReturn(f.getStudentId(), f.getISBN());
 
 		}
 			break;
@@ -45,9 +45,9 @@ public class TestFineInfo {
 			f.setStudentId(s.nextInt());
 			System.out.println("Enter ISBN :");
 			f.setISBN(s.nextLong());
-			d.AddFineInfo1(f);
-			d.TotalFinesAmt(f);
-			d.FinePerStudent(f.getStudentId(), f.getISBN());
+			d.updateFineInfo(f);
+			d.totalFine(f);
+			d.finePerStudent(f.getStudentId(), f.getISBN());
 		}
 			break;
 		case 4: {
@@ -55,7 +55,7 @@ public class TestFineInfo {
 			f.setStudentId(s.nextInt());
 			System.out.println("Enter ISBN :");
 			f.setISBN(s.nextLong());
-			d.PenalityForBookLost(f.getStudentId(), f.getISBN());
+			d.penalityForBookLost(f.getStudentId(), f.getISBN());
 
 		}
 			break;

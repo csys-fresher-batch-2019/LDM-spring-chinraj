@@ -32,13 +32,13 @@ public class TestStudentInfo {
 		SI.setDeptName(s.next());
 		logger.info("Enter mail :");
 		SI.setMailId(s.next());
-		d.addStudents(SI);
+		d.saveStudent(SI);
 		
 	}
 		case 2:{
 			 logger.info("Enter studentId :");
 				SI.setStudentId(s.nextInt());
-				d.removeStudent(SI.getStudentId());
+				d.deleteStudent(SI.getStudentId());
 		}
 		
 		case 3:{

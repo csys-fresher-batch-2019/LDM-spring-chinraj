@@ -9,47 +9,39 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.chainsys.chinlibapp.exception.DbException;
 import com.chainsys.chinlibapp.service.IdService;
 
 @WebServlet("/FineDetect")
 public class FineDetect extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-       
-  
-    public FineDetect() {
-        super();
-    }
 
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	public FineDetect() {
+		super();
+	}
+
+	protected void doGet(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 		String StudentId = request.getParameter("Student Id");
 		int id = Integer.parseInt(StudentId);
 
-		  String ISBN = request.getParameter("ISBN");
-		    long IsBN=Long.parseLong(ISBN);    
-		    IdService j = new IdService();   
-		
+		String ISBN = request.getParameter("ISBN");
+		long IsBN = Long.parseLong(ISBN);
+		IdService j = new IdService();
 
+		try {
 
-	try {
-		
-		int s=j.updateAfterFinePay(id, IsBN);
-		if(s==1) {
-			request.setAttribute("infoMessage", "<h2>Amount Detected and added in Lib wallet !</h2>");
-			RequestDispatcher rd = request.getRequestDispatcher("ReturnAndRenewal.jsp");
-			rd.forward(request, response);
-			
-	}
-		else{
+			int s = j.updateAfterFinePay(id, IsBN);
+			if (s == 1) {
+				request.setAttribute("infoMessage", "<h2>Amount Detected and added in Lib wallet !</h2>");
+				RequestDispatcher rd = request.getRequestDispatcher("ReturnAndRenewal.jsp");
+				rd.forward(request, response);
+			}
+		} catch (Exception e1) {
+			e1.printStackTrace();
 			request.setAttribute("errorMessage", "<h2> Invalid data !!</h2");
 			RequestDispatcher rd = request.getRequestDispatcher("ReturnRenewal.jsp");
 			rd.forward(request, response);
 		}
-		}
-		catch (DbException e1) {
-		e1.printStackTrace();
-		
-	}	
 
-
-}}
+	}
+}

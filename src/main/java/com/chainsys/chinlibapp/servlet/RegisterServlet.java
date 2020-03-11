@@ -1,7 +1,6 @@
 package com.chainsys.chinlibapp.servlet;
 
 import java.io.IOException;
-import java.io.PrintWriter;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -35,20 +34,18 @@ public class RegisterServlet extends HttpServlet {
 
 		try {
 			int a = S.addStudents(SS);
-			
-					if (a!=0) {
-						request.setAttribute("infoMessage", "<h2>Student Added !</h2>");
-						RequestDispatcher rd = request.getRequestDispatcher("AddStudents.jsp");
-						rd.forward(request, response);
-					} else {
-						request.setAttribute("errorMessage", "<h2>Student Id Already Exists !!</h2>");
-						RequestDispatcher rd = request.getRequestDispatcher("AddStudents.jsp");
-						rd.forward(request, response);
-					}
-				} catch (Exception e) {
-					e.printStackTrace();
 
-				}
+			if (a != 0) {
+				request.setAttribute("infoMessage", "<h2>Student Added !</h2>");
+				RequestDispatcher rd = request.getRequestDispatcher("AddStudents.jsp");
+				rd.forward(request, response);
 			}
+		} catch (Exception e) {
+			e.printStackTrace();
+			request.setAttribute("errorMessage", "<h2>Student Id Already Exists !!</h2>");
+			RequestDispatcher rd = request.getRequestDispatcher("AddStudents.jsp");
+			rd.forward(request, response);
+		}
+	}
 
 }

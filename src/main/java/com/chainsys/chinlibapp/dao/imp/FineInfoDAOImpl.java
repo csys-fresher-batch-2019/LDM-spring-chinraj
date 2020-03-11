@@ -18,8 +18,7 @@ import com.chainsys.chinlibapp.util.TestConnection;
 public class FineInfoDAOImpl implements FineInfoDAO {
 	Logger logger = Logger.getInstance();
 
-	
-	public void AddFineInfo(FinesInfo FI) throws DbException {
+	public void addFineInfo(FinesInfo FI) throws DbException {
 
 		String sqlinsert = "insert into fine_amount(student_id,ISBN,fines_per_day) values(?,?,?)";
 		logger.info(sqlinsert);
@@ -30,23 +29,20 @@ public class FineInfoDAOImpl implements FineInfoDAO {
 			stmt.setInt(3, FI.getFinePerDay());
 			int rows = stmt.executeUpdate();
 			logger.info("" + rows);
-			
-			if (rows==1) {
-				AddFineInfo1(FI);
+
+			if (rows == 1) {
+				updateFineInfo(FI);
 				updateFineAmount(FI);
-				TotalFinesAmt(FI);
+				totalFine(FI);
 			}
-			
-			
-			
-			
+
 		} catch (SQLException e) {
 			logger.error(e);
-			logger.error(InfoMessages.INVALID_INSERT);
+			throw new DbException(InfoMessages.FAILED_TO_ADD_FINE_INFO, e);
 		}
 	}
 
-	public void AddFineInfo1(FinesInfo FO) throws DbException {
+	public void updateFineInfo(FinesInfo FO) throws DbException {
 		try (Connection con = TestConnection.getConnection();) {
 			String sql1 = " update fine_amount set no_of_extra_days = trunc(sysdate - (select due_date from book_summary where ISBN=? ))";
 			try (PreparedStatement stmt4 = con.prepareStatement(sql1);) {
@@ -57,7 +53,7 @@ public class FineInfoDAOImpl implements FineInfoDAO {
 			}
 		} catch (SQLException e) {
 			logger.error(e);
-			logger.error(InfoMessages.INVALID_INSERT);
+			throw new DbException(InfoMessages.FAILED_TO_UPDATE_FINE_INFO, e);
 		}
 	}
 
@@ -76,12 +72,12 @@ public class FineInfoDAOImpl implements FineInfoDAO {
 
 		} catch (SQLException e) {
 			logger.error(e);
-			logger.error(InfoMessages.INVALID_INSERT);
+			throw new DbException(InfoMessages.FAILED_TO_UPDATE_FINE_AMOUNT, e);
 		}
 		return 0;
 	}
 
-	public int TotalFinesAmt(FinesInfo FT) throws DbException {
+	public int totalFine(FinesInfo FT) throws DbException {
 		try (Connection con = TestConnection.getConnection();) {
 			String sql0 = "update fine_amount set fines=0, no_of_extra_days=0,fine_status='paid' where "
 					+ " trunc(( sysdate-(select due_date from book_summary where ISBN=?)))<=0 ";
@@ -96,14 +92,14 @@ public class FineInfoDAOImpl implements FineInfoDAO {
 			}
 		} catch (SQLException e) {
 			logger.error(e);
-			logger.error(InfoMessages.INVALID_INSERT);
+			throw new DbException(InfoMessages.FAILED_TO_UPDATE_TOTAL_FINE_AMOUNT, e);
 		}
 		return 0;
 	}
 
-	public int FinePerStudent(int studentId, long ISBN) throws DbException {
+	public int finePerStudent(int studentId, long ISBN) throws DbException {
 		int fines = 0;
-		
+
 		String sql6 = "select fines from fine_amount where student_id = ? and ISBN = ?";
 		try (Connection con = TestConnection.getConnection(); PreparedStatement pst = con.prepareStatement(sql6);) {
 			pst.setInt(1, studentId);
@@ -118,7 +114,7 @@ public class FineInfoDAOImpl implements FineInfoDAO {
 			}
 		} catch (SQLException e) {
 			logger.error(e);
-			logger.error(InfoMessages.INVALID_INSERT);
+			throw new DbException(InfoMessages.FAILED_TO_SELECT_FINE, e);
 		}
 		return fines;
 
@@ -135,7 +131,7 @@ public class FineInfoDAOImpl implements FineInfoDAO {
 			}
 		} catch (SQLException e) {
 			logger.error(e);
-			logger.error(InfoMessages.INVALID_INSERT);
+			throw new DbException(InfoMessages.FAILED_TO_DELETE_FINE_AMOUNT, e);
 		}
 		return rows;
 	}
@@ -153,7 +149,7 @@ public class FineInfoDAOImpl implements FineInfoDAO {
 			}
 		} catch (SQLException e) {
 			logger.error(e);
-			logger.error(InfoMessages.INVALID_INSERT);
+			throw new DbException(InfoMessages.FAILED_TO_UPDATE_BOOK_STATUS, e);
 		}
 		return row;
 	}
@@ -170,14 +166,14 @@ public class FineInfoDAOImpl implements FineInfoDAO {
 				logger.info(row);
 				logger.info(sql3);
 			}
-		} catch (Exception e) {
+		} catch (SQLException e) {
 			logger.error(e);
-			logger.error(InfoMessages.INVALID_INSERT);
+			throw new DbException(InfoMessages.FAILED_TO_UPDATE_BOOK_SUMMARY, e);
 		}
 		return row;
 	}
 
-	public int bookreturned(int studentId, long iSBN) throws DbException {
+	public int bookReturn(int studentId, long iSBN) throws DbException {
 		int row4 = 0;
 		try (Connection con = TestConnection.getConnection();) {
 			String sqll = "select fine_status from fine_amount where student_id=? and ISBN =?";
@@ -207,7 +203,7 @@ public class FineInfoDAOImpl implements FineInfoDAO {
 			}
 		} catch (SQLException e) {
 			logger.error(e);
-			logger.error(InfoMessages.INVALID_INSERT);
+			throw new DbException(InfoMessages.FAILED_TO_RETURN_BOOK, e);
 		}
 		return row4;
 	}
@@ -227,15 +223,15 @@ public class FineInfoDAOImpl implements FineInfoDAO {
 
 			}
 
-		} catch (Exception e) {
+		} catch (SQLException e) {
 			logger.error(e);
-			logger.error(InfoMessages.INVALID_INSERT);
+			throw new DbException(InfoMessages.FALED_TO_GET_BOOK_PRICE, e);
 		}
 
 		return price;
 	}
 
-	public int PenalityForBookLost(int studentId, long ISBN) throws DbException {
+	public int penalityForBookLost(int studentId, long ISBN) throws DbException {
 		int price = getBookPrice(ISBN);
 		try (Connection con = TestConnection.getConnection();) {
 			String sql3 = "update fine_amount set lost_penality = ? ";
@@ -248,7 +244,7 @@ public class FineInfoDAOImpl implements FineInfoDAO {
 			}
 		} catch (SQLException e) {
 			logger.error(e);
-			logger.error(InfoMessages.INVALID_INSERT);
+			throw new DbException(InfoMessages.FAILED_TO_UPDATE_LOST_PENALITY, e);
 		}
 		logger.info(price);
 		return price;
@@ -268,7 +264,7 @@ public class FineInfoDAOImpl implements FineInfoDAO {
 			logger.info(row);
 		} catch (SQLException e) {
 			logger.error(e);
-			logger.error(InfoMessages.INVALID_INSERT);
+			throw new DbException(InfoMessages.FALIED_TO_UPDATE_RENEWAL_COUNT, e);
 		}
 		return row;
 	}
@@ -288,9 +284,8 @@ public class FineInfoDAOImpl implements FineInfoDAO {
 						String status = row3.getString("fine_status");
 						logger.info(status);
 						if (status.contentEquals("paid")) {
-							row =updateRenewalCount(studentId, isbn);
+							row = updateRenewalCount(studentId, isbn);
 
-							
 						} else {
 							logger.info("Pay Fine amount");
 						}
@@ -301,7 +296,7 @@ public class FineInfoDAOImpl implements FineInfoDAO {
 			}
 		} catch (SQLException e) {
 			logger.error(e);
-			logger.error(InfoMessages.INVALID_INSERT);
+			throw new DbException(InfoMessages.FAILED_TO_RENEWAL, e);
 		}
 		return row;
 	}
@@ -323,8 +318,9 @@ public class FineInfoDAOImpl implements FineInfoDAO {
 			}
 		} catch (SQLException e) {
 			logger.error(e);
-			logger.error(InfoMessages.INVALID_SELECT);
+			throw new DbException(InfoMessages.FAILED_TO_SELECT_RENEWAL_COUNT, e);
 		}
 		return k;
+
 	}
 }

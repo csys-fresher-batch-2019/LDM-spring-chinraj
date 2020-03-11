@@ -29,12 +29,13 @@ public class IdDetailsDAOImpl implements IdDetailsDAO {
 				stmt.setInt(1, a);
 				stmt.setInt(2, b);
 				rows = stmt.executeUpdate();
+				return rows;
 			}
 		} catch (SQLException e) {
-			logger.error(e);
-			logger.error(InfoMessages.INVALID_INSERT);
+
+			throw new DbException(InfoMessages.FAILED_TO_ADD_MONEY, e);
+
 		}
-		return rows;
 
 	}
 
@@ -52,17 +53,14 @@ public class IdDetailsDAOImpl implements IdDetailsDAO {
 			}
 
 		} catch (SQLException e) {
-
-			logger.error(e);
-			logger.error(InfoMessages.INVALID_INSERT);
+			throw new DbException(InfoMessages.FAILED_TO_UPDATE_MONEY, e);
 
 		}
 		return rows;
 	}
-	
 
 	public int updateAfterFinePay(int studentId, long iSBN) throws DbException {
-		int row= 0;
+		int row = 0;
 		try (Connection con = TestConnection.getConnection();) {
 			String sql5 = "update amount set amount_in_id = amount_in_id-(select fines from fine_amount where student_id=? and ISBN=?)where student_id=?";
 			try (PreparedStatement s = con.prepareStatement(sql5);) {
@@ -73,15 +71,15 @@ public class IdDetailsDAOImpl implements IdDetailsDAO {
 				logger.info(sql5);
 				logger.info(row);
 
-				if(row==1) {
-					updateFineStatus( studentId,iSBN);
-					updateAmtInWallet(studentId,iSBN);
+				if (row == 1) {
+					updateFineStatus(studentId, iSBN);
+					updateAmtInWallet(studentId, iSBN);
 				}
-				
+
 			}
 		} catch (SQLException e) {
-			logger.error(e);
-			logger.error(InfoMessages.INVALID_INSERT);
+
+			throw new DbException(InfoMessages.FAILED_TO_UPDATE_AFTER_FINE_PAY, e);
 
 		}
 		return row;
@@ -101,8 +99,8 @@ public class IdDetailsDAOImpl implements IdDetailsDAO {
 
 			}
 		} catch (SQLException e) {
-			logger.error(e);
-			logger.error(InfoMessages.INVALID_INSERT);
+
+			throw new DbException(InfoMessages.FAILED_TO_UPDATE_FINE_STATUS, e);
 		}
 		return row1;
 
@@ -126,8 +124,8 @@ public class IdDetailsDAOImpl implements IdDetailsDAO {
 				}
 			}
 		} catch (SQLException e) {
-			logger.error(e);
-			logger.error(InfoMessages.INVALID_INSERT);
+
+			throw new DbException(InfoMessages.FAILED_TO_UPDATE_AMOUNT_IN_ID, e);
 
 		}
 		return row0;
@@ -144,13 +142,10 @@ public class IdDetailsDAOImpl implements IdDetailsDAO {
 			}
 		} catch (SQLException e) {
 			logger.error(e);
-			logger.error(InfoMessages.INVALID_INSERT);
+			throw new DbException(InfoMessages.FAILED_TO_CALL_LIB_WALLET_PROC, e);
 
 		}
 		return libraryWallet;
 	}
-
-
-
 
 }

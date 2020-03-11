@@ -12,22 +12,16 @@ import com.chainsys.chinlibapp.dao.imp.BookListDAOImpl;
 import com.chainsys.chinlibapp.exception.DbException;
 import com.chainsys.chinlibapp.model.BookList;
 
-@RestController                  
+@RestController
 @RequestMapping("api")
 public class BookController {
 	BookListDAOImpl a = new BookListDAOImpl();
 
 	@PostMapping("/addbooks")
-	public void addBooks(
-			@RequestParam("ISBN") Long isbn,
-			@RequestParam("book_name") String bookName,
-			@RequestParam("pages") Integer pages, 
-			@RequestParam("author_name") String authorName,
-			@RequestParam("publication") String publication,
-			@RequestParam("released_date") String date,
-			@RequestParam("category") String category,
-			@RequestParam("book_status") String bookStatus,
-			@RequestParam("price") Integer price,
+	public void addBooks(@RequestParam("ISBN") Long isbn, @RequestParam("book_name") String bookName,
+			@RequestParam("pages") Integer pages, @RequestParam("author_name") String authorName,
+			@RequestParam("publication") String publication, @RequestParam("released_date") String date,
+			@RequestParam("category") String category, @RequestParam("price") Integer price,
 			@RequestParam("rack_no") Integer rackNo) {
 
 		BookList b = new BookList();
@@ -37,7 +31,7 @@ public class BookController {
 		b.setPages(pages);
 		b.setAuthorName(authorName);
 		b.setPublication(publication);
-		b.setBookStatus(bookStatus);
+
 		b.setPrice(price);
 		LocalDate ld = LocalDate.parse(date);
 		b.setReleasedDate(ld);
@@ -45,7 +39,7 @@ public class BookController {
 		b.setRackNo(rackNo);
 
 		try {
-			a.addBooks(b);
+			a.saveBooks(b);
 		} catch (Exception e) {
 
 			e.printStackTrace();
@@ -54,18 +48,13 @@ public class BookController {
 
 	@GetMapping("/viewBooks")
 	public List<BookList> viewBooks() throws DbException {
-		return a.viewBooks();
+		return a.findBooks();
 	}
 
-	
 	@PostMapping("/removeBooks")
 	public void removeBooks(@RequestParam long isbn) throws DbException {
-  	a.removeBooks(isbn);
-  
+		a.deleteBook(isbn);
+
 	}
-
-
-
-
 
 }

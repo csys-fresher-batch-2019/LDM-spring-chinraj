@@ -14,7 +14,8 @@ public class ChinlibappApplication extends SpringBootServletInitializer {
 	@Override
 	protected SpringApplicationBuilder configure(SpringApplicationBuilder application) {
 		return application.sources(ChinlibappApplication.class);
-	}  
+	}
+
 	public static void main(String[] args) {
 		SpringApplication.run(ChinlibappApplication.class, args);
 	}

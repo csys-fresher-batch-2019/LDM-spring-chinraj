@@ -9,22 +9,26 @@ import com.chainsys.chinlibapp.dao.BookSummaryDAO;
 import com.chainsys.chinlibapp.dao.imp.BookSummaryDAOImpl;
 import com.chainsys.chinlibapp.exception.DbException;
 import com.chainsys.chinlibapp.model.BookSummary;
+
 @Service
 public class BookSumService {
 
-	BookSummaryDAO bs=new BookSummaryDAOImpl();
-	
+	BookSummaryDAO bs = new BookSummaryDAOImpl();
+
 	public int addBookInfo(BookSummary BS) throws DbException {
-		return bs.addBookInfo(BS);
-		}
-	
-	public List<BookSummary> onParticularDate (LocalDate borrowedDate) throws DbException{
+		int rows = 0;
+		bs.saveBorrowInfo(BS);
+		rows = bs.sendMail(BS);
+		return rows;
+	}
+
+	public List<BookSummary> onParticularDate(LocalDate borrowedDate) throws DbException {
 		return bs.onParticularDate(borrowedDate);
-		
+
 	}
-	
-	 List<BookSummary> viewBookSummary() throws DbException {
-		return bs.viewBookSummary();
+
+	List<BookSummary> viewBookSummary() throws DbException {
+		return bs.findBookSummary();
 	}
-	
+
 }

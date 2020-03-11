@@ -20,7 +20,7 @@ import com.chainsys.chinlibapp.util.TestConnection;
 public class StudentInfoDAOImpl implements StudentInfoDAO {
 	Logger logger = Logger.getInstance();
 
-	public int addStudents(StudentInfo SS) throws DbException {
+	public int saveStudent(StudentInfo SS) throws DbException {
 		int rows = 0;
 		String sqlinsert = "insert into student(student_id,student_name,dept_name,mail_id) values(?,?,?,?)";
 		logger.info(sqlinsert);
@@ -43,13 +43,13 @@ public class StudentInfoDAOImpl implements StudentInfoDAO {
 
 		} catch (SQLException e) {
 			logger.error(e);
-			logger.error(InfoMessages.INVALID_INSERT);
+			throw new DbException(InfoMessages.FAILED_TO_ADD_STUDENTS, e);
 
 		}
 		return rows;
 	}
 
-	public int removeStudent(int id) throws DbException {
+	public int deleteStudent(int id) throws DbException {
 		int row1 = 0;
 		String sql = "Delete student where student_id= ?";
 
@@ -64,7 +64,7 @@ public class StudentInfoDAOImpl implements StudentInfoDAO {
 
 		} catch (SQLException e) {
 			logger.debug(e.getMessage());
-			logger.error(InfoMessages.INVALID_INSERT);
+			throw new DbException(InfoMessages.FAILED_TO_DELETE_STUDENT, e);
 
 		}
 		return row1;
@@ -89,7 +89,7 @@ public class StudentInfoDAOImpl implements StudentInfoDAO {
 			}
 		} catch (SQLException e) {
 			logger.error(e);
-			logger.error(InfoMessages.INVALID_SELECT);
+			throw new DbException(InfoMessages.FAILED_TO_SELECT_STUDENT, e);
 
 		}
 		return list;
