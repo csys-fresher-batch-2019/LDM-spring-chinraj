@@ -35,7 +35,7 @@ public class BookSummaryDAOImpl implements BookSummaryDAO {
 				}
 			}
 		} catch (SQLException e) {
-			logger.error(e);
+
 			throw new DbException(InfoMessages.FAILED_TO_CHECK_BOOKSTATUS, e);
 		}
 		return false;
@@ -56,7 +56,6 @@ public class BookSummaryDAOImpl implements BookSummaryDAO {
 
 		} catch (SQLException e) {
 
-			logger.error(e);
 			throw new DbException(InfoMessages.FAILED_TO_UPDATE_BOOKSTATUS, e);
 		}
 		return row1;
@@ -79,7 +78,6 @@ public class BookSummaryDAOImpl implements BookSummaryDAO {
 			}
 		} catch (SQLException e) {
 
-			logger.error(e);
 			throw new DbException(InfoMessages.FAILED_TO_SENDMAIL, e);
 		}
 		return 1;
@@ -113,7 +111,6 @@ public class BookSummaryDAOImpl implements BookSummaryDAO {
 
 			catch (SQLException e) {
 
-				logger.error(e);
 				throw new DbException(InfoMessages.BORROW_INSERT_FAILED, e);
 			}
 
@@ -154,7 +151,6 @@ public class BookSummaryDAOImpl implements BookSummaryDAO {
 			}
 		} catch (SQLException e) {
 
-			logger.error(e);
 			throw new DbException(InfoMessages.FAILED_TO_SELECT_BORROWDATE, e);
 		}
 		return li;
@@ -186,7 +182,7 @@ public class BookSummaryDAOImpl implements BookSummaryDAO {
 				}
 			}
 		} catch (SQLException e) {
-			logger.error(e);
+
 			throw new DbException(InfoMessages.FAILED_TO_SELECT_BOOKSUMMARY, e);
 		}
 		return list;

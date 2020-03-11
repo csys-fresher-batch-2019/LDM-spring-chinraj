@@ -42,7 +42,6 @@ public class StudentInfoDAOImpl implements StudentInfoDAO {
 			}
 
 		} catch (SQLException e) {
-			logger.error(e);
 			throw new DbException(InfoMessages.FAILED_TO_ADD_STUDENTS, e);
 
 		}
@@ -63,7 +62,7 @@ public class StudentInfoDAOImpl implements StudentInfoDAO {
 			}
 
 		} catch (SQLException e) {
-			logger.debug(e.getMessage());
+
 			throw new DbException(InfoMessages.FAILED_TO_DELETE_STUDENT, e);
 
 		}
@@ -88,7 +87,7 @@ public class StudentInfoDAOImpl implements StudentInfoDAO {
 
 			}
 		} catch (SQLException e) {
-			logger.error(e);
+
 			throw new DbException(InfoMessages.FAILED_TO_SELECT_STUDENT, e);
 
 		}

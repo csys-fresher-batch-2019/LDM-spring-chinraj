@@ -37,7 +37,6 @@ public class FineInfoDAOImpl implements FineInfoDAO {
 			}
 
 		} catch (SQLException e) {
-			logger.error(e);
 			throw new DbException(InfoMessages.FAILED_TO_ADD_FINE_INFO, e);
 		}
 	}
@@ -71,7 +70,7 @@ public class FineInfoDAOImpl implements FineInfoDAO {
 			}
 
 		} catch (SQLException e) {
-			logger.error(e);
+
 			throw new DbException(InfoMessages.FAILED_TO_UPDATE_FINE_AMOUNT, e);
 		}
 		return 0;
@@ -91,7 +90,7 @@ public class FineInfoDAOImpl implements FineInfoDAO {
 
 			}
 		} catch (SQLException e) {
-			logger.error(e);
+		
 			throw new DbException(InfoMessages.FAILED_TO_UPDATE_TOTAL_FINE_AMOUNT, e);
 		}
 		return 0;
@@ -113,7 +112,7 @@ public class FineInfoDAOImpl implements FineInfoDAO {
 				}
 			}
 		} catch (SQLException e) {
-			logger.error(e);
+		
 			throw new DbException(InfoMessages.FAILED_TO_SELECT_FINE, e);
 		}
 		return fines;
@@ -130,7 +129,6 @@ public class FineInfoDAOImpl implements FineInfoDAO {
 				logger.info(sql6);
 			}
 		} catch (SQLException e) {
-			logger.error(e);
 			throw new DbException(InfoMessages.FAILED_TO_DELETE_FINE_AMOUNT, e);
 		}
 		return rows;
@@ -148,7 +146,7 @@ public class FineInfoDAOImpl implements FineInfoDAO {
 
 			}
 		} catch (SQLException e) {
-			logger.error(e);
+	
 			throw new DbException(InfoMessages.FAILED_TO_UPDATE_BOOK_STATUS, e);
 		}
 		return row;
@@ -167,7 +165,7 @@ public class FineInfoDAOImpl implements FineInfoDAO {
 				logger.info(sql3);
 			}
 		} catch (SQLException e) {
-			logger.error(e);
+
 			throw new DbException(InfoMessages.FAILED_TO_UPDATE_BOOK_SUMMARY, e);
 		}
 		return row;
@@ -202,7 +200,7 @@ public class FineInfoDAOImpl implements FineInfoDAO {
 				}
 			}
 		} catch (SQLException e) {
-			logger.error(e);
+
 			throw new DbException(InfoMessages.FAILED_TO_RETURN_BOOK, e);
 		}
 		return row4;
@@ -224,7 +222,6 @@ public class FineInfoDAOImpl implements FineInfoDAO {
 			}
 
 		} catch (SQLException e) {
-			logger.error(e);
 			throw new DbException(InfoMessages.FALED_TO_GET_BOOK_PRICE, e);
 		}
 
@@ -243,7 +240,7 @@ public class FineInfoDAOImpl implements FineInfoDAO {
 
 			}
 		} catch (SQLException e) {
-			logger.error(e);
+		
 			throw new DbException(InfoMessages.FAILED_TO_UPDATE_LOST_PENALITY, e);
 		}
 		logger.info(price);
@@ -263,7 +260,7 @@ public class FineInfoDAOImpl implements FineInfoDAO {
 			logger.info(sql3);
 			logger.info(row);
 		} catch (SQLException e) {
-			logger.error(e);
+	
 			throw new DbException(InfoMessages.FALIED_TO_UPDATE_RENEWAL_COUNT, e);
 		}
 		return row;
@@ -295,7 +292,6 @@ public class FineInfoDAOImpl implements FineInfoDAO {
 
 			}
 		} catch (SQLException e) {
-			logger.error(e);
 			throw new DbException(InfoMessages.FAILED_TO_RENEWAL, e);
 		}
 		return row;
@@ -317,7 +313,7 @@ public class FineInfoDAOImpl implements FineInfoDAO {
 				}
 			}
 		} catch (SQLException e) {
-			logger.error(e);
+
 			throw new DbException(InfoMessages.FAILED_TO_SELECT_RENEWAL_COUNT, e);
 		}
 		return k;

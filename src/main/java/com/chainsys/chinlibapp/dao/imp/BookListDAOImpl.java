@@ -91,7 +91,6 @@ public class BookListDAOImpl implements BookListDAO {
 			}
 		} catch (SQLException e) {
 
-			logger.error(e);
 			throw new DbException(InfoMessages.FAILED_TO_DELETE_ISBN, e);
 		}
 		return row;

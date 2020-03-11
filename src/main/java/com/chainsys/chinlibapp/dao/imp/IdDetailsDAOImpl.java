@@ -141,7 +141,6 @@ public class IdDetailsDAOImpl implements IdDetailsDAO {
 				logger.info(libraryWallet);
 			}
 		} catch (SQLException e) {
-			logger.error(e);
 			throw new DbException(InfoMessages.FAILED_TO_CALL_LIB_WALLET_PROC, e);
 
 		}
