@@ -15,10 +15,10 @@ public class BookSumService {
 
 	BookSummaryDAO bs = new BookSummaryDAOImpl();
 
-	public int addBookInfo(BookSummary BS) throws DbException {
+	public int addBookInfo(BookSummary b) throws DbException {
 		int rows = 0;
-		bs.saveBorrowInfo(BS);
-		rows = bs.sendMail(BS);
+		bs.saveBorrowInfo(b);
+		rows = bs.sendMail(b);
 		return rows;
 	}
 

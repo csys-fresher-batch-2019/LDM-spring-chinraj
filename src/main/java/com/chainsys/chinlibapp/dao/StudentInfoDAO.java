@@ -7,7 +7,7 @@ import com.chainsys.chinlibapp.model.StudentInfo;
 
 public interface StudentInfoDAO {
 
-	public int saveStudent(StudentInfo SS) throws DbException;
+	public int saveStudent(StudentInfo s) throws DbException;
 
 	public int deleteStudent(int id) throws DbException;
 

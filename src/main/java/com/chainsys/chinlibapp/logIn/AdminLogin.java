@@ -1,4 +1,4 @@
-package com.chainsys.ldm.logIn;
+package com.chainsys.chinlibapp.logIn;
 
 public class AdminLogin {
 

@@ -18,22 +18,22 @@ import com.chainsys.chinlibapp.util.TestConnection;
 public class FineInfoDAOImpl implements FineInfoDAO {
 	Logger logger = Logger.getInstance();
 
-	public void addFineInfo(FinesInfo FI) throws DbException {
+	public void addFineInfo(FinesInfo f) throws DbException {
 
 		String sqlinsert = "insert into fine_amount(student_id,ISBN,fines_per_day) values(?,?,?)";
 		logger.info(sqlinsert);
 		try (Connection con = TestConnection.getConnection();
 				PreparedStatement stmt = con.prepareStatement(sqlinsert);) {
-			stmt.setInt(1, FI.getStudentId());
-			stmt.setLong(2, FI.getISBN());
-			stmt.setInt(3, FI.getFinePerDay());
+			stmt.setInt(1, f.getStudentId());
+			stmt.setLong(2, f.getISBN());
+			stmt.setInt(3, f.getFinePerDay());
 			int rows = stmt.executeUpdate();
 			logger.info("" + rows);
 
 			if (rows == 1) {
-				updateFineInfo(FI);
-				updateFineAmount(FI);
-				totalFine(FI);
+				updateFineInfo(f);
+				updateFineAmount(f);
+				totalFine(f);
 			}
 
 		} catch (SQLException e) {
@@ -41,11 +41,11 @@ public class FineInfoDAOImpl implements FineInfoDAO {
 		}
 	}
 
-	public void updateFineInfo(FinesInfo FO) throws DbException {
+	public void updateFineInfo(FinesInfo i) throws DbException {
 		try (Connection con = TestConnection.getConnection();) {
 			String sql1 = " update fine_amount set no_of_extra_days = trunc(sysdate - (select due_date from book_summary where ISBN=? ))";
 			try (PreparedStatement stmt4 = con.prepareStatement(sql1);) {
-				stmt4.setLong(1, FO.getISBN());
+				stmt4.setLong(1, i.getISBN());
 				int row1 = stmt4.executeUpdate();
 				logger.info(row1);
 				logger.info(sql1);
@@ -56,14 +56,14 @@ public class FineInfoDAOImpl implements FineInfoDAO {
 		}
 	}
 
-	public int updateFineAmount(FinesInfo FT) throws DbException {
+	public int updateFineAmount(FinesInfo j) throws DbException {
 
 		try (Connection con = TestConnection.getConnection();) {
 
 			String sql5 = "  update fine_amount set fines= no_of_extra_days * fines_per_day where student_id= ? and ISBN=?";
 			try (PreparedStatement s = con.prepareStatement(sql5);) {
-				s.setInt(1, FT.getStudentId());
-				s.setLong(2, FT.getISBN());
+				s.setInt(1, j.getStudentId());
+				s.setLong(2, j.getISBN());
 				int rowq = s.executeUpdate();
 				logger.info(rowq);
 				logger.info(sql5);
@@ -76,17 +76,17 @@ public class FineInfoDAOImpl implements FineInfoDAO {
 		return 0;
 	}
 
-	public int totalFine(FinesInfo FT) throws DbException {
+	public int totalFine(FinesInfo t) throws DbException {
 		try (Connection con = TestConnection.getConnection();) {
 			String sql0 = "update fine_amount set fines=0, no_of_extra_days=0,fine_status='paid' where "
 					+ " trunc(( sysdate-(select due_date from book_summary where ISBN=?)))<=0 ";
 			try (PreparedStatement stm = con.prepareStatement(sql0);) {
-				stm.setLong(1, FT.getISBN());
+				stm.setLong(1, t.getISBN());
 				int row = stm.executeUpdate();
 				logger.info(row);
 				logger.info(sql0);
 
-				updateFineAmount(FT);
+				updateFineAmount(t);
 
 			}
 		} catch (SQLException e) {
@@ -96,13 +96,13 @@ public class FineInfoDAOImpl implements FineInfoDAO {
 		return 0;
 	}
 
-	public int finePerStudent(int studentId, long ISBN) throws DbException {
+	public int finePerStudent(int studentId, long isbn) throws DbException {
 		int fines = 0;
 
 		String sql6 = "select fines from fine_amount where student_id = ? and ISBN = ?";
 		try (Connection con = TestConnection.getConnection(); PreparedStatement pst = con.prepareStatement(sql6);) {
 			pst.setInt(1, studentId);
-			pst.setLong(2, ISBN);
+			pst.setLong(2, isbn);
 			logger.info(sql6);
 			try (ResultSet rs = pst.executeQuery();) {
 				while (rs.next()) {
@@ -134,12 +134,12 @@ public class FineInfoDAOImpl implements FineInfoDAO {
 		return rows;
 	}
 
-	public int updateBookStatus(long iSBN) throws DbException {
+	public int updateBookStatus(long isbn) throws DbException {
 		int row = 0;
 		String sql0 = "update booklist set book_status = 'Available' where ISBN = ?";
 		try (Connection con = TestConnection.getConnection();) {
 			try (PreparedStatement stmt5 = con.prepareStatement(sql0);) {
-				stmt5.setLong(1, iSBN);
+				stmt5.setLong(1, isbn);
 				row = stmt5.executeUpdate();
 				logger.info(row);
 				logger.info(sql0);
@@ -152,14 +152,14 @@ public class FineInfoDAOImpl implements FineInfoDAO {
 		return row;
 	}
 
-	public int updateBookSummary(int studentId, long iSBN) throws DbException {
+	public int updateBookSummary(int studentId, long isbn) throws DbException {
 		int row = 0;
 		String sql3 = "update book_summary set status ='Returned',return_date=sysdate where student_id =? and ISBN = ?";
 		try (Connection con = TestConnection.getConnection();) {
 
 			try (PreparedStatement stmt = con.prepareStatement(sql3);) {
 				stmt.setInt(1, studentId);
-				stmt.setLong(2, iSBN);
+				stmt.setLong(2, isbn);
 				row = stmt.executeUpdate();
 				logger.info(row);
 				logger.info(sql3);
@@ -171,13 +171,13 @@ public class FineInfoDAOImpl implements FineInfoDAO {
 		return row;
 	}
 
-	public int bookReturn(int studentId, long iSBN) throws DbException {
+	public int bookReturn(int studentId, long isbn) throws DbException {
 		int row4 = 0;
 		try (Connection con = TestConnection.getConnection();) {
 			String sqll = "select fine_status from fine_amount where student_id=? and ISBN =?";
 			try (PreparedStatement pst = con.prepareStatement(sqll);) {
 				pst.setInt(1, studentId);
-				pst.setLong(2, iSBN);
+				pst.setLong(2, isbn);
 
 				try (ResultSet row3 = pst.executeQuery();) {
 
@@ -186,8 +186,8 @@ public class FineInfoDAOImpl implements FineInfoDAO {
 						String status = row3.getString("fine_status");
 						if (status.contentEquals("paid")) {
 
-							updateBookSummary(studentId, iSBN);
-							row4 = updateBookStatus(iSBN);
+							updateBookSummary(studentId, isbn);
+							row4 = updateBookStatus(isbn);
 							if (row4 == 1) {
 								deleteFineAmount();
 							}
@@ -206,13 +206,13 @@ public class FineInfoDAOImpl implements FineInfoDAO {
 		return row4;
 	}
 
-	public int getBookPrice(long ISBN) throws DbException {
+	public int getBookPrice(long isbn) throws DbException {
 
 		int price = 0;
 		try (Connection con = TestConnection.getConnection();) {
 			String sql3 = "select price from booklist where ISBN =?";
 			try (PreparedStatement stmt = con.prepareStatement(sql3);) {
-				stmt.setLong(1, ISBN);
+				stmt.setLong(1, isbn);
 
 				ResultSet rs = stmt.executeQuery();
 				if (rs.next()) {
@@ -228,8 +228,8 @@ public class FineInfoDAOImpl implements FineInfoDAO {
 		return price;
 	}
 
-	public int penalityForBookLost(int studentId, long ISBN) throws DbException {
-		int price = getBookPrice(ISBN);
+	public int penalityForBookLost(int studentId, long isbn) throws DbException {
+		int price = getBookPrice(isbn);
 		try (Connection con = TestConnection.getConnection();) {
 			String sql3 = "update fine_amount set lost_penality = ? ";
 			try (PreparedStatement stmt = con.prepareStatement(sql3);) {

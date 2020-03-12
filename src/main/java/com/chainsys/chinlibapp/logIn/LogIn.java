@@ -1,4 +1,4 @@
-package com.chainsys.ldm.logIn;
+package com.chainsys.chinlibapp.logIn;
 
 import java.sql.Connection;
 import java.sql.ResultSet;

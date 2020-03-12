@@ -12,31 +12,31 @@ public class FineInfoService {
 
 	private FineInfoDAO fineInfoDAO = new FineInfoDAOImpl();
 
-	public void AddFineInfo(FinesInfo FI) throws DbException {
-		fineInfoDAO.addFineInfo(FI);
+	public void AddFineInfo(FinesInfo f) throws DbException {
+		fineInfoDAO.addFineInfo(f);
 	}
 
-	public void AddFineInfo1(FinesInfo FO) throws DbException {
-		fineInfoDAO.updateFineInfo(FO);
+	public void AddFineInfo1(FinesInfo i) throws DbException {
+		fineInfoDAO.updateFineInfo(i);
 	}
 
-	public int TotalFinesAmt(FinesInfo FT) throws DbException {
+	public int TotalFinesAmt(FinesInfo t) throws DbException {
 
-		int rows = fineInfoDAO.updateFineAmount(FT);
+		int rows = fineInfoDAO.updateFineAmount(t);
 		return rows;
 
 	}
 
-	public int FinePerStudent(int studentId, long ISBN) throws Exception {
+	public int FinePerStudent(int studentId, long isbn) throws Exception {
 
-		return fineInfoDAO.finePerStudent(studentId, ISBN);
+		return fineInfoDAO.finePerStudent(studentId, isbn);
 
 	}
 
-	public int bookreturned(int studentId, long ISBN) throws DbException {
-		fineInfoDAO.updateBookSummary(studentId, ISBN);
+	public int bookreturned(int studentId, long isbn) throws DbException {
+		fineInfoDAO.updateBookSummary(studentId, isbn);
 
-		return fineInfoDAO.bookReturn(studentId, ISBN);
+		return fineInfoDAO.bookReturn(studentId, isbn);
 
 	}
 
@@ -45,9 +45,9 @@ public class FineInfoService {
 
 	}
 
-	public int PenalityForBookLost(int studentId, long ISBN) throws DbException {
+	public int PenalityForBookLost(int studentId, long isbn) throws DbException {
 
-		return fineInfoDAO.penalityForBookLost(studentId, ISBN);
+		return fineInfoDAO.penalityForBookLost(studentId, isbn);
 
 	}
 

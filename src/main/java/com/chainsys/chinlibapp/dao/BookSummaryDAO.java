@@ -10,14 +10,14 @@ import com.chainsys.chinlibapp.model.BookSummary;
 public interface BookSummaryDAO {
 	public boolean checkBookStatus(long fg) throws DbException, SQLException;
 
-	int saveBorrowInfo(BookSummary BS) throws DbException;
+	int saveBorrowInfo(BookSummary b) throws DbException;
 
 	List<BookSummary> onParticularDate(LocalDate borrowedDate) throws DbException;
 
 	List<BookSummary> findBookSummary() throws DbException;
 
-	public int updateBookStatus(BookSummary BS) throws DbException;
+	public int updateBookStatus(BookSummary b) throws DbException;
 
-	public int sendMail(BookSummary BS) throws DbException;
+	public int sendMail(BookSummary b) throws DbException;
 
 }

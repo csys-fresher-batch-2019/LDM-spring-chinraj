@@ -42,14 +42,14 @@ public class BookSummaryDAOImpl implements BookSummaryDAO {
 
 	}
 
-	public int updateBookStatus(BookSummary BS) throws DbException {
+	public int updateBookStatus(BookSummary b) throws DbException {
 
 		int row1 = 0;
 		String sql1 = "update booklist set book_status = 'Notavailable' where ISBN = ?";
 		try (Connection con = TestConnection.getConnection();
 
 				PreparedStatement stmt1 = con.prepareStatement(sql1);) {
-			stmt1.setLong(1, BS.getISBN());
+			stmt1.setLong(1, b.getISBN());
 			row1 = stmt1.executeUpdate();
 			logger.info(row1);
 			logger.info(sql1);
@@ -61,18 +61,18 @@ public class BookSummaryDAOImpl implements BookSummaryDAO {
 		return row1;
 	}
 
-	public int sendMail(BookSummary BS) throws DbException {
+	public int sendMail(BookSummary b) throws DbException {
 
 		String sql0 = "Select  mail_id from student where student_id=? ";
 		try (Connection con = TestConnection.getConnection();
 
 				PreparedStatement stmt0 = con.prepareStatement(sql0);) {
-			stmt0.setInt(1, BS.getStudentId());
+			stmt0.setInt(1, b.getStudentId());
 			try (ResultSet rs = stmt0.executeQuery();) {
 				String mail;
 				if (rs.next()) {
 					mail = rs.getString("mail_id");
-					SendMail.chinlib(mail, BS.getISBN());
+					SendMail.chinlib(mail, b.getISBN());
 				}
 				logger.info(sql0);
 			}
@@ -84,27 +84,28 @@ public class BookSummaryDAOImpl implements BookSummaryDAO {
 
 	}
 
-	public int saveBorrowInfo(BookSummary BS) throws DbException {
+	public int saveBorrowInfo(BookSummary b) throws DbException {
 		int row = 0;
-		boolean a = checkBookStatus(BS.getISBN());
+		boolean a = checkBookStatus(b.getISBN());
 		if (a == true) {
 			String sql = "insert into book_summary(student_id,ISBN,borrowed_date,due_date)" + " values(?,?,?,?)";
 			logger.info(sql);
 			try (Connection con = TestConnection.getConnection(); PreparedStatement stmt = con.prepareStatement(sql);) {
 
-				stmt.setInt(1, BS.getStudentId());
-				stmt.setLong(2, BS.getISBN());
-				Date bw = Date.valueOf(BS.getBorrowedDate());
+				stmt.setInt(1, b.getStudentId());
+				stmt.setLong(2, b.getISBN());
+				Date bw = Date.valueOf(b.getBorrowedDate());
 				stmt.setDate(3, bw);
-				java.sql.Date dd = java.sql.Date.valueOf(BS.getDueDate());
+				java.sql.Date dd = java.sql.Date.valueOf(b.getDueDate());
 				stmt.setDate(4, dd);
+				
 
 				row = stmt.executeUpdate();
 				logger.info("Insert=" + row);
 
 				if (row == 1) {
 
-					updateBookStatus(BS);
+					updateBookStatus(b);
 
 				}
 			}
@@ -128,17 +129,17 @@ public class BookSummaryDAOImpl implements BookSummaryDAO {
 				pst1.setDate(1, bw);
 				try (ResultSet rs = pst1.executeQuery();) {
 					while (rs.next()) {
-						BookSummary BS = new BookSummary();
-						int Id = rs.getInt("student_id");
-						BS.setstudentId(Id);
-						BS.setISBN(rs.getLong("ISBN"));
+						BookSummary b = new BookSummary();
+						int id = rs.getInt("student_id");
+						b.setstudentId(id);
+						b.setISBN(rs.getLong("ISBN"));
 						Date g = rs.getDate("borrowed_date");
-						BS.setBorrowedDate(g.toLocalDate());
+						b.setBorrowedDate(g.toLocalDate());
 						Date g1 = rs.getDate("due_date");
-						BS.setDueDate(g1.toLocalDate());
-						BS.setRenewalCount(rs.getInt("renewal_count"));
-						BS.setStatus(rs.getString("status"));
-						li.add(BS);
+						b.setDueDate(g1.toLocalDate());
+						b.setRenewalCount(rs.getInt("renewal_count"));
+						b.setStatus(rs.getString("status"));
+						li.add(b);
 					}
 					if (li.size() > 0) {
 						for (BookSummary bookSummary : li) {

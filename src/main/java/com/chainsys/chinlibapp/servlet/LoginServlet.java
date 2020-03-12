@@ -10,7 +10,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import com.chainsys.ldm.logIn.LogIn;
+import com.chainsys.chinlibapp.logIn.LogIn;
 
 @WebServlet("/LoginServlet")
 public class LoginServlet extends HttpServlet {

@@ -20,16 +20,16 @@ import com.chainsys.chinlibapp.util.TestConnection;
 public class StudentInfoDAOImpl implements StudentInfoDAO {
 	Logger logger = Logger.getInstance();
 
-	public int saveStudent(StudentInfo SS) throws DbException {
+	public int saveStudent(StudentInfo s) throws DbException {
 		int rows = 0;
 		String sqlinsert = "insert into student(student_id,student_name,dept_name,mail_id) values(?,?,?,?)";
 		logger.info(sqlinsert);
 		try (Connection con = TestConnection.getConnection();
 				PreparedStatement stmt = con.prepareStatement(sqlinsert);) {
-			stmt.setInt(1, SS.getStudentId());
-			stmt.setString(2, SS.getStudentName());
-			stmt.setString(3, SS.getDepartmentName());
-			stmt.setString(4, SS.getMailId());
+			stmt.setInt(1, s.getStudentId());
+			stmt.setString(2, s.getStudentName());
+			stmt.setString(3, s.getDepartmentName());
+			stmt.setString(4, s.getMailId());
 			rows = stmt.executeUpdate();
 			logger.info(rows);
 

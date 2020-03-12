@@ -14,8 +14,8 @@ public class StudentInfoService {
 
 	StudentInfoDAO s = new StudentInfoDAOImpl();
 
-	public int addStudents(StudentInfo SS) throws DbException {
-		return s.saveStudent(SS);
+	public int addStudents(StudentInfo k) throws DbException {
+		return s.saveStudent(k);
 	}
 
 	public int removeStudent(int id) throws DbException {

@@ -85,14 +85,14 @@ public class IdDetailsDAOImpl implements IdDetailsDAO {
 		return row;
 	}
 
-	public int updateFineStatus(int studentId, long ISBN) throws DbException {
+	public int updateFineStatus(int studentId, long isbn) throws DbException {
 		int row1 = 0;
 		String sql8 = " update fine_amount set fines =0 ,no_of_extra_days=0,fine_status= 'paid' where student_id= ? and ISBN =?";
 		try (Connection con = TestConnection.getConnection();) {
 
 			try (PreparedStatement s1 = con.prepareStatement(sql8);) {
 				s1.setInt(1, studentId);
-				s1.setLong(2, ISBN);
+				s1.setLong(2, isbn);
 				row1 = s1.executeUpdate();
 				logger.info(row1);
 				logger.info(sql8);
@@ -106,19 +106,19 @@ public class IdDetailsDAOImpl implements IdDetailsDAO {
 
 	}
 
-	public int updateAmtInWallet(int studentId, long ISBN) throws DbException {
+	public int updateAmtInWallet(int studentId, long isbn) throws DbException {
 		int row0 = 0;
 		try (Connection con = TestConnection.getConnection();) {
 			String sql7 = "update amount set library_wallet = library_wallet + (select fines from fine_amount where student_id=? and ISBN=?) where student_id=?";
 			try (PreparedStatement s = con.prepareStatement(sql7);) {
 				s.setInt(1, studentId);
-				s.setLong(2, ISBN);
+				s.setLong(2, isbn);
 				s.setInt(3, studentId);
 				row0 = s.executeUpdate();
 				logger.info(row0);
 				logger.info(sql7);
 				if (row0 == 1) {
-					updateFineStatus(studentId, ISBN);
+					updateFineStatus(studentId, isbn);
 				} else {
 					logger.info("Enter valid data ");
 				}
@@ -134,10 +134,10 @@ public class IdDetailsDAOImpl implements IdDetailsDAO {
 	public int libraryWallet() throws DbException {
 		int libraryWallet = 0;
 		try (Connection con = TestConnection.getConnection();) {
-			try (CallableStatement Stmt = con.prepareCall("{call LIB_WALLET_PROC(?)}");) {
-				Stmt.registerOutParameter(1, Types.INTEGER);
-				Stmt.executeUpdate();
-				libraryWallet = Stmt.getInt(1);
+			try (CallableStatement stmt = con.prepareCall("{call LIB_WALLET_PROC(?)}");) {
+				stmt.registerOutParameter(1, Types.INTEGER);
+				stmt.executeUpdate();
+				libraryWallet = stmt.getInt(1);
 				logger.info(libraryWallet);
 			}
 		} catch (SQLException e) {
