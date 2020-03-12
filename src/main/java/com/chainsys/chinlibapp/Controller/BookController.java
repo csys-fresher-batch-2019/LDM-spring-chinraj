@@ -31,7 +31,6 @@ public class BookController {
 		b.setPages(pages);
 		b.setAuthorName(authorName);
 		b.setPublication(publication);
-
 		b.setPrice(price);
 		LocalDate ld = LocalDate.parse(date);
 		b.setReleasedDate(ld);
@@ -41,7 +40,6 @@ public class BookController {
 		try {
 			a.saveBooks(b);
 		} catch (Exception e) {
-
 			e.printStackTrace();
 		}
 	}
