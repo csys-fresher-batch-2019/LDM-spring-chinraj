@@ -2,7 +2,6 @@ package com.chainsys.chinlibapp.service;
 
 import org.springframework.stereotype.Service;
 
-import com.chainsys.chinlibapp.dao.FineInfoDAO;
 import com.chainsys.chinlibapp.dao.imp.FineInfoDAOImpl;
 import com.chainsys.chinlibapp.exception.DbException;
 import com.chainsys.chinlibapp.model.FinesInfo;
@@ -10,31 +9,30 @@ import com.chainsys.chinlibapp.model.FinesInfo;
 @Service
 public class FineInfoService {
 
-	private FineInfoDAO fineInfoDAO = new FineInfoDAOImpl();
+	private FineInfoDAOImpl fineInfoDAO = new FineInfoDAOImpl();
 
-	public void AddFineInfo(FinesInfo f) throws DbException {
+	public void addFineInfo(FinesInfo f) throws DbException {
 		fineInfoDAO.addFineInfo(f);
 	}
 
-	public void AddFineInfo1(FinesInfo i) throws DbException {
+	public void updateFineInfo(FinesInfo i) throws DbException {
 		fineInfoDAO.updateFineInfo(i);
 	}
 
-	public int TotalFinesAmt(FinesInfo t) throws DbException {
+	public int updateFineAmount(FinesInfo t) throws DbException {
 
 		int rows = fineInfoDAO.updateFineAmount(t);
 		return rows;
 
 	}
 
-	public int FinePerStudent(int studentId, long isbn) throws Exception {
+	public int finePerStudent(int studentId, long isbn) throws Exception {
 
 		return fineInfoDAO.finePerStudent(studentId, isbn);
 
 	}
 
 	public int bookreturned(int studentId, long isbn) throws DbException {
-		fineInfoDAO.updateBookSummary(studentId, isbn);
 
 		return fineInfoDAO.bookReturn(studentId, isbn);
 
@@ -45,7 +43,7 @@ public class FineInfoService {
 
 	}
 
-	public int PenalityForBookLost(int studentId, long isbn) throws DbException {
+	public int penalityForBookLost(int studentId, long isbn) throws DbException {
 
 		return fineInfoDAO.penalityForBookLost(studentId, isbn);
 

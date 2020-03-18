@@ -4,14 +4,14 @@ import java.time.LocalDate;
 import java.util.Scanner;
 
 import com.chainsys.chinlibapp.dao.imp.BookListDAOImpl;
-import com.chainsys.chinlibapp.model.BookList;
+import com.chainsys.chinlibapp.model.Book;
 
 public class TestBooListAddBooks {
 
 	public static void main(String[] args) throws Exception {
 		
 		Scanner s = new Scanner(System.in);
-		BookList List1 = new BookList();
+		Book List1 = new Book();
 		BookListDAOImpl Book1 = new BookListDAOImpl();
 		System.out.println("Enter ISBN :");
 		List1.setISBN(s.nextLong());

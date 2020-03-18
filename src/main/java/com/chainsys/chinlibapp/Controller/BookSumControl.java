@@ -3,6 +3,8 @@ package com.chainsys.chinlibapp.Controller;
 import java.time.LocalDate;
 import java.util.List;
 
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -10,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.chainsys.chinlibapp.dao.imp.BookSummaryDAOImpl;
+import com.chainsys.chinlibapp.dto.Message;
 import com.chainsys.chinlibapp.exception.DbException;
 import com.chainsys.chinlibapp.model.BookSummary;
 
@@ -20,31 +23,41 @@ public class BookSumControl {
 	BookSummaryDAOImpl a = new BookSummaryDAOImpl();
 
 	@PostMapping("/BookSummary")
-	public void borrowBook(@RequestParam("studnt_id") Integer id, @RequestParam("ISBN") Long isbn,
-			@RequestParam("borrowed_date") String date, @RequestParam("renewal_count") Integer renewalCount,
-			@RequestParam("due_date") String date1, @RequestParam("return_date") String date2,
-			@RequestParam("status") String status) {
-
+	public ResponseEntity<Message> borrowBook(
+			@RequestParam("studnt_id") Integer id, 
+			@RequestParam("ISBN") Long isbn,
+			@RequestParam("borrowed_date") String date,
+			@RequestParam("due_date") String date1)
+		 
+	{
 		BookSummary b = new BookSummary();
-
+	
 		b.setISBN(isbn);
 		b.setstudentId(id);
 		LocalDate ld = LocalDate.parse(date);
 		b.setBorrowedDate(ld);
-		b.setRenewalCount(renewalCount);
-		LocalDate ld1 = LocalDate.parse(date);
+
+		LocalDate ld1 = LocalDate.parse(date1);
 		b.setDueDate(ld1);
-		LocalDate ld2 = LocalDate.parse(date);
-		b.setReturnDate(ld2);
-		b.setStatus(status);
-
+	
 		try {
-			a.saveBorrowInfo(b);
-		} catch (Exception e) {
+			
+			 a.saveBorrowInfo(b);
+				
+				return new ResponseEntity<Message>(HttpStatus.OK);
+			}
+				
+				
+				catch (Exception e) {
+				e.printStackTrace();
+			Message msg = new Message();
+				msg.setErrorMessage(e.getMessage());
+			
+				return new ResponseEntity<>(msg, HttpStatus.NOT_FOUND);
+				
+			}
+		}	
 
-			e.printStackTrace();
-		}
-	}
 
 	@GetMapping("/viewBookSummary")
 	public List<BookSummary> viewBookSummary() throws DbException {

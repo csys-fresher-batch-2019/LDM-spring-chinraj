@@ -36,7 +36,7 @@
 		
 			<td>${b.studentId}</td>
 			<td>${b.studentName}</td>
-			<td>${b.deptName}</td>
+			<td>${b.departmentName}</td>
 			<td>${b.mailId}</td>
 			
 			</tr>

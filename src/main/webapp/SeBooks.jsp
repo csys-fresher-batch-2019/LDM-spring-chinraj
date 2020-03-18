@@ -1,5 +1,5 @@
 <%@page import="java.util.ArrayList"%>
-<%@page import="com.chainsys.chinlibapp.model.BookList"%>
+<%@page import="com.chainsys.chinlibapp.model.Book"%>
 <%@page import="java.util.List"%>
 <%@page import="com.chainsys.chinlibapp.dao.imp.BookListDAOImpl"%>
 <%@page import="com.chainsys.chinlibapp.dao.BookListDAO"%>
@@ -18,13 +18,11 @@
 <body>
 	<form action="SearchByBook">
 		<%
-			ArrayList<BookList> list = (ArrayList<BookList>) request.getAttribute("searchlist");
-		if (list.isEmpty() || list==null) {
+			ArrayList<Book> list = (ArrayList<Book>) request.getAttribute("searchlist");
+				if (list.isEmpty() || list==null) {
 			out.println("No records found");
-		}
-		else{
-			
-		
+				}
+				else{
 		%>
 		<div></div>
 		<table border="1">

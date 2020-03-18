@@ -8,7 +8,7 @@ public class InfoMessages {
 	}
 
 	public static final String FAILED_TO_CHECK_BOOKSTATUS = "unable to check book status";
-	public static final String FAILED_TO_UPDATE_BOOKSTATUS = "unable to update book statsu";
+	public static final String FAILED_TO_UPDATE_BOOKSTATUS = "unable to update book status";
 	public static final String BORROW_INSERT_FAILED = "unable to insert borrow detail";
 	public static final String FAILED_TO_SELECT_BORROWDATE = "unable to select borrowdate";
 	public static final String FAILED_TO_SELECT_BOOKSUMMARY = "unable to view book summary";

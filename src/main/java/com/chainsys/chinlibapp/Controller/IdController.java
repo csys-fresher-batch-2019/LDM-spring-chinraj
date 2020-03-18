@@ -6,6 +6,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.chainsys.chinlibapp.dao.imp.IdDetailsDAOImpl;
+import com.chainsys.chinlibapp.dto.Message;
 import com.chainsys.chinlibapp.exception.DbException;
 import com.chainsys.chinlibapp.model.IdDetails;
 
@@ -13,24 +14,24 @@ import com.chainsys.chinlibapp.model.IdDetails;
 @RequestMapping("api")
 public class IdController {
 	IdDetails n = new IdDetails();
+	Message msg = new Message();
 	IdDetailsDAOImpl b = new IdDetailsDAOImpl();
 
 	@PostMapping("/addAmount")
-	public void addAmount(
 
-			@RequestParam("student_id") Integer studentId, @RequestParam("amount_in_id") Integer amount) {
-		// @RequestParam("library_wallet") Integer wallet){
+	public Message addAmount(
+
+			@RequestParam("student_id") Integer studentId, @RequestParam("amount_in_id") Integer amount)
+			throws DbException {
 
 		n.setStudentId(studentId);
 		n.setDepositAmtInId(amount);
 
-		try {
-			b.addMoneyInId(studentId, amount);
-
-		} catch (DbException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+		int rows = b.addMoneyInId(studentId, amount);
+		if (rows == 1) {
+			msg.setInfoMessage("sucess");
 		}
+		return msg;
 	}
 
 	@PostMapping("/updateMoney")
@@ -48,7 +49,7 @@ public class IdController {
 	public void updateAmtInId(@RequestParam("student_id") Integer studentId, @RequestParam("ISBN") long isbn)
 			throws DbException {
 
-		b.updateAfterFinePay(studentId, isbn);
+		// b.updateAfterFinePay(studentId, isbn);
 	}
 
 	@PostMapping("/libWallet")

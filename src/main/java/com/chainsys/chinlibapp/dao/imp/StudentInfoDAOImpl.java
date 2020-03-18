@@ -14,17 +14,18 @@ import com.chainsys.chinlibapp.exception.DbException;
 import com.chainsys.chinlibapp.exception.InfoMessages;
 import com.chainsys.chinlibapp.logger.Logger;
 import com.chainsys.chinlibapp.model.StudentInfo;
-import com.chainsys.chinlibapp.util.TestConnection;
+import com.chainsys.chinlibapp.util.ConnectionUtil;
 
 @Repository
 public class StudentInfoDAOImpl implements StudentInfoDAO {
 	Logger logger = Logger.getInstance();
 
+	@Override
 	public int saveStudent(StudentInfo s) throws DbException {
 		int rows = 0;
 		String sqlinsert = "insert into student(student_id,student_name,dept_name,mail_id) values(?,?,?,?)";
 		logger.info(sqlinsert);
-		try (Connection con = TestConnection.getConnection();
+		try (Connection con = ConnectionUtil.getConnection();
 				PreparedStatement stmt = con.prepareStatement(sqlinsert);) {
 			stmt.setInt(1, s.getStudentId());
 			stmt.setString(2, s.getStudentName());
@@ -48,11 +49,12 @@ public class StudentInfoDAOImpl implements StudentInfoDAO {
 		return rows;
 	}
 
+	@Override
 	public int deleteStudent(int id) throws DbException {
 		int row1 = 0;
 		String sql = "Delete student where student_id= ?";
 
-		try (Connection con = TestConnection.getConnection(); PreparedStatement stmt = con.prepareStatement(sql);) {
+		try (Connection con = ConnectionUtil.getConnection(); PreparedStatement stmt = con.prepareStatement(sql);) {
 			stmt.setInt(1, id);
 			row1 = stmt.executeUpdate();
 			if (row1 == 1) {
@@ -69,11 +71,12 @@ public class StudentInfoDAOImpl implements StudentInfoDAO {
 		return row1;
 	}
 
+	@Override
 	public List<StudentInfo> viewStudents() throws DbException {
 		List<StudentInfo> list = new ArrayList<StudentInfo>();
 		String sql = "Select * from student";
 
-		try (Connection con = TestConnection.getConnection();
+		try (Connection con = ConnectionUtil.getConnection();
 				PreparedStatement stmt = con.prepareStatement(sql);
 				ResultSet rs = stmt.executeQuery();) {
 

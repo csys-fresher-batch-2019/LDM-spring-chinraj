@@ -20,7 +20,7 @@
 <body style = "background-color:Silver">
 <body>
 <br/>
-<h1>RETURN & RENEWAL</h1>
+<h1>RETURN </h1>
 
 
 <form action="ReturnRenewal">
@@ -41,7 +41,8 @@ Enter ISBN : <input type="number" name ="ISBN"  required>
 <input type= "radio"name="Name" value="Return">Return
 <input type= "radio"name="Name" value="Renewal">Renewal
 <br/>
-<button type = "submit">Submit</button>
+<button type = "submit">process
+</button>
 
 
 </form>

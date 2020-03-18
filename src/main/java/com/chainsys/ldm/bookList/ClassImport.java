@@ -7,7 +7,7 @@ import java.time.LocalDate;
 import java.util.List;
 
 import com.chainsys.chinlibapp.dao.imp.BookListDAOImpl;
-import com.chainsys.chinlibapp.model.BookList;
+import com.chainsys.chinlibapp.model.Book;
 
 public class ClassImport {
 		public static void main(String[] args) throws Exception {
@@ -31,7 +31,7 @@ public class ClassImport {
 		
 					  
 		
-			BookList books = new BookList();
+			Book books = new Book();
 				books.setISBN(ISBN);
 				books.setBookName(bookName);
 				books.setPages(pages);

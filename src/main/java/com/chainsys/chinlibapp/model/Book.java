@@ -2,7 +2,7 @@ package com.chainsys.chinlibapp.model;
 
 import java.time.LocalDate;
 
-public class BookList {
+public class Book {
 
 	private long isbn;
 	private String category;

@@ -21,6 +21,7 @@ public class FinesServlet extends HttpServlet {
 		super();
 	}
 
+	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 
@@ -38,8 +39,9 @@ public class FinesServlet extends HttpServlet {
 		n.setISBN(IsBN);
 
 		try {
-			m.AddFineInfo(n);
-			int a = m.FinePerStudent(id, IsBN);
+			m.addFineInfo(n);
+
+			int a = m.finePerStudent(id, IsBN);
 
 			if (a > 0) {
 
@@ -49,18 +51,23 @@ public class FinesServlet extends HttpServlet {
 				RequestDispatcher rd = request.getRequestDispatcher("FineDetect.jsp");
 				rd.forward(request, response);
 
+			} else {
+				request.setAttribute("errorMessage", "<h2> No Fine !!</h2");
+				HttpSession session = request.getSession();
+				session.setAttribute("id", id);
+				session.setAttribute("ISBN", IsBN);
+				RequestDispatcher rd = request.getRequestDispatcher("Return.jsp");
+				rd.forward(request, response);
 			}
 
 		} catch (Exception e) {
 			e.printStackTrace();
-
 			request.setAttribute("errorMessage", "<h2> No Fine !!</h2");
 			HttpSession session = request.getSession();
 			session.setAttribute("id", id);
 			session.setAttribute("ISBN", IsBN);
-			RequestDispatcher rd = request.getRequestDispatcher("ReturnAndRenewal.jsp");
+			RequestDispatcher rd = request.getRequestDispatcher("Return.jsp");
 			rd.forward(request, response);
-
 		}
 
 	}

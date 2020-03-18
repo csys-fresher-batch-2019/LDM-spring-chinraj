@@ -21,6 +21,7 @@ public class PenalityServlet extends HttpServlet {
 		super();
 	}
 
+	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 
@@ -38,7 +39,7 @@ public class PenalityServlet extends HttpServlet {
 
 		try {
 
-			int a = j.PenalityForBookLost(id, IsBN);
+			int a = j.penalityForBookLost(id, IsBN);
 			if (a > 0) {
 				request.setAttribute("infoMessage", "<h1>Penality for Book loss is " + a + "</h1>");
 				RequestDispatcher rd = request.getRequestDispatcher("Penality.jsp");

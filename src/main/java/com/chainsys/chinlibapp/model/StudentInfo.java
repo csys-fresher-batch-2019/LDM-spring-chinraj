@@ -20,20 +20,20 @@ public class StudentInfo {
 		this.studentName = studentName;
 	}
 
-	public String getDepartmentName() {
-		return departmentName;
-	}
-
-	public void setDepartmentName(String deptName) {
-		this.departmentName = deptName;
-	}
-
 	public String getMailId() {
 		return mailId;
 	}
 
 	public void setMailId(String mailId) {
 		this.mailId = mailId;
+	}
+
+	public String getDepartmentName() {
+		return departmentName;
+	}
+
+	public void setDepartmentName(String departmentName) {
+		this.departmentName = departmentName;
 	}
 
 	private String studentName;

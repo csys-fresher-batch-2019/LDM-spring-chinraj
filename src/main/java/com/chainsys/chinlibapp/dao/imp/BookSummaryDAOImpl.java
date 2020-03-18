@@ -17,7 +17,7 @@ import com.chainsys.chinlibapp.exception.InfoMessages;
 import com.chainsys.chinlibapp.logger.Logger;
 import com.chainsys.chinlibapp.model.BookSummary;
 import com.chainsys.chinlibapp.util.SendMail;
-import com.chainsys.chinlibapp.util.TestConnection;
+import com.chainsys.chinlibapp.util.ConnectionUtil;
 
 @Repository
 public class BookSummaryDAOImpl implements BookSummaryDAO {
@@ -25,7 +25,7 @@ public class BookSummaryDAOImpl implements BookSummaryDAO {
 
 	public boolean checkBookStatus(long isbn) throws DbException {
 		String sql1 = "select book_name from booklist where ISBN = ? and book_status = 'Available'";
-		try (Connection con = TestConnection.getConnection();) {
+		try (Connection con = ConnectionUtil.getConnection();) {
 			try (PreparedStatement stmt = con.prepareStatement(sql1);) {
 				stmt.setLong(1, isbn);
 				try (ResultSet row = stmt.executeQuery();) {
@@ -46,7 +46,7 @@ public class BookSummaryDAOImpl implements BookSummaryDAO {
 
 		int row1 = 0;
 		String sql1 = "update booklist set book_status = 'Notavailable' where ISBN = ?";
-		try (Connection con = TestConnection.getConnection();
+		try (Connection con = ConnectionUtil.getConnection();
 
 				PreparedStatement stmt1 = con.prepareStatement(sql1);) {
 			stmt1.setLong(1, b.getISBN());
@@ -64,7 +64,7 @@ public class BookSummaryDAOImpl implements BookSummaryDAO {
 	public int sendMail(BookSummary b) throws DbException {
 
 		String sql0 = "Select  mail_id from student where student_id=? ";
-		try (Connection con = TestConnection.getConnection();
+		try (Connection con = ConnectionUtil.getConnection();
 
 				PreparedStatement stmt0 = con.prepareStatement(sql0);) {
 			stmt0.setInt(1, b.getStudentId());
@@ -72,7 +72,7 @@ public class BookSummaryDAOImpl implements BookSummaryDAO {
 				String mail;
 				if (rs.next()) {
 					mail = rs.getString("mail_id");
-					SendMail.chinlib(mail, b.getISBN());
+					SendMail.sendMail(mail, b.getISBN());
 				}
 				logger.info(sql0);
 			}
@@ -85,12 +85,15 @@ public class BookSummaryDAOImpl implements BookSummaryDAO {
 	}
 
 	public int saveBorrowInfo(BookSummary b) throws DbException {
+		
+		
+		
 		int row = 0;
 		boolean a = checkBookStatus(b.getISBN());
 		if (a == true) {
 			String sql = "insert into book_summary(student_id,ISBN,borrowed_date,due_date)" + " values(?,?,?,?)";
 			logger.info(sql);
-			try (Connection con = TestConnection.getConnection(); PreparedStatement stmt = con.prepareStatement(sql);) {
+			try (Connection con = ConnectionUtil.getConnection(); PreparedStatement stmt = con.prepareStatement(sql);) {
 
 				stmt.setInt(1, b.getStudentId());
 				stmt.setLong(2, b.getISBN());
@@ -101,11 +104,12 @@ public class BookSummaryDAOImpl implements BookSummaryDAO {
 				
 
 				row = stmt.executeUpdate();
-				logger.info("Insert=" + row);
+				
 
 				if (row == 1) {
 
 					updateBookStatus(b);
+					sendMail(b);
 
 				}
 			}
@@ -123,7 +127,7 @@ public class BookSummaryDAOImpl implements BookSummaryDAO {
 		List<BookSummary> li = new ArrayList<BookSummary>();
 
 		String sql6 = "select * from book_summary where borrowed_date = ?";
-		try (Connection con = TestConnection.getConnection();) {
+		try (Connection con = ConnectionUtil.getConnection();) {
 			try (PreparedStatement pst1 = con.prepareStatement(sql6);) {
 				Date bw = Date.valueOf(borrowedDate);
 				pst1.setDate(1, bw);
@@ -161,7 +165,7 @@ public class BookSummaryDAOImpl implements BookSummaryDAO {
 		List<BookSummary> list = new ArrayList<BookSummary>();
 		String sql = "Select * from book_summary";
 
-		try (Connection con = TestConnection.getConnection();) {
+		try (Connection con = ConnectionUtil.getConnection();) {
 			try (PreparedStatement stmt = con.prepareStatement(sql);) {
 				try (ResultSet rs = stmt.executeQuery();) {
 

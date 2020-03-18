@@ -10,7 +10,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.chainsys.chinlibapp.model.BookList;
+import com.chainsys.chinlibapp.model.Book;
 import com.chainsys.chinlibapp.service.BookListService;
 
 @WebServlet("/BookRegister")
@@ -42,7 +42,7 @@ public class BookRegister extends HttpServlet {
 
 		BookListService S = new BookListService();
 
-		BookList b = new BookList();
+		Book b = new Book();
 		b.setISBN(IsBN);
 		b.setBookName(BookName);
 		b.setPages(page);

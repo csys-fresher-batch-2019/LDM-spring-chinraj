@@ -5,7 +5,7 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 import com.chainsys.chinlibapp.exception.DbException;
 
-public class TestConnection {
+public class ConnectionUtil {
 	public static Connection getConnection() throws DbException {
 		Connection connection = null;
 		try {

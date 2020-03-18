@@ -14,7 +14,7 @@ public class Logger {
 		System.out.println(message);
 	}
 
-	public void error(Object message) {
+	public static void error(Object message) {
 		System.err.println(message);
 	}
 }

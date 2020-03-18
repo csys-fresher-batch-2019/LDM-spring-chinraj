@@ -1,4 +1,4 @@
-<%@page import="com.chainsys.chinlibapp.model.BookList"%>
+<%@page import="com.chainsys.chinlibapp.model.Book"%>
 <%@page import="java.util.List"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@page import="com.chainsys.chinlibapp.dao.imp.BookListDAOImpl"%>
@@ -21,7 +21,7 @@
 	<%
 		BookListDAO d = new BookListDAOImpl();
 
-		List<BookList> list1 = d.findBooks();
+			List<Book> list1 = d.findBooks();
 	%>
 	<table border="1">
 		<thead>

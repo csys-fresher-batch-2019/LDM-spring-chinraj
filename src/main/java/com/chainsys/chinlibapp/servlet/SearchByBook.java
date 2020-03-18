@@ -10,7 +10,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.chainsys.chinlibapp.model.BookList;
+import com.chainsys.chinlibapp.model.Book;
 import com.chainsys.chinlibapp.service.BookListService;
 
 @WebServlet("/SearchByBook")
@@ -27,7 +27,7 @@ public class SearchByBook extends HttpServlet {
 		String Bookname = request.getParameter("bookname");
 		BookListService S = new BookListService();
 
-		List<BookList> n = null;
+		List<Book> n = null;
 		try {
 			n = S.searchByBook(Bookname);
 		} catch (Exception e) {

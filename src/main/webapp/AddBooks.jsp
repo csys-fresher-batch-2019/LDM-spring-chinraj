@@ -42,7 +42,7 @@
 		<%
 			LocalDate date = LocalDate.now();
 		%>
-		Enter Released date(YYYY-MM-DD) : <input type="date"
+		Enter Released date : <input type="date"
 			name="released_date" max="<%=date%>"> 
 			
 			

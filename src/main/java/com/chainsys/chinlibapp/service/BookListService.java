@@ -7,14 +7,14 @@ import org.springframework.stereotype.Service;
 import com.chainsys.chinlibapp.dao.BookListDAO;
 import com.chainsys.chinlibapp.dao.imp.BookListDAOImpl;
 import com.chainsys.chinlibapp.exception.DbException;
-import com.chainsys.chinlibapp.model.BookList;
+import com.chainsys.chinlibapp.model.Book;
 
 @Service
 public class BookListService {
 
 	BookListDAO bookListDAO = new BookListDAOImpl();
 
-	public int addBooks(BookList books) throws DbException {
+	public int addBooks(Book books) throws DbException {
 		return bookListDAO.saveBooks(books);
 
 	}
@@ -24,12 +24,15 @@ public class BookListService {
 
 	}
 
-	public List<BookList> viewBooks() throws DbException {
+	public List<Book> viewBooks() throws DbException {
 		return bookListDAO.findBooks();
 
 	}
+	public List<Book> findIsbn() throws DbException {
+		return bookListDAO.findIsbn();
+	}
 
-	public List<BookList> searchByBook(String name) throws DbException {
+	public List<Book> searchByBook(String name) throws DbException {
 		return bookListDAO.searchByBook(name);
 
 	}

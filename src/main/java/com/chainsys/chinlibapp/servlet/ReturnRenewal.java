@@ -14,8 +14,8 @@ import com.chainsys.chinlibapp.service.FineInfoService;
 
 @WebServlet("/ReturnRenewal")
 public class ReturnRenewal extends HttpServlet {
-	
 
+	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 
@@ -23,7 +23,7 @@ public class ReturnRenewal extends HttpServlet {
 		int id = Integer.parseInt(StudentId);
 		String ISBN = request.getParameter("ISBN");
 		long IsBN = Long.parseLong(ISBN);
-       
+
 		String type = request.getParameter("Name");
 		FineInfoService S = new FineInfoService();
 
@@ -32,38 +32,36 @@ public class ReturnRenewal extends HttpServlet {
 			try {
 
 				int i = S.renewal(id, IsBN);
-				int a =S.renewalCount(id, IsBN);
-				//int b = S.FinePerStudent(id, IsBN);
-				if (a<=2 && i==1){
+				int a = S.renewalCount(id, IsBN);
+				// int b = S.FinePerStudent(id, IsBN);
+				if (a <= 2 && i == 1) {
 					request.setAttribute("infoMessage", "<h2>Renewal Sucess!!</h2");
 					RequestDispatcher rd = request.getRequestDispatcher("ReturnRenewal.jsp");
 					rd.forward(request, response);
-				}
-				else if(a>=2) {
+				} else if (a >= 2) {
 					request.setAttribute("errorMessage", "<h2>Renewal Count More than 2 !!</h2");
 					RequestDispatcher rd = request.getRequestDispatcher("ReturnRenewal.jsp");
 					rd.forward(request, response);
 				}
-				
-			}
-			catch (Exception e) {
+
+			} catch (Exception e) {
 				e.printStackTrace();
-				 HttpSession session = request.getSession();
-				 session.setAttribute("id", id);
-					session.setAttribute("ISBN", IsBN);
-					RequestDispatcher rd = request.getRequestDispatcher("Fines.jsp");
-					rd.forward(request, response);
+				HttpSession session = request.getSession();
+				session.setAttribute("id", id);
+				session.setAttribute("ISBN", IsBN);
+				RequestDispatcher rd = request.getRequestDispatcher("Fines.jsp");
+				rd.forward(request, response);
 			}
-			
+
 		} else {
 			try {
 				int i = S.bookreturned(id, IsBN);
-				int a1 = S.FinePerStudent(id, IsBN);
+				int a1 = S.finePerStudent(id, IsBN);
 				if (i == 1 && a1 == 0) {
 					request.setAttribute("infoMessage", "<h2>Return Sucess Sucess!!</h2");
 					RequestDispatcher rd = request.getRequestDispatcher("ReturnRenewal.jsp");
 					rd.forward(request, response);
-				} 
+				}
 			} catch (Exception e) {
 
 				e.printStackTrace();
@@ -72,8 +70,8 @@ public class ReturnRenewal extends HttpServlet {
 				session.setAttribute("ISBN", IsBN);
 				RequestDispatcher rd = request.getRequestDispatcher("Fines.jsp");
 				rd.forward(request, response);
-				
+
 			}
 		}
-	}	
+	}
 }

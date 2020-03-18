@@ -4,16 +4,20 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.chainsys.chinlibapp.dao.imp.BookListDAOImpl;
-import com.chainsys.chinlibapp.model.BookList;
+import com.chainsys.chinlibapp.model.Book;
 
 public class TestBookListViewBooks {
 	public static void main(String[] args) throws Exception {
+	
+		List<Book> li = new ArrayList<Book>();
+
+	
+			BookListDAOImpl obj = new BookListDAOImpl();
+			   li = obj.findBooks();
 		
-		BookListDAOImpl obj = new BookListDAOImpl();
-		System.out.println(" BookList  :");
-		List<BookList> li = new ArrayList<BookList>();
-	   li = obj.findBooks();
+	
 	   for(Object object:li)
+		   
 		   System.out.println(object);
 	 
 	}

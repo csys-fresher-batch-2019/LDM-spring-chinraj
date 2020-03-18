@@ -1,6 +1,6 @@
 <%@page import="com.chainsys.chinlibapp.dao.imp.BookSummaryDAOImpl"%>
 <%@page import="com.chainsys.chinlibapp.model.BookSummary"%>
-<%@page import="com.chainsys.chinlibapp.model.BookList"%>
+<%@page import="com.chainsys.chinlibapp.model.Book"%>
 <%@page import="java.util.List"%>
 <%@page import="com.chainsys.chinlibapp.dao.imp.BookListDAOImpl"%>
 <%@page import="com.chainsys.chinlibapp.dao.BookListDAO"%>

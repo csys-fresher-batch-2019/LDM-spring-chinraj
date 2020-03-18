@@ -19,6 +19,7 @@ public class FineDetect extends HttpServlet {
 		super();
 	}
 
+	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		String StudentId = request.getParameter("Student Id");
@@ -35,12 +36,14 @@ public class FineDetect extends HttpServlet {
 				request.setAttribute("infoMessage", "<h2>Amount Detected and added in Lib wallet !</h2>");
 				RequestDispatcher rd = request.getRequestDispatcher("ReturnAndRenewal.jsp");
 				rd.forward(request, response);
+			} else {
+				request.setAttribute("errorMessage", "<h2> Invalid data !!</h2");
+				RequestDispatcher rd = request.getRequestDispatcher("ReturnRenewal.jsp");
+				rd.forward(request, response);
 			}
 		} catch (Exception e1) {
 			e1.printStackTrace();
-			request.setAttribute("errorMessage", "<h2> Invalid data !!</h2");
-			RequestDispatcher rd = request.getRequestDispatcher("ReturnRenewal.jsp");
-			rd.forward(request, response);
+
 		}
 
 	}

@@ -14,17 +14,18 @@ import com.chainsys.chinlibapp.dao.BookListDAO;
 import com.chainsys.chinlibapp.exception.DbException;
 import com.chainsys.chinlibapp.exception.InfoMessages;
 import com.chainsys.chinlibapp.logger.Logger;
-import com.chainsys.chinlibapp.model.BookList;
-import com.chainsys.chinlibapp.util.TestConnection;
+import com.chainsys.chinlibapp.model.Book;
+import com.chainsys.chinlibapp.util.ConnectionUtil;
 
 @Repository
 public class BookListDAOImpl implements BookListDAO {
 	Logger logger = Logger.getInstance();
 
-	public int saveBooks(BookList books) throws DbException {
+	@Override
+	public int saveBooks(Book books) throws DbException {
 		int rows = 0;
 		String sqlinsert = "insert into booklist(ISBN,book_name,pages,author_name,publication,category,released_date,price,rack_no) values (?,?,?,?,?,?,?,?,?)";
-		try (Connection con = TestConnection.getConnection();) {
+		try (Connection con = ConnectionUtil.getConnection();) {
 			try (PreparedStatement stmt = con.prepareStatement(sqlinsert);) {
 				stmt.setLong(1, books.getISBN());
 				stmt.setString(2, books.getBookName());
@@ -45,16 +46,17 @@ public class BookListDAOImpl implements BookListDAO {
 		return rows;
 	}
 
-	public List<BookList> findBooks() throws DbException {
-		List<BookList> list = null;
+	@Override
+	public List<Book> findBooks() throws DbException {
+		List<Book> list = null;
 
 		String sqlinsert = "Select * from Booklist ";
-		try (Connection con = TestConnection.getConnection();) {
+		try (Connection con = ConnectionUtil.getConnection();) {
 			try (PreparedStatement stmt = con.prepareStatement(sqlinsert);) {
 				try (ResultSet rs = stmt.executeQuery();) {
-					list = new ArrayList<BookList>();
+					list = new ArrayList<Book>();
 					while (rs.next()) {
-						BookList b = new BookList();
+						Book b = new Book();
 						b.setISBN(rs.getLong("ISBN"));
 						b.setBookName(rs.getString("book_name"));
 						b.setAuthorName(rs.getString("author_name"));
@@ -77,10 +79,35 @@ public class BookListDAOImpl implements BookListDAO {
 		return list;
 	}
 
+	@Override
+	public List<Book> findIsbn() throws DbException {
+		List<Book> list = null;
+
+		String sqlinsert = "Select ISBN from Booklist ";
+		try (Connection con = ConnectionUtil.getConnection();) {
+			try (PreparedStatement stmt = con.prepareStatement(sqlinsert);) {
+				try (ResultSet rs = stmt.executeQuery();) {
+					list = new ArrayList<Book>();
+					while (rs.next()) {
+						Book b = new Book();
+						b.setISBN(rs.getLong("ISBN"));
+						list.add(b);
+					}
+				}
+			}
+
+		} catch (SQLException e) {
+
+			throw new DbException(InfoMessages.FAILED_TO_SELECT_BOOKLIST, e);
+		}
+		return list;
+	}
+
+	@Override
 	public int deleteBook(long isbn) throws DbException {
 		int row = 0;
 		String sqlinsert = "delete booklist where ISBN=?";
-		try (Connection con = TestConnection.getConnection();
+		try (Connection con = ConnectionUtil.getConnection();
 				PreparedStatement stmt = con.prepareStatement(sqlinsert);) {
 			stmt.setLong(1, isbn);
 			row = stmt.executeUpdate();
@@ -96,17 +123,18 @@ public class BookListDAOImpl implements BookListDAO {
 		return row;
 	}
 
-	public List<BookList> searchByBook(String name) throws DbException {
+	@Override
+	public List<Book> searchByBook(String name) throws DbException {
 
-		ArrayList<BookList> n = new ArrayList<>();
+		ArrayList<Book> n = new ArrayList<>();
 
 		String sqlinsert = "select * from booklist where book_name like ?";
-		try (Connection con = TestConnection.getConnection();) {
+		try (Connection con = ConnectionUtil.getConnection();) {
 			try (PreparedStatement stmt = con.prepareStatement(sqlinsert);) {
 				stmt.setString(1, "%" + name + "%");
 				try (ResultSet rs = stmt.executeQuery();) {
 					while (rs.next()) {
-						BookList b = new BookList();
+						Book b = new Book();
 						b.setISBN(rs.getLong("ISBN"));
 						b.setBookName(rs.getString("book_name"));
 						b.setAuthorName(rs.getString("author_name"));
