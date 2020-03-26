@@ -123,6 +123,7 @@ public class IdDetailsDAOImpl implements IdDetailsDAO {
 				logger.info(sql7);
 				if (row0 == 1) {
 					updateFineStatus(studentId, isbn);
+
 				} else {
 					logger.info("Enter valid data ");
 				}

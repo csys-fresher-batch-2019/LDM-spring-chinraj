@@ -1,5 +1,7 @@
 package com.chainsys.chinlibapp.Controller;
 
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -18,8 +20,7 @@ public class IdController {
 	IdDetailsDAOImpl b = new IdDetailsDAOImpl();
 
 	@PostMapping("/addAmount")
-
-	public Message addAmount(
+	public ResponseEntity<Message> addAmount(
 
 			@RequestParam("student_id") Integer studentId, @RequestParam("amount_in_id") Integer amount)
 			throws DbException {
@@ -27,11 +28,8 @@ public class IdController {
 		n.setStudentId(studentId);
 		n.setDepositAmtInId(amount);
 
-		int rows = b.addMoneyInId(studentId, amount);
-		if (rows == 1) {
-			msg.setInfoMessage("sucess");
-		}
-		return msg;
+		b.addMoneyInId(studentId, amount);
+		return new ResponseEntity<Message>(HttpStatus.OK);
 	}
 
 	@PostMapping("/updateMoney")
@@ -49,7 +47,7 @@ public class IdController {
 	public void updateAmtInId(@RequestParam("student_id") Integer studentId, @RequestParam("ISBN") long isbn)
 			throws DbException {
 
-		// b.updateAfterFinePay(studentId, isbn);
+		b.updateAfterFinePay(studentId, isbn);
 	}
 
 	@PostMapping("/libWallet")

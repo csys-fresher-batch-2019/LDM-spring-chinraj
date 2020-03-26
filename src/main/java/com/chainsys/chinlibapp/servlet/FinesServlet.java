@@ -10,8 +10,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import com.chainsys.chinlibapp.dao.imp.FineInfoDAOImpl;
 import com.chainsys.chinlibapp.model.FinesInfo;
-import com.chainsys.chinlibapp.service.FineInfoService;
 
 @WebServlet("/FinesServlet")
 public class FinesServlet extends HttpServlet {
@@ -32,7 +32,7 @@ public class FinesServlet extends HttpServlet {
 		String FinePerDay = request.getParameter("Fine per day");
 		int Fd = Integer.parseInt(FinePerDay);
 		FinesInfo n = new FinesInfo();
-		FineInfoService m = new FineInfoService();
+		FineInfoDAOImpl m = new FineInfoDAOImpl();
 
 		n.setFinePerDay(Fd);
 		n.setStudentId(id);
@@ -50,24 +50,20 @@ public class FinesServlet extends HttpServlet {
 				session.setAttribute("ISBN", IsBN);
 				RequestDispatcher rd = request.getRequestDispatcher("FineDetect.jsp");
 				rd.forward(request, response);
-
 			} else {
 				request.setAttribute("errorMessage", "<h2> No Fine !!</h2");
 				HttpSession session = request.getSession();
 				session.setAttribute("id", id);
 				session.setAttribute("ISBN", IsBN);
-				RequestDispatcher rd = request.getRequestDispatcher("Return.jsp");
+				RequestDispatcher rd = request.getRequestDispatcher("ReturnRenewal.jsp");
 				rd.forward(request, response);
 			}
 
-		} catch (Exception e) {
+		} catch (
+
+		Exception e) {
 			e.printStackTrace();
-			request.setAttribute("errorMessage", "<h2> No Fine !!</h2");
-			HttpSession session = request.getSession();
-			session.setAttribute("id", id);
-			session.setAttribute("ISBN", IsBN);
-			RequestDispatcher rd = request.getRequestDispatcher("Return.jsp");
-			rd.forward(request, response);
+
 		}
 
 	}

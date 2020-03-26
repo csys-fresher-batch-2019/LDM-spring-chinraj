@@ -83,21 +83,22 @@ float:right
 </div>
 
 <div class="topnav">
- <a href="AddBooks.jsp"   class="button">Add Books&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a>
- <a href="ViewBooks.jsp"  class="button">View Books&emsp;&emsp;&emsp;&ensp;&nbsp;</a> 
- <a href="RemoveBook.jsp"  class="button">Remove Books&emsp;&ensp;&ensp;</a> 
- <a href="AddStudents.jsp" class="button">Add Student&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a> 
-  <a href="ViewStudents.jsp"   class="button">View Students&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a>
- <a href="RemoveStudents.jsp" class="button">Remove Student&emsp;</a> 
- <a href="BS.jsp" class="button">Borrow Book&emsp;&emsp;&emsp;</a> 
-  <a href="viewBookSummary.jsp" class="button">View BookSummary&emsp;&emsp;&emsp;</a> 
- <a href="BorrowOnDate.jsp" class="button">On Particular Date&emsp;&emsp;&emsp;&nbsp;</a> 
- <a href="ReturnRenewal.jsp" class="button">Return-Renewal&emsp;&ensp;</a>
- <a href="AddAmount.jsp" class="button">Add Amount&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a> 
-  <a href="UpdateMoney.jsp" class="button">Update Money&emsp;&emsp;&emsp;&nbsp;</a> 
-  <a href="SearchBook.jsp" class="button" >Search Book&emsp;&emsp;&emsp;&nbsp;</a> 
- <a href="Penality.jsp"class="button">Book Loss&emsp;&emsp;&emsp;&emsp;&ensp;</a> 
- <a href="AmountInWallet.jsp" class="button">Lib Wallet&emsp;&emsp;&emsp;&emsp;&ensp;</a>
+ <a href="AddBooks.jsp"   class="button">Add Books</a>
+ <a href="ViewBooks.jsp"  class="button">View Books</a> 
+ <a href="RemoveBook.jsp"  class="button">Remove Books</a> 
+ <a href="AddStudents.jsp" class="button">Add Student</a> 
+  <a href="ViewStudents.jsp"   class="button">View Students</a>
+ <a href="RemoveStudents.jsp" class="button">Remove Student</a> 
+ <a href="BS.jsp" class="button">Borrow Book</a> 
+  <a href="viewBookSummary.jsp" class="button">View BookSummary</a> 
+ <a href="BorrowOnDate.jsp" class="button">On Particular Date</a> 
+ <a href="Return.jsp" class="button">Return</a>
+  <a href="Renewal.jsp" class="button">Renewal</a>
+ <a href="AddAmount.jsp" class="button">Add Amount</a> 
+  <a href="UpdateMoney.jsp" class="button">Update Money</a> 
+  <a href="SearchBook.jsp" class="button" >Search Book</a> 
+ <a href="Penality.jsp"class="button">Book Loss</a> 
+ <a href="AmountInWallet.jsp" class="button">Lib Wallet</a>
 </div>
 
 

@@ -198,12 +198,11 @@ public class FineInfoDAOImpl implements FineInfoDAO {
 						if (status.contentEquals("paid")) {
 
 							updateBookSummary(studentId, isbn);
-							row4 = updateBookStatus(isbn);
-							if (row4 == 1) {
-								deleteFineAmount();
-							}
+							updateBookStatus(isbn);
+							row4 = deleteFineAmount();
+						}
 
-						} else {
+						else {
 
 							logger.info("Pay Fine amount");
 						}

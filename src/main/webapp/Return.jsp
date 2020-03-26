@@ -23,7 +23,7 @@
 <h1>RETURN </h1>
 
 
-<form action="ReturnRenewal">
+<form action="Return">
 	<c:if test = "${not empty infoMessage}">
 			<b>${infoMessage}</b>
 		</c:if>
@@ -38,10 +38,9 @@
 Enter Student Id :<input type="number" name = "student_Id"required>
 Enter ISBN : <input type="number" name ="ISBN"  required>
 <br/>
-<input type= "radio"name="Name" value="Return">Return
-<input type= "radio"name="Name" value="Renewal">Renewal
+
 <br/>
-<button type = "submit">process
+<button type = "submit">Return
 </button>
 
 
