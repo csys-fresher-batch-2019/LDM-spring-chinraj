@@ -48,7 +48,6 @@ public class StudentControl {
 				msg.setErrorMessage(e.getMessage());
 			
 				return new ResponseEntity<>(msg, HttpStatus.NOT_FOUND);
-				
 			}
 		}	
 	
